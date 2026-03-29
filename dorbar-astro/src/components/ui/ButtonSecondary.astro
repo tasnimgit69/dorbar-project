@@ -1,0 +1,18 @@
+---
+import ArrowIcon from '../icons/ArrowIcon.astro';
+
+interface Props {
+  href: string;
+  label: string;
+}
+
+const { href, label } = Astro.props;
+---
+
+<a href={href} class="secondaey-button-two">
+  <div class="button-content-block-two">
+    <span class="button-text-two">{label}</span>
+    <ArrowIcon class="link-button-icon" />
+  </div>
+  <div class="button-hover-glow secondary"></div>
+</a>

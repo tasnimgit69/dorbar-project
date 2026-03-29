@@ -1,0 +1,42 @@
+<section class="who-we-are-section" id="Who-We-Are-Section">
+  <div class="section-gap-two">
+    <div class="container-default">
+      <div class="who-we-are-wrapper">
+        <div class="who-we-are-title-block">
+          <h1 class="section-title-two">Who We Are</h1>
+        </div>
+        <div class="who-we-are-text-block">
+          <p class="who-we-are-text">At Dorbar & Associates, we believe that effective legal representation requires not only expertise but also empathy. Our team of experienced attorneys provides individualized attention to every client, combining strategic insight with personal commitment. We don't just handle cases—we build partnerships built on trust, transparency, and a shared commitment to achieving your goals.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  const scrollStart = 'top 90%';
+
+  const elements = [
+    { selector: '#Who-We-Are-Section .who-we-are-title-block', delay: 0.1 },
+    { selector: '#Who-We-Are-Section .who-we-are-text-block', delay: 0.2 },
+  ];
+
+  elements.forEach(({ selector, delay }) => {
+    const el = document.querySelector(selector) as HTMLElement;
+    if (!el) return;
+    gsap.set(el, { opacity: 0, y: 100 });
+    gsap.to(el, {
+      opacity: 1,
+      y: 0,
+      duration: 1,
+      ease: 'power3.out',
+      delay,
+      scrollTrigger: { trigger: el, start: scrollStart, once: true },
+    });
+  });
+</script>

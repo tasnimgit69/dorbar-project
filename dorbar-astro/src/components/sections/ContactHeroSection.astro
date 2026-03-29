@@ -1,0 +1,55 @@
+---
+import ButtonPrimary from '../ui/ButtonPrimary.astro';
+import ButtonSecondary from '../ui/ButtonSecondary.astro';
+---
+
+<section class="contact-hero-section" id="Contact-Hero-Section">
+  <div class="contact-hero-gap">
+    <div class="container-default">
+      <div class="contact-hero-wrapper">
+        <div class="contact-hero-text-block">
+          <div class="contact-hero-title-block">
+            <h1 class="contact-hero-title">Get in Touch with Our Legal Team</h1>
+          </div>
+          <div class="contact-hero-summary-block">
+            <p class="contact-hero-summary">Your legal matters deserve personal attention. Reach out to schedule a confidential consultation or ask a question — we're here to help.</p>
+          </div>
+        </div>
+        <div class="contact-hero-button-block">
+          <ButtonSecondary href="/consultation" label="Book Free Consultation" />
+          <ButtonPrimary href="/consultation" label="Book Premium Consultation" showIcon={false} />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  const scrollStart = 'top 90%';
+
+  // === slideInBottom animations matching IX2 delays ===
+  const elements = [
+    { selector: '#Contact-Hero-Section .contact-hero-title', delay: 0.2 },
+    { selector: '#Contact-Hero-Section .contact-hero-summary-block', delay: 0.1 },
+    { selector: '#Contact-Hero-Section .contact-hero-button-block', delay: 0.3 },
+  ];
+
+  elements.forEach(({ selector, delay }) => {
+    const el = document.querySelector(selector) as HTMLElement;
+    if (!el) return;
+    gsap.set(el, { opacity: 0, y: 100 });
+    gsap.to(el, {
+      opacity: 1,
+      y: 0,
+      duration: 1,
+      ease: 'power3.out',
+      delay,
+      scrollTrigger: { trigger: el, start: scrollStart, once: true },
+    });
+  });
+</script>

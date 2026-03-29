@@ -1,0 +1,437 @@
+export interface ServiceDetail {
+  slug: string;
+  title: string;
+  heroSummary: string;
+  heroImage: string;
+  statsHeading: string;
+  statsDescription?: string;
+  stats: { value: string; label: string }[];
+  servicesHeading: string;
+  servicesSummary?: string;
+  serviceCards: { icon?: string; title: string; description: string }[];
+  protectImage: string;
+  protectContent: { title: string; items: { title: string; description: string }[] };
+  whyChooseHeading: string;
+  whyChooseSummary?: string;
+  whyChooseCards: { value?: string; title: string; description: string; variant?: string }[];
+  faqs: { question: string; answer: string }[];
+  ctaTitle: string;
+  ctaSummary: string;
+}
+
+export const serviceDetails: ServiceDetail[] = [
+  {
+    slug: 'corporate-law',
+    title: 'Corporate Law',
+    heroSummary: 'Comprehensive legal counsel for businesses navigating complex corporate matters, from formation to M&A transactions and beyond.',
+    heroImage: '/images/services/corporate-law-bg-image-min.webp',
+    statsHeading: 'Trusted Expertise in Corporate Law',
+    statsDescription: 'Our corporate law practice provides strategic legal guidance to businesses of all sizes, from emerging startups to established enterprises. We understand that sound legal counsel is essential to achieving your business objectives while mitigating risk.\n\nWith decades of combined experience, our attorneys have successfully guided clients through complex transactions, regulatory challenges, and corporate governance matters. We pride ourselves on delivering practical solutions that align with your business goals.',
+    stats: [
+      { value: '200+', label: 'Families successfully represented in divorce and custody matters' },
+      { value: '$2B+', label: 'Total value of M&A transactions handled' },
+      { value: '98%', label: 'Client satisfaction rate and retention' },
+    ],
+    servicesHeading: 'Our Corporate Law Services',
+    servicesSummary: 'Comprehensive legal solutions tailored to your business needs.',
+    serviceCards: [
+      { icon: '/images/icons/service-details-icon-1.svg', title: 'Mergers & Acquisitions', description: 'Strategic guidance through every phase of M&A transactions, from due diligence to closing and post-merger integration.' },
+      { icon: '/images/icons/service-details-icon-2.svg', title: 'Contract Drafting & Review', description: 'Comprehensive contract services ensuring your agreements protect your interests and comply with applicable regulations.' },
+      { icon: '/images/icons/service-details-icon-3.svg', title: 'Corporate Governance', description: 'Expert advice on board structure, fiduciary duties, compliance requirements, and best practices for corporate oversight.' },
+      { icon: '/images/icons/service-details-icon-5.svg', title: 'Securities & Capital Markets', description: 'Comprehensive counsel on public offerings, private placements, and compliance with securities regulations.' },
+      { icon: '/images/icons/service-details-icon-6.svg', title: 'Business Formation', description: 'Strategic guidance on entity selection, formation documents, and structuring your business for success from day one.' },
+      { icon: '/images/icons/service-details-icon-7.svg', title: 'Regulatory Compliance', description: 'Proactive compliance strategies to navigate complex regulatory environments and minimize legal risk.' },
+    ],
+    protectImage: '/images/services/featured-practice-image-1.webp',
+    protectContent: {
+      title: 'Proven Track Record of Success',
+      items: [
+        { title: '$15M Corporate Acquisition', description: 'Successfully represented XYZ Corporation in a complex acquisition involving multiple jurisdictions and regulatory approvals.' },
+        { title: 'Shareholder Dispute Resolution', description: 'Defended ABC LLC in a high-stakes shareholder dispute, achieving favorable settlement and protecting client interests.' },
+        { title: '50+ Startups Advised', description: 'Provided formation, funding, and regulatory compliance counsel to emerging technology companies through critical growth stages.' },
+      ],
+    },
+    whyChooseHeading: 'Why Choose Our Corporate Law Practice',
+    whyChooseSummary: 'The expertise and commitment you need to achieve your business objectives',
+    whyChooseCards: [
+      { value: '25+', title: 'Years Combined Experience', description: 'Decades of expertise across all aspects of corporate law and business transactions' },
+      { value: 'Top Tier', title: 'Industry Recognition', description: 'Certified mediators committed to resolving disputes with minimal conflict and maximum results', variant: 'is-2' },
+      { value: 'Results', title: 'Client-Focused Approach', description: 'Strategic counsel aligned with your business goals and bottom line' },
+    ],
+    faqs: [
+      { question: '1. Do you handle international business law?', answer: 'Yes, our firm provides comprehensive legal services for international business matters. We assist clients with cross-border transactions, trade compliance, foreign investments, and international contract negotiations—ensuring full compliance with global legal standards.' },
+      { question: '2. What are your fee structures?', answer: 'Our fee structures are transparent and flexible, designed to meet our clients\' unique needs. Depending on the case, we offer hourly rates, flat fees, or retainer agreements. During the initial consultation, we\'ll discuss the most suitable arrangement for your specific situation.' },
+      { question: '3. Can small businesses hire your firm?', answer: 'Absolutely. We proudly represent businesses of all sizes—from startups to established enterprises. Our team provides tailored legal support to help small businesses navigate contracts, employment issues, and regulatory compliance efficiently and cost-effectively.' },
+    ],
+    ctaTitle: 'Need Expert Legal Assistance?',
+    ctaSummary: 'Our attorneys are here to guide your business through every legal challenge with strategic counsel and proven expertise.',
+  },
+  {
+    slug: 'family-law',
+    title: 'Family Law',
+    heroSummary: 'Compassionate legal guidance through life\'s most personal transitions, protecting your family\'s future with dignity and care.',
+    heroImage: '/images/services/family-law-bg-image-min.webp',
+    statsHeading: 'Trusted Experience in Family Legal Matters',
+    statsDescription: 'Family matters require both legal expertise and emotional intelligence. Our family law practice provides strategic counsel during life\'s most challenging transitions, ensuring your rights are protected while maintaining dignity and respect for all parties involved.\n\nWith decades of combined experience, our attorneys understand the complexities of family dynamics and work tirelessly to achieve outcomes that serve your family\'s best interests. We believe in resolving disputes with compassion while fiercely advocating for your rights.',
+    stats: [
+      { value: '480+', label: 'Families successfully represented in divorce and custody matters' },
+      { value: '85%', label: 'Cases resolved through mediation and collaborative law' },
+      { value: '100%', label: 'Commitment to protecting your family\'s future' },
+    ],
+    servicesHeading: 'Our Family Law Services',
+    servicesSummary: 'Comprehensive legal support for every aspect of family matters',
+    serviceCards: [
+      { icon: '/images/icons/service-details-icon-1.svg', title: 'Divorce & Separation', description: 'Strategic guidance through contested and uncontested divorce proceedings, protecting your assets and future.' },
+      { icon: '/images/icons/service-details-icon-2.svg', title: 'Child Custody & Support', description: 'Advocating for parenting arrangements that serve your children\'s best interests while protecting parental rights.' },
+      { icon: '/images/icons/service-details-icon-3.svg', title: 'Property Division', description: 'Equitable distribution of marital assets, real estate, investments, and business interests.' },
+      { icon: '/images/icons/service-details-icon-5.svg', title: 'Spousal Support', description: 'Comprehensive counsel on alimony calculations, modifications, and enforcement matters.' },
+      { icon: '/images/icons/service-details-icon-6.svg', title: 'Prenuptial Agreements', description: 'Drafting comprehensive prenuptial and postnuptial agreements to protect your financial future.' },
+      { icon: '/images/icons/service-details-icon-7.svg', title: 'Domestic Violence Protection', description: 'Immediate legal protection through restraining orders and safety planning for vulnerable family members.' },
+    ],
+    protectImage: '/images/services/featured-practice-image-1.webp',
+    protectContent: {
+      title: 'Protecting Families, Securing Futures',
+      items: [
+        { title: 'Primary Custody Secured', description: ' Successfully obtained primary physical custody for mother of three, ensuring stability and continuity in children\'s lives while protecting their relationship with both parents.' },
+        { title: 'High-Asset Divorce Settlement', description: ' Negotiated favorable property division in $8M divorce case, protecting client\'s business interests and securing equitable distribution of complex marital estate.' },
+        { title: 'Protective Orders Obtained', description: ' Successfully secured emergency protective orders for 50+ clients facing domestic violence, ensuring immediate safety and long-term protection.' },
+      ],
+    },
+    whyChooseHeading: 'Why Choose Our Family Law Practice',
+    whyChooseSummary: 'Compassionate advocacy combined with strategic legal expertise',
+    whyChooseCards: [
+      { value: '32+', title: 'Years Combined Experience', description: 'Decades of expertise navigating complex family law matters with sensitivity and skill' },
+      { value: 'Mediation', title: 'Collaborative Approach', description: 'Certified mediators committed to resolving disputes with minimal conflict and maximum results', variant: 'is-2' },
+      { value: '24/7', title: 'Emergency Support', description: 'Available for urgent matters including protective orders and emergency custody situations' },
+    ],
+    faqs: [
+      { question: '1. How long does a divorce typically take?', answer: 'The duration of a divorce depends on factors such as case complexity, asset division, and whether the parties reach an agreement. On average, uncontested divorces resolve within a few months, while contested cases may take longer.' },
+      { question: '2. What factors determine child custody?', answer: 'Courts consider the child’s best interests, including emotional bonds, stability, each parent’s living situation, and ability to provide care. Cooperation between parents often leads to more favorable outcomes.' },
+      { question: '3. Do I need a prenuptial agreement?', answer: 'A prenuptial agreement is recommended if you wish to protect personal assets, business interests, or inheritance rights. It provides clarity and financial security for both parties before marriage.' },
+    ],
+    ctaTitle: 'Protecting Your Family\'s Future',
+    ctaSummary: 'Our attorneys provide compassionate guidance through life\'s most difficult transitions, ensuring your rights and your family\'s interests are protected.',
+  },
+  {
+    slug: 'real-estate-law',
+    title: 'Real Estate Law',
+    heroSummary: 'Professional legal solutions for property transactions, investments, and disputes \u2014 safeguarding your real estate assets with precision and trust.',
+    heroImage: '/images/services/real-estate-law-bg-image-min.webp',
+    statsHeading: 'Trusted Expertise in Real Estate Law',
+    statsDescription: 'Our firm offers reliable legal counsel for every aspect of real estate — from property purchases to development and dispute resolution. With a deep understanding of local regulations, our attorneys ensure each transaction is handled with clarity and compliance.\n\nWith decades of combined experience, our legal team specializes in resolving property conflicts, structuring commercial deals, and guiding clients through complex title and ownership issues — always protecting your investment and peace of mind.',
+    stats: [
+      { value: '450+', label: 'Successful real estate transactions and property cases handled' },
+      { value: '98%', label: 'Client satisfaction in real estate outcomes' },
+      { value: '100%', label: 'Commitment to protecting your property interests' },
+    ],
+    servicesHeading: 'Our Real Estate Law Services',
+    servicesSummary: 'Comprehensive legal support for every aspect of Real Estate Law',
+    serviceCards: [
+      { icon: '/images/icons/service-details-icon-1.svg', title: 'Property Transactions', description: 'Comprehensive legal support for buying, selling, or leasing residential and commercial properties.' },
+      { icon: '/images/icons/service-details-icon-2.svg', title: 'Title & Deed Review', description: 'Ensuring clean ownership transfer through detailed examination of title deeds and ownership records.' },
+      { icon: '/images/icons/service-details-icon-3.svg', title: 'Property Disputes', description: 'Resolving boundary conflicts, ownership disagreements, and landlord"–"tenant issues through negotiation or litigation., and best practices for corporate oversight.' },
+      { icon: '/images/icons/service-details-icon-5.svg', title: 'Real Estate Investments', description: 'Advising investors on property acquisitions, development projects, and portfolio diversification.' },
+      { icon: '/images/icons/service-details-icon-6.svg', title: 'Land Use & Zoning', description: 'Guidance on zoning regulations, land development permits, and construction compliance.' },
+      { icon: '/images/icons/service-details-icon-7.svg', title: 'Lease Agreements', description: 'Drafting, reviewing, and negotiating lease contracts that protect your financial and legal interests.' },
+    ],
+    protectImage: '/images/services/featured-practice-image-1.webp',
+    protectContent: {
+      title: 'Securing Property, Building Confidence',
+      items: [
+        { title: 'Commercial Real Estate Transactions', description: ' Providing legal strategy and documentation for business property sales, leases, and acquisitions.' },
+        { title: 'Residential Purchases & Sales', description: ' Handling contracts, disclosures, and financing details to ensure smooth property transfers.' },
+        { title: 'Construction & Development', description: ' Advising developers and builders to mitigate risks and ensure full regulatory compliance.' },
+      ],
+    },
+    whyChooseHeading: 'Why Choose Our Real Estate Law Practice',
+    whyChooseSummary: 'Dedicated expertise, industry insight, and unwavering client support make us a trusted legal partner in property law.',
+    whyChooseCards: [
+      { value: '28+', title: 'Years Combined Experience', description: 'Seasoned attorneys guiding clients through complex real estate matters.' },
+      { value: 'Mediation', title: 'Negotiation Problem', description: 'Collaborative problem-solving for conflict-free resolutions.', variant: 'is-2' },
+      { value: '24/7', title: 'Availability', description: 'Round-the-clock client communication and emergency legal support.' },
+    ],
+    faqs: [
+      { question: '1. How do I ensure a property title is clear?', answer: 'Our attorneys conduct comprehensive title searches to confirm ownership validity before any purchase or transfer.' },
+      { question: '2. What should I include in a lease agreement?', answer: 'Each lease is customized to outline clear terms for both landlords and tenants, protecting the interests of both parties.' },
+      { question: '3. Do I need a lawyer for a property sale?', answer: 'Yes. Legal oversight ensures compliance, prevents fraud, and helps you avoid costly mistakes during real estate transactions.' },
+    ],
+    ctaTitle: 'Protecting Your Property’s Future',
+    ctaSummary: 'Our firm ensures your real estate transactions are legally sound and financially secure — protecting your assets, rights, and long-term investments.',
+  },
+  {
+    slug: 'criminal-defense',
+    title: 'Criminal Defense',
+    heroSummary: 'Strong, strategic legal defense for those facing criminal charges \u2014 protecting your rights, freedom, and future with dignity and determination.',
+    heroImage: '/images/services/criminal-defense-min.webp',
+    statsHeading: 'Trusted Advocacy in Criminal Defense Law',
+    statsDescription: 'Our criminal defense team is committed to protecting your constitutional rights at every stage of the legal process. From investigation to trial, we provide aggressive yet strategic advocacy tailored to the unique circumstances of your case.\n\nWith a deep understanding of criminal law and courtroom experience spanning decades, our attorneys have successfully defended clients against a wide range of charges — from misdemeanors to serious felonies. We believe everyone deserves a vigorous defense.',
+    stats: [
+      { value: '400+', label: 'Successful criminal cases defended across state and federal courts' },
+      { value: '97%', label: 'Client satisfaction in criminal defense outcomes' },
+      { value: '100%', label: 'Commitment to protecting your rights and freedom' },
+    ],
+    servicesHeading: 'Our Criminal Defense Law Services',
+    servicesSummary: 'Comprehensive legal support for every aspect of Criminal Defense Law.',
+    serviceCards: [
+      { icon: '/images/icons/service-details-icon-1.svg', title: 'DUI & Traffic Offenses', description: 'Defending clients against DUI charges, license suspensions, and serious traffic violations with strategic legal action and courtroom expertise.' },
+      { icon: '/images/icons/service-details-icon-2.svg', title: 'Drug-Related Crimes', description: 'Experienced defense for drug possession, distribution, and trafficking charges — working to reduce penalties or achieve case dismissal.' },
+      { icon: '/images/icons/service-details-icon-3.svg', title: 'White Collar Crimes', description: 'Representing individuals and executives accused of fraud, embezzlement, insider trading, and other financial crimes.' },
+      { icon: '/images/icons/service-details-icon-5.svg', title: 'Assault & Violent Crimes', description: 'Vigorous defense for clients facing assault, battery, domestic violence, and other violent crime allegations.' },
+      { icon: '/images/icons/service-details-icon-6.svg', title: 'Theft & Property Crimes', description: 'Legal defense for shoplifting, burglary, robbery, and property damage charges — protecting your record and reputation.' },
+      { icon: '/images/icons/service-details-icon-7.svg', title: 'Expungement & Record Sealing', description: 'Helping eligible clients clear their criminal records to open doors to employment, housing, and a fresh start.' },
+    ],
+    protectImage: '/images/services/featured-practice-image-1.webp',
+    protectContent: {
+      title: 'Protecting Rights, Restoring Futures',
+      items: [
+        { title: 'Early Intervention Defense', description: 'We step in from the moment of arrest or investigation, ensuring your rights are protected before charges are even filed.' },
+        { title: 'Trial & Courtroom Representation', description: 'Our attorneys are seasoned litigators who prepare every case for trial — building strong defenses through evidence, expert testimony, and cross-examination.' },
+        { title: 'Post-Conviction Relief', description: 'From appeals to sentence modifications and expungements, we continue fighting for your freedom even after a verdict.' },
+      ],
+    },
+    whyChooseHeading: 'Why Choose Our Criminal Defense Practice',
+    whyChooseSummary: 'We fight for your rights with passion, precision, and proven legal experience — because your future matters.',
+    whyChooseCards: [
+      { value: '20+', title: 'Years of Defense Experience', description: 'Exposed with trial-tested defense strategies refined over two decades of criminal law practice.' },
+      { value: 'Mediation', title: 'Aggressive Representation', description: 'Whether negotiating a plea or fighting at trial, we pursue every legal avenue to protect your freedom.', variant: 'is-2' },
+      { value: '24/7', title: 'Emergency Legal Support', description: 'Criminal matters don\'t wait — and neither do we. Get immediate legal support when you need it most.' },
+    ],
+    faqs: [
+      { question: '1. What should I do if I\'m arrested?', answer: 'Stay calm, exercise your right to remain silent, and contact an attorney immediately. Do not answer questions or sign anything without legal counsel present. Our team is available to assist you from the moment of arrest.' },
+      { question: '2. Can charges be reduced or dropped?', answer: 'Yes. Depending on the evidence and circumstances, our attorneys work to negotiate reduced charges, plea agreements, or full case dismissals — always with your best interest in mind.' },
+      { question: '3. Will a criminal record affect my future?', answer: 'A criminal record can impact employment, housing, and more. That\'s why we pursue every option — including expungement — to minimize long-term consequences and help you move forward.' },
+    ],
+    ctaTitle: 'Protecting Your Freedom and Future',
+    ctaSummary: 'When your rights are on the line, you deserve a legal team that fights with conviction. Reach out today for a confidential consultation.',
+  },
+  {
+    slug: 'intellectual-property',
+    title: 'Intellectual Property',
+    heroSummary: 'Protecting your creative works, inventions, and brand identity with precision, strategy, and unwavering legal support.',
+    heroImage: '/images/services/intellectual-property-bg-image-min.webp',
+    statsHeading: 'Dedicated Protection in Intellectual Property Law',
+    statsDescription: 'Our firm provides comprehensive legal services to safeguard innovations, creative expressions, and business assets. From patents and trademarks to copyrights and trade secrets, we help clients secure their intellectual property rights globally.\n\nWith decades of combined experience, our attorneys understand the value of your ideas and the effort behind them. We approach every case with the goal of maximizing protection while ensuring full legal compliance — empowering you to grow and innovate with confidence.',
+    stats: [
+      { value: '500+', label: 'Intellectual property registrations and protection cases handled' },
+      { value: '92%', label: 'Client success rate in defending IP rights' },
+      { value: '100%', label: 'Commitment to protecting your creative and business assets' },
+    ],
+    servicesHeading: 'Our Intellectual Property Law Services',
+    servicesSummary: 'Comprehensive legal support for every aspect of Intellectual Property Law.',
+    serviceCards: [
+      { icon: '/images/icons/service-details-icon-1.svg', title: 'Patent Protection', description: 'Securing exclusive rights for your inventions and guiding you through every step of the patent process.' },
+      { icon: '/images/icons/service-details-icon-2.svg', title: 'Trademark Registration', description: 'Protecting your brand identity, logo, and slogans through strategic filing and enforcement.' },
+      { icon: '/images/icons/service-details-icon-3.svg', title: 'Copyright Protection', description: 'Safeguarding original works including designs, content, and creative materials against unauthorized use.' },
+      { icon: '/images/icons/service-details-icon-5.svg', title: 'Trade Secret Protection', description: 'Implementing legal measures to secure confidential business information and proprietary processes.' },
+      { icon: '/images/icons/service-details-icon-6.svg', title: 'IP Litigation & Enforcement', description: 'Representing clients in infringement disputes, counterfeit cases, and IP contract violations.' },
+      { icon: '/images/icons/service-details-icon-7.svg', title: 'Licensing & Agreements', description: 'Drafting and negotiating licensing, distribution, and technology transfer agreements.' },
+    ],
+    protectImage: '/images/services/featured-practice-image-1.webp',
+    protectContent: {
+      title: 'Protecting Innovation, Empowering Creativity',
+      items: [
+        { title: 'Brand Protection Strategies', description: 'Comprehensive solutions to register, defend, and maintain your brand assets across jurisdictions.' },
+        { title: 'Patent & Design Portfolio Management', description: 'Advising innovators on global patent strategy, renewals, and compliance.' },
+        { title: 'IP Dispute Resolution', description: 'Providing negotiation, mediation, and litigation services to resolve complex intellectual property conflicts.' },
+      ],
+    },
+    whyChooseHeading: 'Why Choose Our Intellectual Property Law Practice',
+    whyChooseSummary: 'We combine technical knowledge with legal precision to secure your innovations and defend your rights.',
+    whyChooseCards: [
+      { value: '30+', title: 'Years Combined Experience', description: 'Skilled attorneys with deep industry insight across technology and creative sectors.' },
+      { value: 'Mediation', title: 'Strategic Collaboration', description: 'Tailored IP strategies that align with your business goals and market expansion.', variant: 'is-2' },
+      { value: '24/7', title: 'Emergency Support', description: 'Around-the-clock legal assistance for urgent intellectual property concerns.' },
+    ],
+    faqs: [
+      { question: '1. How do I register a trademark or patent?', answer: 'Our attorneys assist you in preparing, filing, and managing registrations to ensure your intellectual property is fully protected.' },
+      { question: '2. What should I do if someone infringes on my IP?', answer: 'Immediate legal action is recommended — our team will assess the violation and pursue enforcement or litigation if necessary.' },
+      { question: '3. Can I license my intellectual property?', answer: 'Yes. We draft and negotiate licensing agreements that allow you to profit from your IP while maintaining full ownership control.' },
+    ],
+    ctaTitle: 'Protecting Your Intellectual Property\'s Future',
+    ctaSummary: 'Our firm safeguards your creative and commercial assets with proactive strategies — ensuring your innovations, brands, and works remain exclusively yours.',
+  },
+  {
+    slug: 'employment-law',
+    title: 'Employment Law',
+    heroSummary: 'Dedicated legal guidance for employers and employees \u2014 ensuring fair, compliant, and respectful workplaces through expertise, advocacy, and care.',
+    heroImage: '/images/services/employment-law-min.webp',
+    statsHeading: 'Experienced Advocacy in Employment Law',
+    statsDescription: 'Our firm provides comprehensive counsel on all aspects of workplace law — from hiring practices to wrongful termination disputes. We help clients navigate complex employment regulations with professionalism and compassion.\n\nWith decades of combined experience, our attorneys understand the sensitive nature of workplace issues and are committed to achieving fair, equitable outcomes. Whether you\'re an employer safeguarding your business or an employee defending your rights, we stand beside you with integrity and determination.',
+    stats: [
+      { value: '480+', label: 'Employment cases successfully resolved for businesses and individuals' },
+      { value: '92%', label: 'Client satisfaction in workplace dispute resolutions' },
+      { value: '100%', label: 'Commitment to protecting your professional rights' },
+    ],
+    servicesHeading: 'Our Employment Law Services',
+    servicesSummary: 'Comprehensive legal support for every aspect of Employment Law.',
+    serviceCards: [
+      { icon: '/images/icons/service-details-icon-1.svg', title: 'Wrongful Termination', description: 'Legal representation for employees unjustly dismissed and protection for employers from unlawful claims.' },
+      { icon: '/images/icons/service-details-icon-2.svg', title: 'Workplace Policies & Compliance', description: 'Drafting, reviewing, and implementing employee handbooks and HR policies that comply with labor regulations.' },
+      { icon: '/images/icons/service-details-icon-3.svg', title: 'Employment Contracts', description: 'Creating, reviewing, and negotiating employment agreements, confidentiality clauses, and non-compete contracts.' },
+      { icon: '/images/icons/service-details-icon-5.svg', title: 'Workplace Discrimination', description: 'Addressing issues involving bias, harassment, or retaliation based on protected characteristics.' },
+      { icon: '/images/icons/service-details-icon-6.svg', title: 'Wage & Hour Disputes', description: 'Ensuring fair pay practices and representing clients in unpaid wage, overtime, and misclassification claims.' },
+      { icon: '/images/icons/service-details-icon-7.svg', title: 'Employee Relations & Mediation', description: 'Helping resolve internal disputes through collaborative mediation and proactive legal support.' },
+    ],
+    protectImage: '/images/services/featured-practice-image-1.webp',
+    protectContent: {
+      title: 'Protecting Workplaces, Empowering People',
+      items: [
+        { title: 'Employee Rights Advocacy', description: 'Defending workers facing discrimination, harassment, or unfair treatment in the workplace.' },
+        { title: 'Employer Defense Strategies', description: 'Providing legal guidance to businesses to prevent and respond effectively to employment claims.' },
+        { title: 'Labor Law Compliance', description: 'Assisting organizations with labor audits, documentation, and regulatory training for management and HR teams.' },
+      ],
+    },
+    whyChooseHeading: 'Why Choose Our Employment Law Practice',
+    whyChooseSummary: 'We combine compassion with strategic precision — protecting both people and businesses with trusted expertise.',
+    whyChooseCards: [
+      { value: '24+', title: 'Years Combined Experience', description: 'Seasoned employment attorneys guiding clients through complex workplace issues.' },
+      { value: 'Mediation', title: 'Collaborative', description: 'Encouraging fair, efficient, and respectful resolutions for both parties.', variant: 'is-2' },
+      { value: '24/7', title: 'Legal Support', description: 'Immediate assistance for urgent workplace legal matters.' },
+    ],
+    faqs: [
+      { question: '1. Can I sue for wrongful termination?', answer: 'Yes, if the dismissal violates employment laws or contractual rights.' },
+      { question: '2. What should an employment contract include?', answer: 'Clear job terms, compensation details, confidentiality, and termination clauses.' },
+      { question: '3. How do I handle workplace harassment?', answer: 'Consult an attorney immediately to file a legal complaint or begin internal resolution processes.' },
+    ],
+    ctaTitle: 'Protecting Your Workplace\'s Future',
+    ctaSummary: 'Our attorneys help you create fair, transparent, and compliant employment practices — defending your rights and ensuring long-term workplace harmony.',
+  },
+  {
+    slug: 'tax-law',
+    title: 'Tax Law',
+    heroSummary: 'Expert legal guidance for businesses and individuals — ensuring compliance, minimizing liabilities, and resolving tax disputes effectively.',
+    heroImage: '/images/services/tax-law-bg-image-min.webp',
+    statsHeading: 'Trusted Expertise in Tax Law',
+    statsDescription: 'Our firm offers comprehensive tax law services, including compliance, planning, audits, and dispute resolution. With deep knowledge of local and international tax regulations, our attorneys protect your financial interests at every step.\n\nWith decades of combined experience, our team assists clients in managing taxes strategically, avoiding penalties, and achieving long-term financial stability.',
+    stats: [
+      { value: '850+', label: 'Successful tax cases, audits, and compliance reviews handled' },
+      { value: '98%', label: 'Approval rate in visa and residency cases' },
+      { value: '100%', label: 'Commitment to financial accuracy and legal compliance' },
+    ],
+    servicesHeading: 'Our Tax Law Services',
+    servicesSummary: 'Comprehensive legal support for every aspect of Tax Law.',
+    serviceCards: [
+      { icon: '/images/icons/service-details-icon-1.svg', title: 'Tax Planning & Strategy', description: 'Designing personalized tax plans to reduce liabilities and maximize savings.' },
+      { icon: '/images/icons/service-details-icon-2.svg', title: 'Corporate Tax Compliance', description: 'Ensuring your business meets all tax filing and reporting obligations.' },
+      { icon: '/images/icons/service-details-icon-3.svg', title: 'Personal Income Tax', description: 'Expert assistance for individuals on returns, deductions, and exemptions.' },
+      { icon: '/images/icons/service-details-icon-5.svg', title: 'Tax Dispute Resolution', description: 'Defending clients in audits, investigations, and litigation with tax authorities.' },
+      { icon: '/images/icons/service-details-icon-6.svg', title: 'International Taxation', description: 'Advising on cross-border transactions, foreign income, and double-taxation treaties.' },
+      { icon: '/images/icons/service-details-icon-7.svg', title: 'Tax Fraud & Penalty Defense', description: 'Protecting clients from unjust penalties and fraud allegations.' },
+    ],
+    protectImage: '/images/services/featured-practice-image-1.webp',
+    protectContent: {
+      title: 'Managing Taxes, Maximizing Compliance',
+      items: [
+        { title: 'Proactive Tax Planning', description: 'Minimizing future risks through smart financial strategies.' },
+        { title: 'Audit Representation', description: 'Professional advocacy during government audits or reviews.' },
+        { title: 'Transparent Communication', description: 'Clear guidance and updates throughout the process.' },
+      ],
+    },
+    whyChooseHeading: 'Why Choose Our Tax Law Practice',
+    whyChooseSummary: 'Reliable expertise, strategic thinking, and absolute confidentiality make us a trusted partner for all tax matters.',
+    whyChooseCards: [
+      { title: 'Comprehensive Tax Knowledge', description: 'Covering corporate, personal, and international taxation.' },
+      { title: 'Client-Focused Service', description: 'We treat every case with compassion and confidentiality.', variant: 'is-2' },
+      { title: 'Year-Round Support', description: 'Ongoing assistance for audits, filings, and planning.' },
+    ],
+    faqs: [
+      { question: '1. Do I need a tax lawyer for filing returns?', answer: 'If your finances are complex or involve multiple jurisdictions, legal advice ensures full compliance and optimized savings.' },
+      { question: '2. Can you help with tax audits?', answer: 'Yes. Our team represents clients during audits to resolve issues quickly and professionally.' },
+      { question: '3. What happens if I miss a tax payment?', answer: 'We assist in negotiating settlements, extensions, or appeals to minimize penalties.' },
+    ],
+    ctaTitle: 'Protecting Your Finances, Strengthening Compliance',
+    ctaSummary: 'Our firm ensures your taxes are legally sound, strategically managed, and financially beneficial — protecting your business and peace of mind.',
+  },
+  {
+    slug: 'immigration-law',
+    title: 'Immigration Law',
+    heroSummary: 'Comprehensive legal support for visas, residency, and citizenship — guiding you confidently through every step of your immigration journey.',
+    heroImage: '/images/services/immigration-law-bg-image-min.webp',
+    statsHeading: 'Trusted Expertise in Immigration Law',
+    statsDescription: 'Our firm assists individuals, families, and businesses with all aspects of immigration — from visa applications to permanent residency and deportation defense. Our attorneys stay updated on evolving regulations to ensure full compliance and successful outcomes.\n\nWith years of specialized experience, our team helps you navigate complex immigration processes with clarity, care, and confidence.',
+    stats: [
+      { value: '1,000+', label: 'Successful immigration applications and appeals handled' },
+      { value: '97%', label: 'Approval rate in visa and residency cases' },
+      { value: '100%', label: 'Commitment to your immigration success' },
+    ],
+    servicesHeading: 'Our Immigration Law Services',
+    servicesSummary: 'Comprehensive legal support for every aspect of Immigration Law.',
+    serviceCards: [
+      { icon: '/images/icons/service-details-icon-1.svg', title: 'Visa Applications', description: 'Expert guidance for work, student, family, and investor visa submissions.' },
+      { icon: '/images/icons/service-details-icon-2.svg', title: 'Permanent Residency', description: 'Helping you secure long-term or permanent resident status efficiently.' },
+      { icon: '/images/icons/service-details-icon-3.svg', title: 'Family Sponsorship', description: 'Reuniting families through legal sponsorship and immigration programs.' },
+      { icon: '/images/icons/service-details-icon-5.svg', title: 'Deportation Defense', description: 'Strong legal defense against deportation, removal, or denial actions.' },
+      { icon: '/images/icons/service-details-icon-6.svg', title: 'Citizenship Applications', description: 'Step-by-step assistance in naturalization and citizenship processes.' },
+      { icon: '/images/icons/service-details-icon-7.svg', title: 'Business Immigration', description: 'Advising employers and foreign workers on sponsorship, permits, and compliance.' },
+    ],
+    protectImage: '/images/services/featured-practice-image-1.webp',
+    protectContent: {
+      title: 'Empowering Your Immigration Journey',
+      items: [
+        { title: 'Global Mobility Solutions', description: 'Support for individuals and companies expanding across borders.' },
+        { title: 'Document Preparation', description: 'Accurate, complete, and timely filing to avoid delays.' },
+        { title: 'Legal Representation', description: 'Strong advocacy in immigration hearings and appeals.' },
+      ],
+    },
+    whyChooseHeading: 'Why Choose Our Immigration Law Practice',
+    whyChooseSummary: 'Personalized service, clear communication, and a proven record of success define our approach to immigration law.',
+    whyChooseCards: [
+      { title: 'Comprehensive Immigration Expertise', description: 'Covering all visa, residency, and citizenship matters.' },
+      { title: 'Client-Focused Service', description: 'We treat every case with compassion and confidentiality.', variant: 'is-2' },
+      { title: 'Ongoing Support', description: 'Continuous updates and guidance throughout your immigration process.' },
+    ],
+    faqs: [
+      { question: '1. Do I need a lawyer to apply for a visa?', answer: 'While not mandatory, legal assistance ensures your application meets all criteria, minimizing rejection risk.' },
+      { question: '2. How long does the immigration process take?', answer: 'Processing times vary by case and visa type. Our team helps speed up the process by ensuring full compliance.' },
+      { question: '3. Can you help with denied visa cases?', answer: 'Yes. We assist in appeals and reapplications to improve approval chances.' },
+    ],
+    ctaTitle: 'Securing Your Future, Across Borders',
+    ctaSummary: 'Our firm provides expert immigration solutions — helping you build a secure, lawful, and confident life in your new home.',
+  },
+  {
+    slug: 'civil-litigation',
+    title: 'Civil Litigation',
+    heroSummary: 'Professional legal representation for civil disputes — protecting your rights and interests with strategy, precision, and dedication.',
+    heroImage: '/images/services/civil-litigation-bg-image-min.webp',
+    statsHeading: 'Trusted Expertise in Civil Litigation',
+    statsDescription: 'Our firm provides strong advocacy in all areas of civil litigation — from contract disputes to personal injury and commercial conflicts. With deep courtroom experience, our attorneys ensure every case is handled with clarity, compliance, and tactical precision.\n\nWith decades of combined experience, our legal team specializes in resolving complex disputes through negotiation, mediation, or trial — always prioritizing your rights, goals, and peace of mind.',
+    stats: [
+      { value: '700+', label: 'Successful civil cases resolved through litigation or settlement' },
+      { value: '96%', label: 'Client satisfaction rate in civil dispute resolution' },
+      { value: '100%', label: 'Commitment to protecting your legal rights' },
+    ],
+    servicesHeading: 'Our Civil Litigation Services',
+    servicesSummary: 'Comprehensive legal support for every aspect of Civil Litigation.',
+    serviceCards: [
+      { icon: '/images/icons/service-details-icon-1.svg', title: 'Contract Disputes', description: 'Legal action and defense in cases involving breach of contract or agreement violations.' },
+      { icon: '/images/icons/service-details-icon-2.svg', title: 'Commercial Litigation', description: 'Representation for businesses in partnership conflicts, shareholder disputes, and corporate claims.' },
+      { icon: '/images/icons/service-details-icon-3.svg', title: 'Employment Disputes', description: 'Handling wrongful termination, discrimination, and workplace grievance cases.' },
+      { icon: '/images/icons/service-details-icon-5.svg', title: 'Property & Land Disputes', description: 'Resolving ownership, boundary, and possession conflicts efficiently.' },
+      { icon: '/images/icons/service-details-icon-6.svg', title: 'Debt Recovery', description: 'Enforcing payment and settlement for outstanding debts through legal means.' },
+      { icon: '/images/icons/service-details-icon-7.svg', title: 'Mediation & Arbitration', description: 'Alternative dispute resolution services to achieve fair outcomes outside court.' },
+    ],
+    protectImage: '/images/services/featured-practice-image-1.webp',
+    protectContent: {
+      title: 'Defending Your Rights, Delivering Justice',
+      items: [
+        { title: 'Court Representation', description: 'Strategic and skilled litigation in all civil courts and tribunals.' },
+        { title: 'Dispute Resolution', description: 'Focused on negotiation and settlement to save time, stress, and costs.' },
+        { title: 'Client-Centered Advocacy', description: 'Personalized attention and updates at every step of your legal journey.' },
+      ],
+    },
+    whyChooseHeading: 'Why Choose Our Civil Litigation Practice',
+    whyChooseSummary: 'Experienced litigators, proven strategies, and transparent communication make us your strongest ally in legal disputes.',
+    whyChooseCards: [
+      { value: '32+', title: 'Experienced Litigators', description: 'Seasoned attorneys with proven courtroom success.' },
+      { title: 'Negotiation & Mediation', description: 'Balanced strategies for settlement or strong trial representation.', variant: 'is-2' },
+      { title: '24/7 Legal Support', description: 'Always available for urgent legal concerns.' },
+    ],
+    faqs: [
+      { question: '1. Do I need a lawyer for a civil dispute?', answer: 'Yes. Legal representation ensures your rights are protected and improves your chances of a fair resolution.' },
+      { question: '2. Can my case be settled outside court?', answer: 'Absolutely. We prioritize mediation and negotiation to achieve effective outcomes without lengthy trials.' },
+      { question: '3. How long does civil litigation take?', answer: 'Timelines vary depending on case complexity. Our team works to resolve disputes as efficiently as possible while protecting your interests.' },
+    ],
+    ctaTitle: 'Protecting Your Rights, Every Step of the Way',
+    ctaSummary: 'Our firm ensures your legal battles are fought with integrity, preparation, and passion — securing justice and peace of mind.',
+  },
+];

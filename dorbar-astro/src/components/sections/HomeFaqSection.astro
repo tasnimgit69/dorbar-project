@@ -1,0 +1,107 @@
+---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import FaqAccordion from './FaqAccordion.astro';
+import { faqItems } from '../../data/home';
+import { resolveImage } from '../../utils/resolveImage';
+
+const faqIcon1 = resolveImage('/images/icons/faq-icon-1.svg') as ImageMetadata;
+const faqIcon2 = resolveImage('/images/icons/faq-icon-2.svg') as ImageMetadata;
+const faqIcon3 = resolveImage('/images/icons/faq-icon-3.svg') as ImageMetadata;
+---
+
+<section id="FAQ-Section" class="faq-section">
+  <div class="section-gap-two bottom mobile-top">
+    <div class="container-default">
+      <div class="faq-wrapper">
+        <div class="faq-heading-block">
+          <div class="faq-title-block">
+            <div class="section-subtitle-block-two">
+              <div class="section-subtitle-liner-one" aria-hidden="true"></div>
+              <span class="section-subtitle-text-two">FAQ</span>
+              <div class="section-subtitle-liner-two" aria-hidden="true"></div>
+            </div>
+            <h2 class="section-title left">Frequently Asked Questions</h2>
+          </div>
+
+          <div class="faq-summary-block">
+            <p class="faq-summary">Here are answers to some of the most common questions our clients ask before starting their case. We believe in complete transparency and clarity.</p>
+          </div>
+
+          <div class="faq-key-point-block">
+            <div class="faq-single-key-point">
+              <div class="faq-key-point-icon-block">
+                <Image src={faqIcon1} alt="FAQ Key Point Icon" class="faq-key-point-icon" width={24} height={24} loading="lazy" />
+              </div>
+              <p class="faq-key-point-text">Free initial consultation for all new clients</p>
+            </div>
+            <div class="faq-single-key-point">
+              <div class="faq-key-point-icon-block">
+                <Image src={faqIcon3} alt="FAQ Key Point Icon" class="faq-key-point-icon" width={24} height={24} loading="lazy" />
+              </div>
+              <p class="faq-key-point-text">Complete confidentiality guaranteed</p>
+            </div>
+            <div class="faq-single-key-point">
+              <div class="faq-key-point-icon-block">
+                <Image src={faqIcon2} alt="FAQ Key Point Icon" class="faq-key-point-icon" width={24} height={24} loading="lazy" />
+              </div>
+              <p class="faq-key-point-text">Available 24/7 for urgent matters</p>
+            </div>
+          </div>
+
+          <div class="faq-bottom-text-block">
+            <p class="faq-bottom-text">Still have questions? <a href="/contact" class="faq-bottom-text-link">Contact us directly</a> and we'll be happy to help.</p>
+          </div>
+        </div>
+
+        <FaqAccordion items={faqItems} />
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  const scrollStart = 'top 90%';
+
+  // === Heading elements: slideInBottom ===
+  const headingElements = [
+    { selector: '#FAQ-Section .section-subtitle-block-two', delay: 0.1 },
+    { selector: '#FAQ-Section .section-title', delay: 0.2 },
+    { selector: '#FAQ-Section .faq-summary-block', delay: 0.3 },
+    { selector: '#FAQ-Section .faq-key-point-block', delay: 0.4 },
+    { selector: '#FAQ-Section .faq-bottom-text-block', delay: 0.5 },
+  ];
+
+  headingElements.forEach(({ selector, delay }) => {
+    const el = document.querySelector(selector) as HTMLElement;
+    if (!el) return;
+    gsap.set(el, { opacity: 0, y: 100 });
+    gsap.to(el, {
+      opacity: 1,
+      y: 0,
+      duration: 1,
+      ease: 'power3.out',
+      delay,
+      scrollTrigger: { trigger: el, start: scrollStart, once: true },
+    });
+  });
+
+  // === FAQ accordion items: slideInBottom with stagger ===
+  const faqItems = document.querySelectorAll('#FAQ-Section .service-single-faq-block');
+  faqItems.forEach((el, i) => {
+    gsap.set(el, { opacity: 0, y: 100 });
+    gsap.to(el, {
+      opacity: 1,
+      y: 0,
+      duration: 1,
+      ease: 'power3.out',
+      delay: 0.2 + i * 0.1,
+      scrollTrigger: { trigger: el, start: scrollStart, once: true },
+    });
+  });
+</script>

@@ -1,0 +1,78 @@
+---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import { whyTrustCards } from '../../data/services-page';
+import { resolveImage } from '../../utils/resolveImage';
+---
+
+<section class="why-trust-section" id="Why-Trust-Section">
+  <div class="container-default">
+    <div class="why-trust-wrapper">
+      <div class="why-trust-heading-block">
+        <div class="section-title-block-two max-w-600">
+          <h2 class="section-title-two">Why Clients Trust Our Legal Expertise</h2>
+        </div>
+        <div class="section-summary-block-two max-w-700">
+          <p class="section-summary-two">Our commitment to excellence extends beyond legal acumen to personalized service and unwavering advocacy for every client we serve.</p>
+        </div>
+      </div>
+      <div class="why-trust-content-block">
+        {whyTrustCards.map((card) => (
+          <div class={`why-trust-card-block${card.variant ? ` ${card.variant}` : ''}`}>
+            <div class="why-trust-icon-block">
+              <Image src={resolveImage(card.icon) as ImageMetadata} loading="lazy" alt="" class="why-trust-icon" width={56} height={56} />
+            </div>
+            <div class="why-trust-text-block">
+              <h3 class="why-trust-title">{card.title}</h3>
+              <p class="why-trust-summary">{card.summary}</p>
+            </div>
+            <div class="why-trust-card-liner"></div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  const scrollStart = 'top 90%';
+
+  // === Heading elements: slideInBottom ===
+  const headingElements = [
+    { selector: '#Why-Trust-Section .section-title-two', delay: 0.1 },
+    { selector: '#Why-Trust-Section .section-summary-two', delay: 0.2 },
+  ];
+
+  headingElements.forEach(({ selector, delay }) => {
+    const el = document.querySelector(selector) as HTMLElement;
+    if (!el) return;
+    gsap.set(el, { opacity: 0, y: 100 });
+    gsap.to(el, {
+      opacity: 1,
+      y: 0,
+      duration: 1,
+      ease: 'power3.out',
+      delay,
+      scrollTrigger: { trigger: el, start: scrollStart, once: true },
+    });
+  });
+
+  // === Content block: slideInBottom ===
+  const contentBlock = document.querySelector('#Why-Trust-Section .why-trust-content-block') as HTMLElement;
+  if (contentBlock) {
+    gsap.set(contentBlock, { opacity: 0, y: 100 });
+    gsap.to(contentBlock, {
+      opacity: 1,
+      y: 0,
+      duration: 1,
+      ease: 'power3.out',
+      delay: 0.3,
+      scrollTrigger: { trigger: contentBlock, start: scrollStart, once: true },
+    });
+  }
+</script>

@@ -1,0 +1,259 @@
+---
+import TrackRecordCard from '../cards/TrackRecordCard.astro';
+import { trackRecords } from '../../data/home';
+
+/**
+ * Each segment is either a static text or a digit chain that animates via translateY.
+ * - 'upper' chains: flex-end alignment, start at translateY(200%), animate to 0%
+ * - 'lower' chains: flex-start alignment, start at translateY(-400%), animate to 0%
+ */
+type Segment =
+  | { type: 'static'; text: string }
+  | { type: 'upper'; digits: number[] }
+  | { type: 'lower'; digits: number[] };
+
+interface SlotStat {
+  label: string;
+  segments: Segment[];
+}
+
+const slotStats: SlotStat[] = [
+  {
+    label: 'Total Recovered',
+    segments: [
+      { type: 'static', text: '$' },
+      { type: 'upper', digits: [7, 5, 3, 1] },
+      { type: 'lower', digits: [2, 1, 2, 3, 4, 5] },
+      { type: 'upper', digits: [7, 6, 5, 4, 3, 2, 1, 5] },
+      { type: 'static', text: 'M+' },
+    ],
+  },
+  {
+    label: 'Cases Won',
+    segments: [
+      { type: 'upper', digits: [5, 3, 2, 5] },
+      { type: 'lower', digits: [0, 1, 2, 3, 4, 5] },
+      { type: 'upper', digits: [7, 6, 5, 4, 3, 2, 1, 0] },
+      { type: 'static', text: '+' },
+    ],
+  },
+  {
+    label: 'Success Rate',
+    segments: [
+      { type: 'lower', digits: [9, 1, 2, 3, 4, 5] },
+      { type: 'upper', digits: [7, 6, 5, 4, 3, 2, 1, 8] },
+      { type: 'static', text: '%' },
+    ],
+  },
+  {
+    label: 'Years Experience',
+    segments: [
+      { type: 'lower', digits: [2, 1, 2, 3, 4, 5] },
+      { type: 'upper', digits: [7, 6, 5, 4, 3, 2, 1, 5] },
+      { type: 'static', text: '+' },
+    ],
+  },
+];
+---
+
+<section id="Track-Record-Section" class="track-record-section">
+  <div class="container-default">
+    <div class="track-record-wrapper">
+      <div class="track-record-heading-block">
+        <div class="section-subtitle-block-two">
+          <div class="section-subtitle-liner-one" aria-hidden="true"></div>
+          <span class="section-subtitle-text-two">Track Record</span>
+          <div class="section-subtitle-liner-two" aria-hidden="true"></div>
+        </div>
+        <div class="section-title-block-two max-w-480">
+          <h2 class="section-title-two">Proven <span class="section-highlight-title-two">Results</span> That Matter</h2>
+        </div>
+        <div class="section-summary-block-two max-w-550">
+          <p class="section-summary-two">Real cases, real impact — delivering trusted outcomes for our clients with strategic excellence and unwavering dedication.</p>
+        </div>
+      </div>
+
+      <div class="track-record-content-block">
+        <!-- Slot Machine Stat Counter -->
+        <div class="track-record-stat-block is-2">
+          {slotStats.map((stat) => (
+            <div class="statistics-single-block">
+              <div class="stat-number-block is-2">
+                {stat.segments.map((seg) =>
+                  seg.type === 'static' ? (
+                    <div class="stat-number two">{seg.text}</div>
+                  ) : (
+                    <div class={`stat-number-chain ${seg.type === 'upper' ? 'upper-movement' : 'lower-movement'}`}>
+                      {seg.digits.map((d) => (
+                        <div class="stat-number two">{d}</div>
+                      ))}
+                    </div>
+                  )
+                )}
+              </div>
+              <div class="stat-text-block">
+                <p class="stat-text two">{stat.label}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <!-- Track Record Cases -->
+        <div class="track-record-main-content-block">
+          {trackRecords.map((record, i) => (
+            <TrackRecordCard
+              number={record.number}
+              subtitle={record.subtitle}
+              title={record.title}
+              description={record.description}
+              settlementLabel={record.settlementLabel}
+              settlement={record.settlement}
+              client={record.client}
+              image={record.image}
+              imageLabel={record.imageLabel}
+              reverse={record.reverse}
+              index={i + 1}
+            />
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  const scrollStart = 'top 90%';
+
+  // === Heading elements: slideInBottom ===
+  const headingElements = [
+    { selector: '#Track-Record-Section .section-subtitle-block-two', delay: 0.2 },
+    { selector: '#Track-Record-Section .section-title-block-two', delay: 0.2 },
+    { selector: '#Track-Record-Section .section-summary-block-two', delay: 0.4 },
+  ];
+
+  headingElements.forEach(({ selector, delay }) => {
+    const el = document.querySelector(selector) as HTMLElement;
+    if (!el) return;
+    gsap.set(el, { opacity: 0, y: 100 });
+    gsap.to(el, {
+      opacity: 1,
+      y: 0,
+      duration: 1,
+      ease: 'power3.out',
+      delay,
+      scrollTrigger: { trigger: el, start: scrollStart, once: true },
+    });
+  });
+
+  // === Stat block: slideInBottom ===
+  const statBlock = document.querySelector('#Track-Record-Section .track-record-stat-block') as HTMLElement;
+  if (statBlock) {
+    gsap.set(statBlock, { opacity: 0, y: 100 });
+    gsap.to(statBlock, {
+      opacity: 1,
+      y: 0,
+      duration: 1,
+      ease: 'power3.out',
+      delay: 0.3,
+      scrollTrigger: { trigger: statBlock, start: scrollStart, once: true },
+    });
+  }
+
+  // === Slot-machine counter animation (IX2 a-2) ===
+  // Set initial translateY positions for digit chains
+  document.querySelectorAll('#Track-Record-Section .stat-number-chain.upper-movement').forEach((chain) => {
+    gsap.set(chain, { y: '200%' });
+  });
+  document.querySelectorAll('#Track-Record-Section .stat-number-chain.lower-movement').forEach((chain) => {
+    gsap.set(chain, { y: '-400%' });
+  });
+
+  // Animate all chains to translateY: 0% on scroll
+  const allChains = document.querySelectorAll('#Track-Record-Section .stat-number-chain');
+  if (allChains.length > 0) {
+    gsap.to(allChains, {
+      y: '0%',
+      duration: 2.5,
+      ease: 'power4.inOut',
+      scrollTrigger: {
+        trigger: '#Track-Record-Section .track-record-stat-block',
+        start: scrollStart,
+        once: true,
+      },
+    });
+  }
+
+  // === Card 1 (is-1): slideInBottom for text elements and image ===
+  const card1 = document.querySelector('#Track-Record-Section .track-record-single-content-block.is-1');
+  if (card1) {
+    const card1Elements = [
+      { selector: '.track-record-title-block', delay: 0.1 },
+      { selector: '.track-record-summary-block', delay: 0.2 },
+      { selector: '.track-record-statistics-block', delay: 0.3 },
+      { selector: '.track-record-bottom-text-block', delay: 0.4 },
+      { selector: '.track-record-image-content-block', delay: 0.4 },
+    ];
+
+    card1Elements.forEach(({ selector, delay }) => {
+      const el = card1.querySelector(selector) as HTMLElement;
+      if (!el) return;
+      gsap.set(el, { opacity: 0, y: 100 });
+      gsap.to(el, {
+        opacity: 1,
+        y: 0,
+        duration: 1,
+        ease: 'power3.out',
+        delay,
+        scrollTrigger: { trigger: card1, start: scrollStart, once: true },
+      });
+    });
+  }
+
+  // === Statistics overlay marquee loop (IX2 a-15) ===
+  document.querySelectorAll('#Track-Record-Section .track-record-statistics-overlay').forEach((overlay) => {
+    const tl = gsap.timeline({ repeat: -1 });
+    tl.set(overlay, { x: -260 });
+    tl.to(overlay, { x: 550, duration: 1.2, ease: 'none' });
+    tl.to(overlay, { x: -260, duration: 1.2, ease: 'none' });
+  });
+
+  // === Card image hover: grayscale + scale (IX2 a-56/a-57) ===
+  const isDesktop = window.matchMedia('(min-width: 768px)').matches;
+
+  // Set default grayscale state on all card images
+  document.querySelectorAll('#Track-Record-Section .track-record-image').forEach((img) => {
+    gsap.set(img, { filter: 'grayscale(100%)', scale: 1 });
+  });
+
+  if (isDesktop) {
+    document.querySelectorAll('#Track-Record-Section .track-record-single-content-block').forEach((card) => {
+      const img = card.querySelector('.track-record-image') as HTMLElement;
+      if (!img) return;
+
+      card.addEventListener('mouseenter', () => {
+        gsap.to(img, { filter: 'grayscale(0%)', scale: 1.1, duration: 0.6, ease: 'ease' });
+      });
+
+      card.addEventListener('mouseleave', () => {
+        gsap.to(img, { filter: 'grayscale(100%)', scale: 1, duration: 0.6, ease: 'ease' });
+      });
+    });
+  }
+
+  // === Record liner scaleX animation ===
+  document.querySelectorAll('#Track-Record-Section .record-liner-two').forEach((liner) => {
+    gsap.set(liner, { scaleX: 0, transformOrigin: 'left center' });
+    gsap.to(liner, {
+      scaleX: 1,
+      duration: 1,
+      ease: 'power1.out',
+      delay: 0.4,
+      scrollTrigger: { trigger: liner, start: scrollStart, once: true },
+    });
+  });
+</script>

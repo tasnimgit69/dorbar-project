@@ -1,0 +1,290 @@
+---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import ButtonLink from '../ui/ButtonLink.astro';
+import { blogPosts, blogCategories } from '../../data/blogPosts';
+import { resolveImage } from '../../utils/resolveImage';
+
+const posts = blogPosts.slice(0, 6);
+const bottomRow = posts.slice(3, 6);
+
+const clockIcon = resolveImage('/images/icons/clock-icon.svg') as ImageMetadata;
+const userIcon = resolveImage('/images/icons/user-icon.svg') as ImageMetadata;
+---
+
+<section id="Blog-Section" class="bog-section">
+  <div class="section-gap-two">
+    <div class="container-default">
+      <div class="blog-wrapper">
+        <!-- Heading -->
+        <div class="blog-heading-block">
+          <div class="section-subtitle-block-two">
+            <div class="section-subtitle-liner-one" aria-hidden="true"></div>
+            <span class="section-subtitle-text-two">Insights & Resources</span>
+            <div class="section-subtitle-liner-two" aria-hidden="true"></div>
+          </div>
+          <div class="section-title-block-two">
+            <h2 class="section-title-two">Legal <span class="section-highlight-title-two">Insights</span> & Updates</h2>
+          </div>
+          <div class="section-summary-block-two max-w-550">
+            <p class="section-summary-two">Stay informed with expert commentary and news from our attorneys on the latest legal developments.</p>
+          </div>
+        </div>
+
+        <!-- Category Links -->
+        <div class="blog-category-block">
+          <div class="category-link-item-block">
+            <a href="/blog" class="blog-category-item-link">All</a>
+            {blogCategories.map((cat) => (
+              <a href={`/blog-categories/${cat.slug}`} class="blog-category-item-link">{cat.name}</a>
+            ))}
+          </div>
+        </div>
+
+        <!-- Desktop Content -->
+        <div class="blog-content-block desktop">
+          <div class="blog-card-row">
+            <!-- Left: Large card spanning 2 rows -->
+            <div class="blog-collection-list-block">
+              <div class="blog-item-card-block">
+                <a href={`/blog-post/${posts[0].slug}`} aria-label="Blog Item Image" class="blog-item-image-block">
+                  <Image src={resolveImage(posts[0].image) as ImageMetadata} loading="lazy" alt={posts[0].title} class="blog-item-image" width={800} height={600} />
+                </a>
+                <a href={`/blog-categories/${posts[0].categorySlug}`} class="blog-category-text">{posts[0].category}</a>
+                <div class="blog-item-content-block lg">
+                  <div class="blog-item-info-block">
+                    <div class="blog-single-info-block">
+                      <Image src={clockIcon} loading="lazy" alt="Clock" class="blog-info-icon" width={14} height={14} />
+                      <p class="blog-info-text">{posts[0].date}</p>
+                    </div>
+                    <div class="blog-single-info-block">
+                      <Image src={userIcon} loading="lazy" alt="Author" class="blog-info-icon" width={14} height={14} />
+                      <div class="blog-info-text-block">
+                        <p class="blog-info-text">By</p>
+                        <p class="blog-info-text">{posts[0].author}</p>
+                      </div>
+                    </div>
+                  </div>
+                  <a href={`/blog-post/${posts[0].slug}`} class="blog-item-title-block lg">
+                    <h3 class="blog-item-title lg">{posts[0].title}</h3>
+                  </a>
+                  <div class="blog-item-summary-block lg">
+                    <p class="blog-item-summary">{posts[0].summary}</p>
+                  </div>
+                  <ButtonLink href={`/blog-post/${posts[0].slug}`} label="Read Article" small />
+                </div>
+              </div>
+            </div>
+
+            <!-- Right top card -->
+            <div class="blog-collection-list-block">
+              <div class="blog-item-card-block">
+                <a href={`/blog-post/${posts[1].slug}`} aria-label="Blog Item Image" class="blog-item-image-block">
+                  <Image src={resolveImage(posts[1].image) as ImageMetadata} loading="lazy" alt={posts[1].title} class="blog-item-image sm" width={800} height={600} />
+                </a>
+                <a href={`/blog-categories/${posts[1].categorySlug}`} class="blog-category-text">{posts[1].category}</a>
+                <div class="blog-item-content-block">
+                  <div class="blog-item-info-block">
+                    <div class="blog-single-info-block">
+                      <Image src={clockIcon} loading="lazy" alt="Clock" class="blog-info-icon" width={14} height={14} />
+                      <p class="blog-info-text">{posts[1].date}</p>
+                    </div>
+                    <div class="blog-single-info-block">
+                      <Image src={userIcon} loading="lazy" alt="Author" class="blog-info-icon" width={14} height={14} />
+                      <div class="blog-info-text-block">
+                        <p class="blog-info-text">By</p>
+                        <p class="blog-info-text">{posts[1].author}</p>
+                      </div>
+                    </div>
+                  </div>
+                  <a href={`/blog-post/${posts[1].slug}`} class="blog-item-title-block">
+                    <h3 class="blog-item-title">{posts[1].title}</h3>
+                  </a>
+                  <div class="blog-item-summary-block none">
+                    <p class="blog-item-summary">{posts[1].summary}</p>
+                  </div>
+                  <ButtonLink href={`/blog-post/${posts[1].slug}`} label="Read Article" small />
+                </div>
+              </div>
+            </div>
+
+            <!-- Right bottom card -->
+            <div class="blog-collection-list-block">
+              <div class="blog-item-card-block">
+                <a href={`/blog-post/${posts[2].slug}`} aria-label="Blog Item Image" class="blog-item-image-block">
+                  <Image src={resolveImage(posts[2].image) as ImageMetadata} loading="lazy" alt={posts[2].title} class="blog-item-image sm" width={800} height={600} />
+                </a>
+                <a href={`/blog-categories/${posts[2].categorySlug}`} class="blog-category-text">{posts[2].category}</a>
+                <div class="blog-item-content-block">
+                  <div class="blog-item-info-block is-2">
+                    <div class="blog-single-info-block">
+                      <Image src={clockIcon} loading="lazy" alt="Clock" class="blog-info-icon" width={14} height={14} />
+                      <p class="blog-info-text">{posts[2].date}</p>
+                    </div>
+                    <div class="blog-single-info-block">
+                      <Image src={userIcon} loading="lazy" alt="Author" class="blog-info-icon" width={14} height={14} />
+                      <div class="blog-info-text-block">
+                        <p class="blog-info-text">By</p>
+                        <p class="blog-info-text">{posts[2].author}</p>
+                      </div>
+                    </div>
+                  </div>
+                  <a href={`/blog-post/${posts[2].slug}`} class="blog-item-title-block">
+                    <h3 class="blog-item-title">{posts[2].title}</h3>
+                  </a>
+                  <div class="blog-item-summary-block none">
+                    <p class="blog-item-summary">{posts[2].summary}</p>
+                  </div>
+                  <ButtonLink href={`/blog-post/${posts[2].slug}`} label="Read Article" small />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {bottomRow.length > 0 && (
+            <div class="blog-collection-list is-3">
+              {bottomRow.map((post) => (
+                <div class="blog-item-card-block">
+                  <a href={`/blog-post/${post.slug}`} aria-label="Blog Item Image" class="blog-item-image-block">
+                    <Image src={resolveImage(post.image) as ImageMetadata} loading="lazy" alt={post.title} class="blog-item-image" width={800} height={600} />
+                  </a>
+                  <a href={`/blog-categories/${post.categorySlug}`} class="blog-category-text">{post.category}</a>
+                  <div class="blog-item-content-block">
+                    <div class="blog-item-info-block">
+                      <div class="blog-single-info-block">
+                        <Image src={clockIcon} loading="lazy" alt="Clock" class="blog-info-icon" width={14} height={14} />
+                        <p class="blog-info-text">{post.date}</p>
+                      </div>
+                      <div class="blog-single-info-block">
+                        <Image src={userIcon} loading="lazy" alt="Author" class="blog-info-icon" width={14} height={14} />
+                        <div class="blog-info-text-block">
+                          <p class="blog-info-text">By</p>
+                          <p class="blog-info-text">{post.author}</p>
+                        </div>
+                      </div>
+                    </div>
+                    <a href={`/blog-post/${post.slug}`} class="blog-item-title-block">
+                      <h3 class="blog-item-title">{post.title}</h3>
+                    </a>
+                    <div class="blog-item-summary-block">
+                      <p class="blog-item-summary">{post.summary}</p>
+                    </div>
+                    <ButtonLink href={`/blog-post/${post.slug}`} label="Read Article" small />
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+
+        <!-- Mobile Content (Swiper Slider) -->
+        <div class="blog-content-block mobile">
+          <div class="blog-slider-block swiper" id="blog-slider">
+            <div class="swiper-wrapper">
+              {posts.map((post) => (
+                <div class="swiper-slide">
+                  <div class="blog-item-card-block">
+                    <a href={`/blog-post/${post.slug}`} aria-label="Blog Item Image" class="blog-item-image-block">
+                      <Image src={resolveImage(post.image) as ImageMetadata} loading="lazy" alt={post.title} class="blog-item-image" width={800} height={600} />
+                    </a>
+                    <a href={`/blog-categories/${post.categorySlug}`} class="blog-category-text">{post.category}</a>
+                    <div class="blog-item-content-block">
+                      <div class="blog-item-info-block">
+                        <div class="blog-single-info-block">
+                          <Image src={clockIcon} loading="lazy" alt="Clock" class="blog-info-icon" width={14} height={14} />
+                          <p class="blog-info-text">{post.date}</p>
+                        </div>
+                        <div class="blog-single-info-block">
+                          <Image src={userIcon} loading="lazy" alt="Author" class="blog-info-icon" width={14} height={14} />
+                          <div class="blog-info-text-block">
+                            <p class="blog-info-text">By</p>
+                            <p class="blog-info-text">{post.author}</p>
+                          </div>
+                        </div>
+                      </div>
+                      <a href={`/blog-post/${post.slug}`} class="blog-item-title-block">
+                        <h3 class="blog-item-title">{post.title}</h3>
+                      </a>
+                      <div class="blog-item-summary-block mobile-none">
+                        <p class="blog-item-summary">{post.summary}</p>
+                      </div>
+                      <ButtonLink href={`/blog-post/${post.slug}`} label="Read Article" small />
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import Swiper from 'swiper';
+  import 'swiper/css';
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  const scrollStart = 'top 90%';
+
+  // === Heading elements: slideInBottom ===
+  const headingElements = [
+    { selector: '#Blog-Section .section-subtitle-block-two', delay: 0.2 },
+    { selector: '#Blog-Section .section-title-block-two', delay: 0.2 },
+    { selector: '#Blog-Section .section-summary-block-two', delay: 0.2 },
+    { selector: '#Blog-Section .blog-category-block', delay: 0.2 },
+  ];
+
+  headingElements.forEach(({ selector, delay }) => {
+    const el = document.querySelector(selector) as HTMLElement;
+    if (!el) return;
+    gsap.set(el, { opacity: 0, y: 100 });
+    gsap.to(el, {
+      opacity: 1,
+      y: 0,
+      duration: 1,
+      ease: 'power3.out',
+      delay,
+      scrollTrigger: { trigger: el, start: scrollStart, once: true },
+    });
+  });
+
+  // === Desktop cards: slideInBottom with stagger ===
+  const desktopCards = document.querySelectorAll('#Blog-Section .blog-content-block.desktop .blog-item-card-block');
+  desktopCards.forEach((el, i) => {
+    gsap.set(el, { opacity: 0, y: 100 });
+    gsap.to(el, {
+      opacity: 1,
+      y: 0,
+      duration: 1,
+      ease: 'power3.out',
+      delay: 0.2 + i * 0.1,
+      scrollTrigger: { trigger: el, start: scrollStart, once: true },
+    });
+  });
+
+  // === Mobile slider mask: fadeIn ===
+  const sliderMask = document.querySelector('#Blog-Section .blog-content-block.mobile .swiper-wrapper') as HTMLElement;
+  if (sliderMask) {
+    gsap.set(sliderMask, { opacity: 0 });
+    gsap.to(sliderMask, {
+      opacity: 1,
+      duration: 1,
+      ease: 'power3.out',
+      delay: 0.2,
+      scrollTrigger: { trigger: sliderMask, start: scrollStart, once: true },
+    });
+  }
+
+  // === Initialize Swiper for mobile blog slider ===
+  new Swiper('#blog-slider', {
+    slidesPerView: 1,
+    spaceBetween: 20,
+    speed: 500,
+  });
+</script>

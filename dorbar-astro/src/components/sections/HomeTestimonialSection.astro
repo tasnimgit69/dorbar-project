@@ -1,0 +1,105 @@
+---
+import TestimonialCard from '../cards/TestimonialCard.astro';
+import { homeTestimonials } from '../../data/home';
+---
+
+<section id="Testimonial-Section" class="testimonial-section">
+  <div class="section-gap-two top">
+    <div class="container-default">
+      <div class="testimonial-wrapper-two">
+        <div class="testimonial-heading-block-two bottom-64px-gap">
+          <div class="section-subtitle-block-two">
+            <div class="section-subtitle-liner-one" aria-hidden="true"></div>
+            <span class="section-subtitle-text-two">Client Success Stories</span>
+            <div class="section-subtitle-liner-two" aria-hidden="true"></div>
+          </div>
+          <div class="section-title-block-two">
+            <h2 class="section-title-two">Trusted by <span class="section-highlight-title-two">Clients</span> Nationwide</h2>
+          </div>
+          <div class="section-summary-block-two max-w-600">
+            <p class="section-summary-two">We've guided hundreds of clients with integrity, dedication, and proven results that speak for themselves.</p>
+          </div>
+        </div>
+
+        <div class="testimonial-content-block-two">
+          <div class="testimonial-slider-two swiper" id="testimonial-slider">
+            <div class="testimonial-slider-mask-two swiper-wrapper">
+              {homeTestimonials.map((testimonial) => (
+                <div class="testimonial-slide-two swiper-slide">
+                  <div class="testimonial-slide-inner-two">
+                    <TestimonialCard
+                      name={testimonial.name}
+                      designation={testimonial.designation}
+                      quote={testimonial.quote}
+                      avatar={testimonial.avatar}
+                      rating={testimonial.rating}
+                    />
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <!-- Pagination -->
+            <div class="testimonial-pagination swiper-pagination"></div>
+          </div>
+        </div>
+
+        <!-- Overlays -->
+        <div class="testimoial-left-overlay" aria-hidden="true"></div>
+        <div class="testimoial-right-overlay" aria-hidden="true"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import Swiper from 'swiper';
+  import { Pagination } from 'swiper/modules';
+  import 'swiper/css';
+  import 'swiper/css/pagination';
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  const scrollStart = 'top 90%';
+
+  // === slideInBottom animations (IX2: y 100→0, opacity 0→1, 1s, outQuart) ===
+  const animElements = [
+    { selector: '#Testimonial-Section .section-subtitle-block-two', delay: 0.2 },
+    { selector: '#Testimonial-Section .section-title-block-two', delay: 0.2 },
+    { selector: '#Testimonial-Section .section-summary-block-two', delay: 0.4 },
+    { selector: '#Testimonial-Section .testimonial-slider-two', delay: 0.4 },
+  ];
+
+  animElements.forEach(({ selector, delay }) => {
+    const el = document.querySelector(selector) as HTMLElement;
+    if (!el) return;
+    gsap.set(el, { opacity: 0, y: 100 });
+    gsap.to(el, {
+      opacity: 1,
+      y: 0,
+      duration: 1,
+      ease: 'power3.out',
+      delay,
+      scrollTrigger: { trigger: el, start: scrollStart, once: true },
+    });
+  });
+
+  // === Initialize Swiper (4 slides, 3 visible on large devices) ===
+  new Swiper('#testimonial-slider', {
+    modules: [Pagination],
+    slidesPerView: 1,
+    spaceBetween: 20,
+    rewind: true,
+    speed: 500,
+    pagination: {
+      el: '#Testimonial-Section .swiper-pagination',
+      clickable: true,
+    },
+    breakpoints: {
+      768: { slidesPerView: 2 },
+      1024: { slidesPerView: 3 },
+    },
+  });
+</script>

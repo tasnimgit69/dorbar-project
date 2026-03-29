@@ -1,0 +1,24 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import ServiceHeroSection from '../components/sections/ServiceHeroSection.astro';
+import AreasOfPracticeSection from '../components/sections/AreasOfPracticeSection.astro';
+import FeaturedPracticeSection from '../components/sections/FeaturedPracticeSection.astro';
+import WhyTrustSection from '../components/sections/WhyTrustSection.astro';
+import CaseStudiesSection from '../components/sections/CaseStudiesSection.astro';
+import CtaBanner from '../components/sections/CtaBanner.astro';
+---
+
+<PageLayout
+  title="Services | Dorbar Law Firm"
+  description="Comprehensive legal expertise personalized for you. We provide trusted representation across diverse areas of law."
+>
+  <ServiceHeroSection />
+  <AreasOfPracticeSection />
+  <FeaturedPracticeSection />
+  <WhyTrustSection />
+  <CaseStudiesSection />
+  <CtaBanner
+    title="Need Legal Guidance?"
+    summary="Speak with our experienced attorneys today for a free initial consultation and discover how we can help protect your interests."
+  />
+</PageLayout>

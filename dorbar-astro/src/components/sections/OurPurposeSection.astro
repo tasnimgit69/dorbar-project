@@ -1,0 +1,65 @@
+---
+import { purposeCards } from '../../data/about';
+---
+
+<section class="our-purpose-section" id="Our-Purpose-Section">
+  <div class="section-gap-two">
+    <div class="container-default">
+      <div class="our-purpose-wrapper">
+        {purposeCards.map((card, i) => (
+          <div class={`our-purpose-single-block${i === 1 ? ' middle' : ''}`}>
+            <div class="our-purpose-icon-block">
+              <div class="our-purpose-icon">
+                {card.icon === 'layers' && (
+                  <svg width="37" height="37" viewBox="0 0 37 37" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <path d="M18.835 3.53125L3.83502 11.0312L18.835 18.5312L33.835 11.0312L18.835 3.53125Z" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M3.83502 26.0312L18.835 33.5312L33.835 26.0312" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M3.83502 18.5312L18.835 26.0312L33.835 18.5312" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                )}
+                {card.icon === 'clock' && (
+                  <svg width="37" height="37" viewBox="0 0 37 37" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <path d="M18.485 33.5312C26.7693 33.5312 33.485 26.8155 33.485 18.5312C33.485 10.247 26.7693 3.53125 18.485 3.53125C10.2007 3.53125 3.48499 10.247 3.48499 18.5312C3.48499 26.8155 10.2007 33.5312 18.485 33.5312Z" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M18.485 9.53125V18.5312L24.485 21.5312" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                )}
+                {card.icon === 'users' && (
+                  <svg width="37" height="37" viewBox="0 0 37 37" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <path d="M30.665 32.0312V29.0312C30.665 27.44 30.0328 25.9138 28.9076 24.7886C27.7824 23.6634 26.2563 23.0313 24.665 23.0312H12.665C11.0737 23.0313 9.54754 23.6634 8.42232 24.7886C7.2971 25.9138 6.66496 27.44 6.66496 29.0312V32.0312" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M18.665 17.0312C21.9787 17.0312 24.665 14.345 24.665 11.0312C24.665 7.71754 21.9787 5.03125 18.665 5.03125C15.3513 5.03125 12.665 7.71754 12.665 11.0312C12.665 14.345 15.3513 17.0312 18.665 17.0312Z" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                )}
+              </div>
+            </div>
+            <div class="our-purpose-text-block">
+              <h2 class="our-purpose-title">{card.title}</h2>
+              <p class="our-purpose-summary">{card.description}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  const scrollStart = 'top 90%';
+
+  const blocks = document.querySelectorAll('#Our-Purpose-Section .our-purpose-single-block');
+  blocks.forEach((el, i) => {
+    gsap.set(el, { opacity: 0, y: 100 });
+    gsap.to(el, {
+      opacity: 1,
+      y: 0,
+      duration: 1,
+      ease: 'power3.out',
+      delay: 0.1 + i * 0.15,
+      scrollTrigger: { trigger: el, start: scrollStart, once: true },
+    });
+  });
+</script>

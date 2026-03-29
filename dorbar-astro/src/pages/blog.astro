@@ -1,0 +1,29 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import BlogHeroSection from '../components/sections/BlogHeroSection.astro';
+import BlogCategorySection from '../components/sections/BlogCategorySection.astro';
+import BlogGridSection from '../components/sections/BlogGridSection.astro';
+import BlogQuoteSection from '../components/sections/BlogQuoteSection.astro';
+import BlogCtaSection from '../components/sections/BlogCtaSection.astro';
+import { blogPosts } from '../data/blogPosts';
+---
+
+<PageLayout
+  title="Blog | Dorbar Law Firm"
+  description="Expert analysis, legal updates, and thought leadership from our attorneys on the issues that matter most."
+>
+  <!-- Hero Section -->
+  <BlogHeroSection />
+
+  <!-- Category Filter Section -->
+  <BlogCategorySection />
+
+  <!-- Blog Grid Section -->
+  <BlogGridSection posts={blogPosts} />
+
+  <!-- Quote Section -->
+  <BlogQuoteSection />
+
+  <!-- CTA Section -->
+  <BlogCtaSection />
+</PageLayout>

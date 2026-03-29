@@ -1,0 +1,179 @@
+---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import { resolveImage } from '../utils/resolveImage';
+import { siteConfig } from '../data/siteConfig';
+
+const brandLogo = resolveImage('/images/vector.webp') as ImageMetadata;
+
+const practiceAreaLinks = [
+  { label: 'Corporate Law', href: '/services/corporate-law' },
+  { label: 'Mergers & Acquisitions', href: '/services/mergers-acquisitions' },
+  { label: 'Commercial Litigation', href: '/services/commercial-litigation' },
+  { label: 'Family Law', href: '/services/family-law' },
+  { label: 'Estate Planning', href: '/services/estate-planning' },
+  { label: 'Real Estate', href: '/services/real-estate' },
+  { label: 'Intellectual Property', href: '/services/intellectual-property' },
+];
+
+const companyLinks = [
+  { label: 'About Us', href: '/about' },
+  { label: 'Consultation', href: '/consultation' },
+  { label: 'Services', href: '/services' },
+  { label: 'Our Attorneys', href: '/attorneys' },
+  { label: 'Contact', href: '/contact' },
+  { label: '404 Page', href: '/404' },
+  { label: '401 Page', href: '/401' },
+];
+
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="footer-two">
+  <div class="footer-section-gap-two">
+    <div class="container-default">
+      <div class="footer-wrapper">
+        <div class="footer-content-block-two">
+          <div class="footer-link-block-two">
+
+            <!-- Column 1: Logo + Info + Social -->
+            <div class="footer-info-block">
+              <a href="/" class="footer-logo-block" aria-label="Dorbar - Home">
+                <Image src={brandLogo} alt="Dorbar Logo" class="brand-logo" loading="lazy" />
+              </a>
+
+              <div class="footer-text-block">
+                <p class="footer-summary-text-two">A boutique law firm dedicated to excellence, integrity, and exceptional client service. Serving clients nationwide with expertise in corporate, litigation, and family law.</p>
+              </div>
+
+              <div class="footer-contact-info-block">
+                <!-- Address -->
+                <div class="contact-single-info-block-two">
+                  <div class="contact-info-icon-two footer">
+                    <svg width="16" height="22" viewBox="0 0 14 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                      <path d="M7 0C3.13 0 0 3.13 0 7C0 12.25 7 20 7 20C7 20 14 12.25 14 7C14 3.13 10.87 0 7 0ZM7 9.5C5.62 9.5 4.5 8.38 4.5 7C4.5 5.62 5.62 4.5 7 4.5C8.38 4.5 9.5 5.62 9.5 7C9.5 8.38 8.38 9.5 7 9.5Z" fill="currentColor"/>
+                    </svg>
+                  </div>
+                  <div class="contact-info-text-two footer text">123 Legan Plaza, Suite 1000 New York, NY 10001</div>
+                </div>
+
+                <!-- Phone -->
+                <div class="contact-single-info-block-two">
+                  <div class="contact-info-icon-two footer">
+                    <svg width="22" height="22" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                      <path d="M17 12.5C15.75 12.5 14.55 12.3 13.43 11.93C13.08 11.82 12.69 11.9 12.41 12.17L10.21 14.37C7.38 12.93 5.06 10.62 3.62 7.78L5.82 5.57C6.1 5.31 6.18 4.92 6.07 4.57C5.7 3.45 5.5 2.25 5.5 1C5.5 0.45 5.05 0 4.5 0H1C0.45 0 0 0.45 0 1C0 10.39 7.61 18 17 18C17.55 18 18 17.55 18 17V13.5C18 12.95 17.55 12.5 17 12.5Z" fill="currentColor"/>
+                    </svg>
+                  </div>
+                  <a href="tel:(555)123456789" class="contact-info-text-two footer">(555) 123456789</a>
+                </div>
+
+                <!-- Email -->
+                <div class="contact-single-info-block-two">
+                  <div class="contact-info-icon-two footer">
+                    <svg width="22" height="18" viewBox="0 0 20 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                      <path d="M18 0H2C0.9 0 0 0.9 0 2V14C0 15.1 0.9 16 2 16H18C19.1 16 20 15.1 20 14V2C20 0.9 19.1 0 18 0ZM18 4L10 9L2 4V2L10 7L18 2V4Z" fill="currentColor"/>
+                    </svg>
+                  </div>
+                  <a href="mailto:info@example.com" class="contact-info-text-two footer">info@example.com</a>
+                </div>
+
+                <!-- Social Icons -->
+                <div class="footer-icon-block-two">
+                  <a href={siteConfig.social.linkedin} target="_blank" rel="noopener noreferrer" class="contact-social-icon-block" aria-label="LinkedIn">
+                    <div class="contact-social-icon"><svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                      <path d="M13.8994 6.77344C15.2255 6.77344 16.4973 7.30022 17.4349 8.2379C18.3726 9.17559 18.8994 10.4474 18.8994 11.7734V17.6068H15.5661V11.7734C15.5661 11.3314 15.3905 10.9075 15.0779 10.5949C14.7654 10.2824 14.3414 10.1068 13.8994 10.1068C13.4574 10.1068 13.0335 10.2824 12.7209 10.5949C12.4083 10.9075 12.2327 11.3314 12.2327 11.7734V17.6068H8.89941V11.7734C8.89941 10.4474 9.4262 9.17559 10.3639 8.2379C11.3016 7.30022 12.5733 6.77344 13.8994 6.77344Z" stroke="currentColor" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"></path>
+                      <path d="M5.56673 7.60547H2.2334V17.6055H5.56673V7.60547Z" stroke="currentColor" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"></path>
+                      <path d="M3.90007 5.10677C4.82054 5.10677 5.56673 4.36058 5.56673 3.4401C5.56673 2.51963 4.82054 1.77344 3.90007 1.77344C2.97959 1.77344 2.2334 2.51963 2.2334 3.4401C2.2334 4.36058 2.97959 5.10677 3.90007 5.10677Z" stroke="currentColor" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"></path>
+                    </svg></div>
+                  </a>
+                  <a href={siteConfig.social.facebook} target="_blank" rel="noopener noreferrer" class="contact-social-icon-block" aria-label="Facebook">
+                    <div class="contact-social-icon"><svg width="12" height="20" viewBox="0 0 12 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                      <path d="M10.5661 1.77344H8.06608C6.96101 1.77344 5.9012 2.21242 5.1198 2.99383C4.3384 3.77523 3.89941 4.83504 3.89941 5.9401V8.4401H1.39941V11.7734H3.89941V18.4401H7.23275V11.7734H9.73275L10.5661 8.4401H7.23275V5.9401C7.23275 5.71909 7.32054 5.50713 7.47682 5.35085C7.6331 5.19457 7.84507 5.10677 8.06608 5.10677H10.5661V1.77344Z" stroke="currentColor" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"></path>
+                    </svg></div>
+                  </a>
+                  <a href={siteConfig.social.instagram} target="_blank" rel="noopener noreferrer" class="contact-social-icon-block" aria-label="Instagram">
+                    <div class="contact-social-icon"><svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                      <path d="M14.7334 1.77344H6.40006C4.09888 1.77344 2.2334 3.63892 2.2334 5.9401V14.2734C2.2334 16.5746 4.09888 18.4401 6.40006 18.4401H14.7334C17.0346 18.4401 18.9001 16.5746 18.9001 14.2734V5.9401C18.9001 3.63892 17.0346 1.77344 14.7334 1.77344Z" stroke="currentColor" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"></path>
+                      <path d="M13.9001 9.57877C14.003 10.2723 13.8845 10.9806 13.5616 11.6029C13.2387 12.2253 12.7278 12.7299 12.1015 13.0452C11.4752 13.3604 10.7655 13.4701 10.0733 13.3587C9.38108 13.2473 8.74161 12.9205 8.24585 12.4247C7.75008 11.929 7.42326 11.2895 7.31187 10.5973C7.20048 9.90506 7.3102 9.19535 7.62542 8.56908C7.94064 7.94281 8.4453 7.43188 9.06763 7.10897C9.68997 6.78605 10.3983 6.66759 11.0918 6.77043C11.7992 6.87534 12.4542 7.20499 12.9599 7.71069C13.4656 8.21639 13.7952 8.87133 13.9001 9.57877Z" stroke="currentColor" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"></path>
+                      <path d="M15.1499 5.52344H15.1582" stroke="currentColor" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"></path>
+                    </svg></div>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Column 2: Practice Areas -->
+            <div class="footer-link-column-block-two">
+              <div class="footer-link-title-block-two">
+                <h3 class="footer-link-title-two">Practice Areas</h3>
+                <div class="footer-link-title-liner-two"></div>
+              </div>
+              {practiceAreaLinks.map((link) => (
+                <a href={link.href} class="footer-link-two">{link.label}</a>
+              ))}
+            </div>
+
+            <!-- Column 3: Company -->
+            <div class="footer-link-column-block-two">
+              <div class="footer-link-title-block-two">
+                <h3 class="footer-link-title-two">Company</h3>
+                <div class="footer-link-title-liner-two"></div>
+              </div>
+              {companyLinks.map((link) => (
+                <a href={link.href} class="footer-link-two">{link.label}</a>
+              ))}
+            </div>
+
+            <!-- Column 4: Newsletter -->
+            <div class="footer-link-column-block-two">
+              <div class="footer-link-title-block-two">
+                <h3 class="footer-link-title-two">Legal Insights</h3>
+                <div class="footer-link-title-liner-two"></div>
+              </div>
+              <div class="legal-insights-text-block">
+                <p class="legal-insights-text">Stay informed with our monthly newsletter covering the latest legal developments, firm news, and practical guidance.</p>
+              </div>
+              <div class="footer-form-block">
+                <form class="footer-form-inner-block" method="post" action="/api/newsletter">
+                  <div class="footer-text-field-block">
+                    <label for="footer-email" class="sr-only">Email address</label>
+                    <input
+                      class="footer-form-text-field"
+                      type="email"
+                      name="email"
+                      id="footer-email"
+                      placeholder="Enter your email"
+                      required
+                      autocomplete="email"
+                    />
+                    <button type="submit" class="footer-form-button">Subscribe</button>
+                  </div>
+                </form>
+              </div>
+              <div class="legal-insights-text-block">
+                <p class="legal-insights-text sm">By subscribing, you agree to our Privacy Policy and consent to receive legal updates and firm news.</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Footer Bottom Bar -->
+        <div class="footer-bottom-block-two">
+          <div class="footer-bottom-text-block">
+            <p class="footer-bottom-text-two">
+              Copyright &copy; {currentYear} Dorbar | Designed by
+              <a href="https://hasthemes.com/" target="_blank" rel="noopener noreferrer" class="footer-bottom-textlink-two">Hasthemes</a>
+            </p>
+          </div>
+          <div class="footer-bottom-link-block">
+            <a href="/licenses" class="footer-link-two">Licenses</a>
+            <a href="/style-guide" class="footer-link-two">Style Guide</a>
+            <a href="/changelog" class="footer-link-two">Changelog</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</footer>

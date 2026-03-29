@@ -1,0 +1,78 @@
+---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import { leadership } from '../../data/about';
+import { resolveImage } from '../../utils/resolveImage';
+---
+
+<section class="attorney-section" id="Leadership-Section">
+  <div class="section-gap-two top">
+    <div class="container-default">
+      <div class="attorney-heading-block">
+        <div class="section-title-block-two max-w-600">
+          <h2 class="section-title-two">Our Leadership</h2>
+        </div>
+      </div>
+      <div class="attorney-wrapper about">
+        {leadership.map((attorney) => (
+          <div class="attorney-card-item-block">
+            <div class="attorney-item-image-block">
+              <Image src={resolveImage(attorney.image) as ImageMetadata} loading="lazy" alt={attorney.name} class="attorney-item-image about" width={300} height={375} />
+            </div>
+            <div class="attorney-item-content-block">
+              <div class="attorney-item-name-block">
+                <h3 class="attorney-name">{attorney.name}</h3>
+                <div class="attorney-designation">{attorney.role}</div>
+              </div>
+              <div class="attorney-item-summary-block about">
+                <p class="attorney-item-summary">{attorney.bio}</p>
+              </div>
+              <div class="attorney-item-bottom-block">
+                <div class="attorney-bottom-name-block">
+                  <h4 class="attorney-bottom-name">— {attorney.name}</h4>
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  const scrollStart = 'top 90%';
+
+  // === Title: slideInBottom ===
+  const title = document.querySelector('#Leadership-Section .section-title-two') as HTMLElement;
+  if (title) {
+    gsap.set(title, { opacity: 0, y: 100 });
+    gsap.to(title, {
+      opacity: 1,
+      y: 0,
+      duration: 1,
+      ease: 'power3.out',
+      delay: 0.1,
+      scrollTrigger: { trigger: title, start: scrollStart, once: true },
+    });
+  }
+
+  // === Attorney cards: slideInBottom with stagger ===
+  const cards = document.querySelectorAll('#Leadership-Section .attorney-card-item-block');
+  cards.forEach((el, i) => {
+    gsap.set(el, { opacity: 0, y: 100 });
+    gsap.to(el, {
+      opacity: 1,
+      y: 0,
+      duration: 1,
+      ease: 'power3.out',
+      delay: 0.1 + i * 0.15,
+      scrollTrigger: { trigger: el, start: scrollStart, once: true },
+    });
+  });
+</script>

@@ -1,0 +1,64 @@
+---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import ButtonPrimary from '../ui/ButtonPrimary.astro';
+import { resolveImage } from '../../utils/resolveImage';
+
+interface Props {
+  title: string;
+  summary: string;
+  heroImage: string;
+}
+
+const { title, summary, heroImage } = Astro.props;
+---
+
+<section class="service-details-hero-section" id="Service-Details-Hero">
+  <div class="service-details-hero-gap">
+    <div class="container-default">
+      <div class="service-details-hero-wrapper">
+        <div class="service-details-hero-content-block">
+          <div class="service-details-hero-title-block">
+            <div class="hero-subtitle">Practice Area</div>
+            <h1 class="hero-title">{title}</h1>
+          </div>
+          <div class="service-details-hero-summary-block">
+            <p class="section-summary">{summary}</p>
+          </div>
+          <div class="service-details-hero-button-block">
+            <ButtonPrimary href="/consultation" label="Request Consultation" showIcon={false} />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="service-details-hero-bg-block">
+    <Image src={resolveImage(heroImage) as ImageMetadata} loading="lazy" alt={title} class="service-details-hero-bg-image" width={1920} height={800} />
+    <div class="service-details-hero-bg-overlay"></div>
+  </div>
+</section>
+
+<script>
+  import { gsap } from 'gsap';
+
+  const hero = document.querySelector('#Service-Details-Hero');
+  if (hero) {
+    const subtitle = hero.querySelector('.hero-subtitle');
+    const title = hero.querySelector('.hero-title');
+    const summary = hero.querySelector('.section-summary');
+    const buttonBlock = hero.querySelector('.service-details-hero-button-block');
+
+    if (subtitle) {
+      gsap.fromTo(subtitle, { opacity: 0, y: 100 }, { opacity: 1, y: 0, duration: 1, delay: 0.1, ease: 'power3.out' });
+    }
+    if (title) {
+      gsap.fromTo(title, { opacity: 0, y: 100 }, { opacity: 1, y: 0, duration: 1, delay: 0.3, ease: 'power3.out' });
+    }
+    if (summary) {
+      gsap.fromTo(summary, { opacity: 0, y: 100 }, { opacity: 1, y: 0, duration: 1, delay: 0.5, ease: 'power3.out' });
+    }
+    if (buttonBlock) {
+      gsap.fromTo(buttonBlock, { opacity: 0, y: 100 }, { opacity: 1, y: 0, duration: 1, delay: 0.7, ease: 'power3.out' });
+    }
+  }
+</script>

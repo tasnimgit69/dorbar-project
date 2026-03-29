@@ -1,0 +1,56 @@
+---
+import type { ImageMetadata } from 'astro';
+import ButtonPrimary from '../ui/ButtonPrimary.astro';
+import ButtonSecondary from '../ui/ButtonSecondary.astro';
+import { resolveImage } from '../../utils/resolveImage';
+
+const bgImage = resolveImage('/images/consultation/consultation-hero-bg-min.webp');
+const bgUrl = typeof bgImage === 'string' ? bgImage : (bgImage as ImageMetadata).src;
+---
+
+<section class="consultation-hero-section" id="Consultation-Hero-Section" style={`--bg-image: url('${bgUrl}')`}>
+  <div class="consultation-hero-gap">
+    <div class="container-default">
+      <div class="consultation-hero-wrapper">
+        <div class="consultation-hero-text-block">
+          <h1 class="consultation-hero-title">Schedule Your Legal Consultation</h1>
+          <p class="consultation-hero-summary">Choose the consultation that best fits your legal needs — confidential, personalized, and professional.</p>
+        </div>
+        <div class="consultation-hero-button-block">
+          <ButtonSecondary href="/contact" label="Book Free Consultation" />
+          <ButtonPrimary href="/contact" label="Book Premium Consultation" showIcon={false} />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  const scrollStart = 'top 90%';
+
+  // === slideInBottom animations matching IX2 delays ===
+  const elements = [
+    { selector: '#Consultation-Hero-Section .consultation-hero-title', delay: 0.1 },
+    { selector: '#Consultation-Hero-Section .consultation-hero-summary', delay: 0.3 },
+    { selector: '#Consultation-Hero-Section .consultation-hero-button-block', delay: 0.5 },
+  ];
+
+  elements.forEach(({ selector, delay }) => {
+    const el = document.querySelector(selector) as HTMLElement;
+    if (!el) return;
+    gsap.set(el, { opacity: 0, y: 100 });
+    gsap.to(el, {
+      opacity: 1,
+      y: 0,
+      duration: 1,
+      ease: 'power3.out',
+      delay,
+      scrollTrigger: { trigger: el, start: scrollStart, once: true },
+    });
+  });
+</script>

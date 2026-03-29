@@ -1,0 +1,69 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import ServiceDetailHeroSection from '../../components/sections/ServiceDetailHeroSection.astro';
+import ServiceDetailStatSection from '../../components/sections/ServiceDetailStatSection.astro';
+import ServiceDetailServicesSection from '../../components/sections/ServiceDetailServicesSection.astro';
+import ServiceDetailProtectSection from '../../components/sections/ServiceDetailProtectSection.astro';
+import ServiceDetailWhyChooseSection from '../../components/sections/ServiceDetailWhyChooseSection.astro';
+import ServiceDetailFaqSection from '../../components/sections/ServiceDetailFaqSection.astro';
+import ServiceDetailCtaSection from '../../components/sections/ServiceDetailCtaSection.astro';
+import { serviceDetails, type ServiceDetail } from '../../data/serviceDetails';
+import type { GetStaticPaths } from 'astro';
+
+export const getStaticPaths: GetStaticPaths = () => {
+  return serviceDetails.map((service) => ({
+    params: { slug: service.slug },
+    props: { service },
+  }));
+};
+
+const { service } = Astro.props as { service: ServiceDetail };
+
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "LegalService",
+  "name": service.title,
+  "description": service.heroSummary,
+  "provider": { "@type": "Organization", "name": "Dorbar & Associates" },
+};
+---
+
+<PageLayout
+  title={`${service.title} | Dorbar Law Firm`}
+  description={service.heroSummary}
+  schema={serviceSchema}
+>
+  <ServiceDetailHeroSection
+    title={service.title}
+    summary={service.heroSummary}
+    heroImage={service.heroImage}
+  />
+
+  <ServiceDetailStatSection
+    heading={service.statsHeading}
+    description={service.statsDescription}
+    stats={service.stats}
+  />
+
+  <ServiceDetailServicesSection
+    heading={service.servicesHeading}
+    summary={service.servicesSummary}
+    cards={service.serviceCards}
+  />
+
+  <ServiceDetailProtectSection
+    image={service.protectImage}
+    title={service.protectContent.title}
+    items={service.protectContent.items}
+  />
+
+  <ServiceDetailWhyChooseSection
+    heading={service.whyChooseHeading}
+    summary={service.whyChooseSummary}
+    cards={service.whyChooseCards}
+  />
+
+  <ServiceDetailFaqSection faqs={service.faqs} />
+
+  <ServiceDetailCtaSection title={service.ctaTitle} summary={service.ctaSummary} />
+</PageLayout>

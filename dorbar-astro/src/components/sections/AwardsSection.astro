@@ -1,0 +1,155 @@
+---
+import ButtonLink from '../ui/ButtonLink.astro';
+import { awards, awardStats } from '../../data/awards';
+---
+
+<section class="award-section" id="Award-Section">
+  <div class="section-gap-two">
+    <div class="container-default">
+      <div class="award-wrapper">
+        <div class="award-text-block">
+          <div class="award-title-block">
+            <h2 class="award-title">Recognized by Leading Legal Institutions</h2>
+          </div>
+          <div class="award-summary-block">
+            <p class="award-summary">We are honored to be recognized by distinguished legal associations and industry authorities for our unwavering commitment to excellence, integrity, and exceptional client service.</p>
+          </div>
+          <div class="award-stats-block">
+            <div class="award-single-stats-block">
+              <div class="award-stats-icon-block">
+                <div class="award-stats-icon">
+                  <svg width="23" height="23" viewBox="0 0 23 23" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <path d="M11.3815 2.60547L2.21484 7.1888L11.3815 11.7721L20.5482 7.1888L11.3815 2.60547Z" stroke="currentColor" stroke-width="1.83333" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M2.21484 16.3555L11.3815 20.9388L20.5482 16.3555" stroke="currentColor" stroke-width="1.83333" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M2.21484 11.7734L11.3815 16.3568L20.5482 11.7734" stroke="currentColor" stroke-width="1.83333" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </div>
+              </div>
+              <div class="award-stats-text-block">
+                <div class="award-stats-number">{awardStats.totalAwardsReceived}</div>
+                <p class="award-stats-summary">Awards Received</p>
+              </div>
+            </div>
+            <div class="award-single-stats-block">
+              <div class="award-stats-icon-block">
+                <div class="award-stats-icon">
+                  <svg width="23" height="23" viewBox="0 0 23 23" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <path d="M15.9655 20.0234V18.1901C15.9655 17.2176 15.5792 16.285 14.8916 15.5974C14.2039 14.9097 13.2713 14.5234 12.2988 14.5234H4.96549C3.99303 14.5234 3.0604 14.9097 2.37277 15.5974C1.68514 16.285 1.29883 17.2176 1.29883 18.1901V20.0234" stroke="currentColor" stroke-width="1.83333" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M8.63151 10.8568C10.6566 10.8568 12.2982 9.21515 12.2982 7.1901C12.2982 5.16506 10.6566 3.52344 8.63151 3.52344C6.60647 3.52344 4.96484 5.16506 4.96484 7.1901C4.96484 9.21515 6.60647 10.8568 8.63151 10.8568Z" stroke="currentColor" stroke-width="1.83333" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M21.4648 20.0254V18.192C21.4642 17.3796 21.1938 16.5904 20.6961 15.9483C20.1984 15.3062 19.5015 14.8476 18.7148 14.6445" stroke="currentColor" stroke-width="1.83333" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M15.0488 3.64453C15.8375 3.84647 16.5366 4.30517 17.0358 4.94832C17.535 5.59146 17.806 6.38246 17.806 7.19661C17.806 8.01077 17.535 8.80177 17.0358 9.44491C16.5366 10.0881 15.8375 10.5468 15.0488 10.7487" stroke="currentColor" stroke-width="1.83333" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </div>
+              </div>
+              <div class="award-stats-text-block">
+                <div class="award-stats-number">{awardStats.totalAssociations}</div>
+                <p class="award-stats-summary">Associations</p>
+              </div>
+            </div>
+          </div>
+          <ButtonLink href="/contact" label="Contact With Us" small />
+        </div>
+        <div class="award-content-block">
+          {awards.map((award, i) => (
+            <div class="single-award-block">
+              <div class="award-icon-block">
+                <div class="award-item-icon">
+                  {/* Layers icon */}
+                  {i === 0 && (
+                    <svg width="61" height="61" viewBox="0 0 61 61" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                      <path d="M30.3018 5.93359L5.30176 18.4336L30.3018 30.9336L55.3018 18.4336L30.3018 5.93359Z" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+                      <path d="M5.30176 43.4336L30.3018 55.9336L55.3018 43.4336" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+                      <path d="M5.30176 30.9336L30.3018 43.4336L55.3018 30.9336" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  )}
+                  {/* Star icon */}
+                  {i === 1 && (
+                    <svg width="56" height="54" viewBox="0 0 56 54" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                      <path d="M27.7217 2.99219L35.4467 18.6422L52.7217 21.1672L40.2217 33.3422L43.1717 50.5422L27.7217 42.4172L12.2717 50.5422L15.2217 33.3422L2.72168 21.1672L19.9967 18.6422L27.7217 2.99219Z" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  )}
+                  {/* Checkmark circle icon */}
+                  {i === 2 && (
+                    <svg width="61" height="60" viewBox="0 0 61 60" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                      <path d="M55.1514 27.6909V29.9909C55.1483 35.3819 53.4026 40.6276 50.1747 44.9454C46.9468 49.2633 42.4096 52.4221 37.2398 53.9506C32.0699 55.4792 26.5445 55.2956 21.4875 53.4273C16.4306 51.559 12.113 48.1061 9.17877 43.5835C6.24453 39.061 4.85085 33.711 5.20556 28.3317C5.56027 22.9523 7.64438 17.8317 11.1471 13.7336C14.6497 9.63542 19.3833 6.77933 24.6418 5.59124C29.9003 4.40315 35.402 4.94671 40.3264 7.14087" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+                      <path d="M55.1514 9.99219L30.1514 35.0172L22.6514 27.5172" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  )}
+                  {/* Shield icon */}
+                  {i === 3 && (
+                    <svg width="61" height="61" viewBox="0 0 61 61" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                      <path d="M30.3018 55.125C30.3018 55.125 50.3018 45.125 50.3018 30.125V12.625L30.3018 5.125L10.3018 12.625V30.125C10.3018 45.125 30.3018 55.125 30.3018 55.125Z" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  )}
+                  {/* Medal icon */}
+                  {i === 4 && (
+                    <svg width="61" height="61" viewBox="0 0 61 61" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                      <path d="M30.7217 37.6836C40.3867 37.6836 48.2217 29.8486 48.2217 20.1836C48.2217 10.5186 40.3867 2.68359 30.7217 2.68359C21.0567 2.68359 13.2217 10.5186 13.2217 20.1836C13.2217 29.8486 21.0567 37.6836 30.7217 37.6836Z" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+                      <path d="M21.2467 34.9078L18.2217 57.6828L30.7217 50.1828L43.2217 57.6828L40.1967 34.8828" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  )}
+                  {/* Tag icon */}
+                  {i === 5 && (
+                    <svg width="61" height="61" viewBox="0 0 61 61" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                      <path d="M51.6264 33.7086L33.7014 51.6336C33.237 52.0985 32.6856 52.4673 32.0786 52.7189C31.4716 52.9705 30.8209 53.1 30.1639 53.1C29.5068 53.1 28.8562 52.9705 28.2492 52.7189C27.6422 52.4673 27.0907 52.0985 26.6264 51.6336L5.15137 30.1836V5.18359H30.1514L51.6264 26.6586C52.5576 27.5954 53.0803 28.8627 53.0803 30.1836C53.0803 31.5045 52.5576 32.7718 51.6264 33.7086Z" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+                      <path d="M17.6514 17.6836H17.6764" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  )}
+                </div>
+              </div>
+              <div class="award-item-text-block">
+                <h3 class="award-item-title-block">{award.organization}</h3>
+                <p class="award-item-summary-block">{award.recognition}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  const scrollStart = 'top 90%';
+
+  // === Text elements: slideInBottom ===
+  const textElements = [
+    { selector: '#Award-Section .award-title', delay: 0.1 },
+    { selector: '#Award-Section .award-summary-block', delay: 0.2 },
+    { selector: '#Award-Section .award-stats-block', delay: 0.3 },
+    { selector: '#Award-Section .link-button-block', delay: 0.4 },
+  ];
+
+  textElements.forEach(({ selector, delay }) => {
+    const el = document.querySelector(selector) as HTMLElement;
+    if (!el) return;
+    gsap.set(el, { opacity: 0, y: 100 });
+    gsap.to(el, {
+      opacity: 1,
+      y: 0,
+      duration: 1,
+      ease: 'power3.out',
+      delay,
+      scrollTrigger: { trigger: el, start: scrollStart, once: true },
+    });
+  });
+
+  // === Award cards: slideInBottom with stagger ===
+  const cards = document.querySelectorAll('#Award-Section .single-award-block');
+  cards.forEach((el, i) => {
+    gsap.set(el, { opacity: 0, y: 100 });
+    gsap.to(el, {
+      opacity: 1,
+      y: 0,
+      duration: 1,
+      ease: 'power3.out',
+      delay: 0.1 + i * 0.1,
+      scrollTrigger: { trigger: el, start: scrollStart, once: true },
+    });
+  });
+</script>

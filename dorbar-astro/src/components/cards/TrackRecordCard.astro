@@ -1,0 +1,98 @@
+---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import { resolveImage } from '../../utils/resolveImage';
+
+interface Props {
+  number: string;
+  subtitle: string;
+  title: string;
+  description: string;
+  settlement: string;
+  settlementLabel: string;
+  client: string;
+  image: string;
+  imageLabel?: string;
+  reverse?: boolean;
+  index: number;
+}
+
+const {
+  number,
+  subtitle,
+  title,
+  description,
+  settlement,
+  settlementLabel,
+  client,
+  image,
+  imageLabel = '',
+  reverse = false,
+  index,
+} = Astro.props;
+
+const resolvedImage = resolveImage(image) as ImageMetadata;
+const cardClass = `is-${index}`;
+const textClass = reverse ? 'is-2' : '';
+---
+
+<div class={`track-record-single-content-block ${cardClass}`}>
+  {reverse && (
+    <div class="track-record-image-content-block">
+      <Image
+        src={resolvedImage}
+        alt={title}
+        class="track-record-image"
+        width={800}
+        height={600}
+        loading="lazy"
+      />
+      {imageLabel && (
+        <div class="track-record-image-subtitle-block">
+          <div class="track-record-image-subtitle-text">{imageLabel}</div>
+        </div>
+      )}
+    </div>
+  )}
+
+  <div class={`track-record-text-content-block ${textClass}`}>
+    <div class="track-record-title-block">
+      <div class="track-record-subtitle">{subtitle}</div>
+      <h3 class="track-record-title">{title}</h3>
+      <div class="track-record-number" aria-hidden="true">{number}</div>
+    </div>
+
+    <div class="track-record-summary-block">
+      <p class="paragraph">{description}</p>
+    </div>
+
+    <div class="track-record-statistics-block">
+      <div class="track-record-stat-subtitle">{settlementLabel}</div>
+      <div class="track-record-stat-text">{settlement}</div>
+      <div class="track-record-statistics-overlay" aria-hidden="true"></div>
+    </div>
+
+    <div class="track-record-bottom-text-block">
+      <div class="record-liner-two" aria-hidden="true"></div>
+      <div class="track-record-bottom-text">{client}</div>
+    </div>
+  </div>
+
+  {!reverse && (
+    <div class="track-record-image-content-block">
+      <Image
+        src={resolvedImage}
+        alt={title}
+        class="track-record-image"
+        width={800}
+        height={600}
+        loading="lazy"
+      />
+      {imageLabel && (
+        <div class="track-record-image-subtitle-block">
+          <div class="track-record-image-subtitle-text">{imageLabel}</div>
+        </div>
+      )}
+    </div>
+  )}
+</div>

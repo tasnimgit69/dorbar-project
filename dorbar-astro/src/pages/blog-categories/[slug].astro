@@ -1,0 +1,32 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import BlogHeroSection from '../../components/sections/BlogHeroSection.astro';
+import BlogCategorySection from '../../components/sections/BlogCategorySection.astro';
+import BlogGridSection from '../../components/sections/BlogGridSection.astro';
+import { blogPosts, blogCategories } from '../../data/blogPosts';
+import type { GetStaticPaths } from 'astro';
+
+export const getStaticPaths: GetStaticPaths = () => {
+  return blogCategories.map((cat) => ({
+    params: { slug: cat.slug },
+    props: { category: cat },
+  }));
+};
+
+const { category } = Astro.props as { category: (typeof blogCategories)[number] };
+const filteredPosts = blogPosts.filter((p) => p.categorySlug === category.slug);
+---
+
+<PageLayout
+  title={`${category.name} | Blog | Dorbar Law Firm`}
+  description={`Legal insights and articles about ${category.name} from our experienced attorneys.`}
+>
+  <!-- Hero Section -->
+  <BlogHeroSection />
+
+  <!-- Category Filter Section -->
+  <BlogCategorySection activeCategory={category.slug} />
+
+  <!-- Filtered Blog Grid -->
+  <BlogGridSection posts={filteredPosts} />
+</PageLayout>

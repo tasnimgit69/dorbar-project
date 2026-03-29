@@ -1,0 +1,30 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import AboutHeroSection from '../components/sections/AboutHeroSection.astro';
+import WhoWeAreSection from '../components/sections/WhoWeAreSection.astro';
+import OurPurposeSection from '../components/sections/OurPurposeSection.astro';
+import JourneySection from '../components/sections/JourneySection.astro';
+import LeadershipSection from '../components/sections/LeadershipSection.astro';
+import AwardsSection from '../components/sections/AwardsSection.astro';
+import AboutStatisticsSection from '../components/sections/AboutStatisticsSection.astro';
+import AboutTestimonialsSection from '../components/sections/AboutTestimonialsSection.astro';
+import CtaBanner from '../components/sections/CtaBanner.astro';
+---
+
+<PageLayout
+  title="About | Dorbar Law Firm"
+  description="Founded with a commitment to excellence and integrity, Dorbar & Associates has been guiding clients through complex legal matters for over two decades."
+>
+  <AboutHeroSection />
+  <WhoWeAreSection />
+  <OurPurposeSection />
+  <JourneySection />
+  <LeadershipSection />
+  <AwardsSection />
+  <AboutStatisticsSection />
+  <AboutTestimonialsSection />
+  <CtaBanner
+    title="Ready to Work with a Trusted Legal Team?"
+    summary="Experience the Dorbar & Associates difference. Schedule your confidential consultation today and discover how our expertise can serve your legal needs."
+  />
+</PageLayout>

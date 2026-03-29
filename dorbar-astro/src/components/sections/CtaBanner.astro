@@ -1,0 +1,88 @@
+---
+import ButtonPrimary from '../ui/ButtonPrimary.astro';
+import ButtonSecondary from '../ui/ButtonSecondary.astro';
+
+interface Props {
+  title?: string;
+  summary?: string;
+  primaryLabel?: string;
+  primaryHref?: string;
+  secondaryLabel?: string;
+  secondaryHref?: string;
+}
+
+const {
+  title = 'Ready to Build Your Success Story?',
+  summary = 'Let our proven track record work for you.',
+  primaryLabel = 'Book Free Consultation',
+  primaryHref = '/contact',
+  secondaryLabel = 'Book Premium Consultation',
+  secondaryHref = '/consultation',
+} = Astro.props;
+---
+
+<section id="CTA-Section" class="cta-section-two">
+  <div class="section-gap-two bottom">
+    <div class="container-default">
+      <div class="cta-wrapper-two">
+        <div class="cta-content-block-two">
+          <h2 class="section-title-two sm">{title}</h2>
+          <p class="section-summary-two top-16px-gap">{summary}</p>
+        </div>
+        <div class="cta-button-block-two">
+          <ButtonPrimary href={primaryHref} label={primaryLabel} showIcon={false} />
+          <ButtonSecondary href={secondaryHref} label={secondaryLabel} />
+        </div>
+        <div class="cta-two-hover-block" aria-hidden="true"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  const scrollStart = 'top 90%';
+
+  // === Scroll-into-view: slideInBottom on CTA wrapper ===
+  const ctaWrapper = document.querySelector('#CTA-Section .cta-wrapper-two') as HTMLElement;
+  if (ctaWrapper) {
+    gsap.set(ctaWrapper, { opacity: 0, y: 100 });
+    gsap.to(ctaWrapper, {
+      opacity: 1,
+      y: 0,
+      duration: 1,
+      ease: 'power3.out',
+      delay: 0.2,
+      scrollTrigger: { trigger: ctaWrapper, start: scrollStart, once: true },
+    });
+  }
+
+  // === Hover spotlight: fade in/out + continuous rotation ===
+  const hoverBlock = document.querySelector('#CTA-Section .cta-two-hover-block') as HTMLElement;
+  if (ctaWrapper && hoverBlock) {
+    // Initial state: hidden
+    gsap.set(hoverBlock, { opacity: 0 });
+
+    // Continuous rotation (runs always, visible only on hover)
+    gsap.to(hoverBlock, {
+      rotation: 360,
+      duration: 5,
+      ease: 'none',
+      repeat: -1,
+    });
+
+    // Hover in: fade in
+    ctaWrapper.addEventListener('mouseenter', () => {
+      gsap.to(hoverBlock, { opacity: 1, duration: 0.6, ease: 'power1.inOut' });
+    });
+
+    // Hover out: fade out
+    ctaWrapper.addEventListener('mouseleave', () => {
+      gsap.to(hoverBlock, { opacity: 0, duration: 0.6, ease: 'power1.inOut' });
+    });
+  }
+</script>

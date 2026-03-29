@@ -1,0 +1,28 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import ConsultationHeroSection from '../components/sections/ConsultationHeroSection.astro';
+import PricingSection from '../components/sections/PricingSection.astro';
+import BenefitsSection from '../components/sections/BenefitsSection.astro';
+import HowItWorksSection from '../components/sections/HowItWorksSection.astro';
+import ConsultationAttorneysSection from '../components/sections/ConsultationAttorneysSection.astro';
+import ConsultationTestimonialSection from '../components/sections/ConsultationTestimonialSection.astro';
+import ConsultationFaqSection from '../components/sections/ConsultationFaqSection.astro';
+import CtaBanner from '../components/sections/CtaBanner.astro';
+---
+
+<PageLayout
+  title="Consultation | Dorbar Law Firm"
+  description="Schedule your legal consultation. Choose the consultation that best fits your legal needs — confidential, personalized, and professional."
+>
+  <ConsultationHeroSection />
+  <PricingSection />
+  <BenefitsSection />
+  <HowItWorksSection />
+  <ConsultationAttorneysSection />
+  <ConsultationTestimonialSection />
+  <ConsultationFaqSection />
+  <CtaBanner
+    title="Ready to Get Started?"
+    summary="Take the first step toward resolving your legal matter. Book your consultation today."
+  />
+</PageLayout>

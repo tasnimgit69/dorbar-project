@@ -1,0 +1,72 @@
+---
+import { aboutTestimonials } from '../../data/about';
+---
+
+<section class="testimonial-section" id="About-Testimonial-Section">
+  <div class="section-gap-two top">
+    <div class="container-default">
+      <div class="testimonial-wrapper">
+        <div class="testimonial-title-block">
+          <h2 class="section-title-two">What Our Clients Say</h2>
+        </div>
+        <div class="testimonial-content-block">
+          {aboutTestimonials.map((testimonial) => (
+            <div class="testimonial-card-block">
+              <div class="testimonial-icon-block">
+                <div class="testimonial-icon">
+                  <svg width="50" height="51" viewBox="0 0 50 51" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <path d="M6.25002 43.9693C12.5 43.9693 20.8334 41.886 20.8334 27.3027V10.636C20.8334 8.03183 19.2584 6.43391 16.6667 6.46933H8.33335C5.72919 6.46933 4.16669 8.03183 4.16669 10.5777V23.136C4.16669 25.7402 5.72919 27.3027 8.33335 27.3027C10.4167 27.3027 10.4167 27.3027 10.4167 29.386V31.4693C10.4167 33.5527 8.33335 35.636 6.25002 35.636C4.16669 35.636 4.16669 35.6527 4.16669 37.7839V41.886C4.16669 43.9693 4.16669 43.9693 6.25002 43.9693Z" fill="currentColor"/>
+                    <path d="M31.25 43.9693C37.5 43.9693 45.8334 41.886 45.8334 27.3027V10.636C45.8334 8.03183 44.2563 6.43391 41.6667 6.46933H33.3334C30.7292 6.46933 29.1667 8.03183 29.1667 10.5777V23.136C29.1667 25.7402 30.7292 27.3027 33.3334 27.3027H34.8959C34.8959 31.9902 35.4167 35.636 29.1667 35.636V41.886C29.1667 43.9693 29.1667 43.9693 31.25 43.9693Z" fill="currentColor"/>
+                  </svg>
+                </div>
+              </div>
+              <div class="testimonial-text-block">
+                <p class="testimonial-text">{testimonial.quote}</p>
+              </div>
+              <div class="testimonial-author-block">
+                <div class="testimonial-author">{testimonial.author}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  const scrollStart = 'top 90%';
+
+  // === Title: slideInBottom ===
+  const title = document.querySelector('#About-Testimonial-Section .section-title-two') as HTMLElement;
+  if (title) {
+    gsap.set(title, { opacity: 0, y: 100 });
+    gsap.to(title, {
+      opacity: 1,
+      y: 0,
+      duration: 1,
+      ease: 'power3.out',
+      delay: 0.1,
+      scrollTrigger: { trigger: title, start: scrollStart, once: true },
+    });
+  }
+
+  // === Cards: slideInBottom with stagger ===
+  const cards = document.querySelectorAll('#About-Testimonial-Section .testimonial-card-block');
+  cards.forEach((el, i) => {
+    gsap.set(el, { opacity: 0, y: 100 });
+    gsap.to(el, {
+      opacity: 1,
+      y: 0,
+      duration: 1,
+      ease: 'power3.out',
+      delay: 0.1 + i * 0.15,
+      scrollTrigger: { trigger: el, start: scrollStart, once: true },
+    });
+  });
+</script>

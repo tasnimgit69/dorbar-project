@@ -1,0 +1,31 @@
+---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import ButtonLink from '../ui/ButtonLink.astro';
+import { resolveImage } from '../../utils/resolveImage';
+
+interface Props {
+  title: string;
+  summary: string;
+  icon: string;
+  href?: string;
+  variant?: 'default' | 'alt';
+}
+
+const { title, summary, icon, href = '#', variant = 'default' } = Astro.props;
+const resolvedIcon = resolveImage(icon) as ImageMetadata;
+---
+
+<div class={`service-card-block-two ${variant === 'alt' ? 'is-2' : ''}`}>
+  <div class="service-card-icon-block-two">
+    <Image src={resolvedIcon} alt="" class="service-card-icon-two" width={60} height={60} loading="lazy" />
+  </div>
+  <div class="service-card-text-block-two">
+    <h3 class="service-card-title-two">{title}</h3>
+    <p class="service-card-summary-two top-16px-gap">{summary}</p>
+  </div>
+  <ButtonLink href={href} label="Learn More" />
+  <div class="gradient-liner-block" aria-hidden="true"></div>
+  <div class="service-card-corner-gredient" aria-hidden="true"></div>
+  <div class="service-card-bg-gredient" aria-hidden="true"></div>
+</div>

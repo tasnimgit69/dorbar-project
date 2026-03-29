@@ -1,0 +1,19 @@
+---
+import ArrowIcon from '../icons/ArrowIcon.astro';
+
+interface Props {
+  href: string;
+  label: string;
+  small?: boolean;
+}
+
+const { href, label, small = false } = Astro.props;
+---
+
+<a href={href} class="link-button-block">
+  <div class="link-button-content">
+    <span class={`link-button-text ${small ? 'sm' : ''}`}>{label}</span>
+    <ArrowIcon class="link-button-icon" />
+  </div>
+  <span class="link-button-liner"></span>
+</a>

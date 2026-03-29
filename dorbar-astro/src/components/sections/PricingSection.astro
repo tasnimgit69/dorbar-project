@@ -1,0 +1,103 @@
+---
+import type { ImageMetadata } from 'astro';
+import ButtonPrimary from '../ui/ButtonPrimary.astro';
+import ButtonSecondary from '../ui/ButtonSecondary.astro';
+import { pricingPlans } from '../../data/pricingPlans';
+import { resolveImage } from '../../utils/resolveImage';
+
+const pointIcon = resolveImage('/images/icons/price-point-icon.svg');
+const pointIconUrl = typeof pointIcon === 'string' ? pointIcon : (pointIcon as ImageMetadata).src;
+---
+
+<section class="pricing-section" id="Pricing-Section" style={`--point-icon: url('${pointIconUrl}')`}>
+  <div class="section-gap-two">
+    <div class="container-default">
+      <div class="pricing-wrapper">
+        <div class="pricing-heading-block">
+          <div class="section-title-block-two max-w-600">
+            <h2 class="section-title-two">Choose the Right Consultation for You</h2>
+          </div>
+          <div class="section-summary-block-two max-w-600">
+            <p class="section-summary-two">Whether you're exploring options or need dedicated legal advice, we've got you covered.</p>
+          </div>
+        </div>
+        <div class="pricing-content-block">
+          {pricingPlans.map((plan) => (
+            <div class="pricing-card-block">
+              <div class="pricing-card-heading-block">
+                <h3 class="pricing-card-title">{plan.name}</h3>
+                <p class="pricing-card-summary">{plan.summary}</p>
+              </div>
+              <div class="pricing-card-price-block">
+                <div class="price-text">{plan.price === 0 ? 'Free' : `$${plan.price}`}</div>
+                <p class="payment-text">{plan.price === 0 ? 'No commitment required' : 'One-time payment'}</p>
+              </div>
+              <div class="pricing-card-point-block">
+                <ul class="pricing-card-point-list">
+                  {plan.features.map((feature) => (
+                    <li class="pricing-card-point-list-item">{feature}</li>
+                  ))}
+                </ul>
+              </div>
+              <div class="pricing-card-button-block">
+                {plan.featured ? (
+                  <ButtonPrimary href={plan.buttonHref} label={plan.buttonText} showIcon={false} />
+                ) : (
+                  <ButtonSecondary href={plan.buttonHref} label={plan.buttonText} />
+                )}
+              </div>
+              {plan.featured && (
+                <div class="recommended-block">
+                  <div class="recommended-text">RECOMMENDED</div>
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  const scrollStart = 'top 90%';
+
+  // === Heading elements: slideInBottom ===
+  const elements = [
+    { selector: '#Pricing-Section .section-title-two', delay: 0.2 },
+    { selector: '#Pricing-Section .section-summary-two', delay: 0.4 },
+  ];
+
+  elements.forEach(({ selector, delay }) => {
+    const el = document.querySelector(selector) as HTMLElement;
+    if (!el) return;
+    gsap.set(el, { opacity: 0, y: 100 });
+    gsap.to(el, {
+      opacity: 1,
+      y: 0,
+      duration: 1,
+      ease: 'power3.out',
+      delay,
+      scrollTrigger: { trigger: el, start: scrollStart, once: true },
+    });
+  });
+
+  // === Pricing cards: slideInBottom with same delay ===
+  const cards = document.querySelectorAll('#Pricing-Section .pricing-card-block');
+  cards.forEach((el) => {
+    gsap.set(el, { opacity: 0, y: 100 });
+    gsap.to(el, {
+      opacity: 1,
+      y: 0,
+      duration: 1,
+      ease: 'power3.out',
+      delay: 0.3,
+      scrollTrigger: { trigger: el, start: scrollStart, once: true },
+    });
+  });
+</script>

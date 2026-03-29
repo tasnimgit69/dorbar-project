@@ -1,0 +1,89 @@
+---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import SectionHeading from '../ui/SectionHeading.astro';
+import ButtonLink from '../ui/ButtonLink.astro';
+import { services } from '../../data/services';
+import { resolveImage } from '../../utils/resolveImage';
+---
+
+<section class="section-section" id="Areas-Of-Practice-Section">
+  <div class="section-gap-two">
+    <div class="container-default">
+      <div class="service-wrapper">
+        <div class="service-heading-block-service-page">
+          <SectionHeading
+            subtitle="Track Record"
+            title="Areas of Legal Practice"
+            highlightWord="Practice"
+            summary="From corporate transactions to personal matters, our experienced attorneys deliver strategic counsel across a comprehensive spectrum of legal disciplines."
+            summaryMaxWidth="770"
+          />
+        </div>
+        <div class="service-content-block">
+          <div class="service-collection-list">
+            {services.map((service) => (
+              <div class="service-item-block">
+                <div class="service-item-liner"></div>
+                <div class="service-item-icon-block">
+                  <Image src={resolveImage(service.icon) as ImageMetadata} loading="lazy" alt="" class="service-item-icon" width={40} height={40} />
+                </div>
+                <div class="service-item-text-block">
+                  <div class="service-item-title-block">
+                    <h3 class="service-item-title">{service.title}</h3>
+                  </div>
+                  <p class="service-item-summary">{service.summary}</p>
+                </div>
+                <ButtonLink href={`/services/${service.slug}`} label="Learn More" small />
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  const scrollStart = 'top 90%';
+
+  // === Heading elements: slideInBottom ===
+  const headingElements = [
+    { selector: '#Areas-Of-Practice-Section .section-subtitle-block-two', delay: 0.1 },
+    { selector: '#Areas-Of-Practice-Section .section-title-two', delay: 0.2 },
+    { selector: '#Areas-Of-Practice-Section .section-summary-two', delay: 0.3 },
+  ];
+
+  headingElements.forEach(({ selector, delay }) => {
+    const el = document.querySelector(selector) as HTMLElement;
+    if (!el) return;
+    gsap.set(el, { opacity: 0, y: 100 });
+    gsap.to(el, {
+      opacity: 1,
+      y: 0,
+      duration: 1,
+      ease: 'power3.out',
+      delay,
+      scrollTrigger: { trigger: el, start: scrollStart, once: true },
+    });
+  });
+
+  // === Service cards: slideInBottom with stagger ===
+  const cards = document.querySelectorAll('#Areas-Of-Practice-Section .service-item-block');
+  cards.forEach((el, i) => {
+    gsap.set(el, { opacity: 0, y: 100 });
+    gsap.to(el, {
+      opacity: 1,
+      y: 0,
+      duration: 1,
+      ease: 'power3.out',
+      delay: 0.1 + i * 0.1,
+      scrollTrigger: { trigger: el, start: scrollStart, once: true },
+    });
+  });
+</script>

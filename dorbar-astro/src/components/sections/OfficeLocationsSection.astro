@@ -1,0 +1,68 @@
+---
+import ButtonLink from '../ui/ButtonLink.astro';
+import { officeLocations } from '../../data/officeLocations';
+---
+
+<section class="office-location-section" id="Office-Location-Section">
+  <div class="section-gap-two bottom">
+    <div class="container-default">
+      <div class="office-location-wrapper">
+        <div class="office-location-heading-block">
+          <h2 class="section-title-two">Our Offices</h2>
+        </div>
+        <div class="office-location-content-block">
+          {officeLocations.map((office) => (
+            <div class="office-location-block">
+              <div class="office-location-title-block">
+                <h3 class="office-location-title">{office.city}</h3>
+              </div>
+              <div class="office-location-text-block">
+                <p class="office-location-text">{office.address}</p>
+                <p class="office-location-number">{office.phone}</p>
+                <p class="office-location-mail">{office.email}</p>
+              </div>
+              <ButtonLink href="https://www.google.com/maps" label="Get Directions" small />
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  const scrollStart = 'top 90%';
+
+  // === Heading: slideInBottom ===
+  const heading = document.querySelector('#Office-Location-Section .section-title-two') as HTMLElement;
+  if (heading) {
+    gsap.set(heading, { opacity: 0, y: 100 });
+    gsap.to(heading, {
+      opacity: 1,
+      y: 0,
+      duration: 1,
+      ease: 'power3.out',
+      delay: 0.2,
+      scrollTrigger: { trigger: heading, start: scrollStart, once: true },
+    });
+  }
+
+  // === Office cards: slideInBottom with stagger ===
+  const cards = document.querySelectorAll('#Office-Location-Section .office-location-block');
+  cards.forEach((el, i) => {
+    gsap.set(el, { opacity: 0, y: 100 });
+    gsap.to(el, {
+      opacity: 1,
+      y: 0,
+      duration: 1,
+      ease: 'power3.out',
+      delay: 0.2 + i * 0.2,
+      scrollTrigger: { trigger: el, start: scrollStart, once: true },
+    });
+  });
+</script>

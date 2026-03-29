@@ -1,0 +1,61 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Navbar from '../components/Navbar.astro';
+import ButtonPrimary from '../components/ui/ButtonPrimary.astro';
+
+const currentPath = Astro.url.pathname;
+---
+
+<BaseLayout
+  title="Page Not Found | Dorbar Law Firm"
+  description="The page you are looking for doesn't exist or has been moved."
+>
+  <Navbar currentPath={currentPath} />
+  <section id="Utility-404-Section" class="utility-page-section">
+    <div class="container-default">
+      <div class="utility-page-content">
+        <div class="utility-page-content-block">
+          <div class="utility-page-text-block">
+            <div class="_404-text">4<span class="_404-highlight-text">0</span>4</div>
+            <div class="utility-page-title-block">
+              <h1 class="utility-page-title lg">Page Not Found</h1>
+              <p class="utility-page-summary">The page you are looking for doesn't exist or has been moved</p>
+            </div>
+          </div>
+          <div class="utility-page-button-block">
+            <ButtonPrimary href="/" label="Back To Home" showIcon={false} />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  const section = '#Utility-404-Section';
+
+  // Content — staggered slideInBottom
+  const elements = [
+    { selector: `${section} .utility-page-text-block`, delay: 0.1 },
+    { selector: `${section} .utility-page-button-block`, delay: 0.2 },
+  ];
+
+  elements.forEach(({ selector, delay }) => {
+    const el = document.querySelector(selector) as HTMLElement;
+    if (!el) return;
+    gsap.set(el, { opacity: 0, y: 100 });
+    gsap.to(el, {
+      opacity: 1,
+      y: 0,
+      duration: 1,
+      ease: 'power3.out',
+      delay,
+      scrollTrigger: { trigger: el, start: 'top bottom', once: true },
+    });
+  });
+</script>

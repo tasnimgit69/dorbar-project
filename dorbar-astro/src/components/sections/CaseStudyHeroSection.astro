@@ -1,0 +1,83 @@
+---
+interface Props {
+  practiceArea: string;
+  title: string;
+  subtitle: string;
+  clientType: string;
+  duration: string;
+  leadAttorney: string;
+  heroUrl: string;
+}
+
+const { practiceArea, title, subtitle, clientType, duration, leadAttorney, heroUrl } = Astro.props;
+---
+
+<section class="case-study-hero-section" style={`--bg-image: url('${heroUrl}')`}>
+  <div class="case-study-hero-section-gap">
+    <div class="container-default">
+      <div class="case-study-hero-wrapper">
+        <div class="case-study-hero-content-block">
+          <div class="case-study-hero-title-block">
+            <div class="case-study-hero-subtitle">Case Study</div>
+            <h1 class="case-study-hero-title">{title}</h1>
+          </div>
+          <div class="case-study-hero-summary-block">
+            <p class="case-study-hero-summary">{subtitle}</p>
+          </div>
+          <div class="case-study-hero-info-block">
+            <div class="case-study-info-block">
+              <div class="case-study-info-title">Practice Area</div>
+              <p class="case-study-info-text">{practiceArea}</p>
+            </div>
+            <div class="case-study-info-block">
+              <div class="case-study-info-title">Client Type</div>
+              <p class="case-study-info-text">{clientType}</p>
+            </div>
+            <div class="case-study-info-block">
+              <div class="case-study-info-title">Duration</div>
+              <p class="case-study-info-text">{duration}</p>
+            </div>
+            <div class="case-study-info-block">
+              <div class="case-study-info-title">Lead Attorney</div>
+              <p class="case-study-info-text">{leadAttorney}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="case-study-hero-overlay"></div>
+</section>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const section = document.querySelector('.case-study-hero-section');
+    if (!section) return;
+
+    const subtitle = section.querySelector('.case-study-hero-subtitle');
+    const title = section.querySelector('.case-study-hero-title');
+    const summary = section.querySelector('.case-study-hero-summary');
+    const infoBlock = section.querySelector('.case-study-hero-info-block');
+
+    const elements = [
+      { el: subtitle, delay: 0.2 },
+      { el: title, delay: 0.4 },
+      { el: summary, delay: 0.6 },
+      { el: infoBlock, delay: 0.8 },
+    ];
+
+    elements.forEach(({ el, delay }) => {
+      if (!el) return;
+      gsap.set(el, { y: 100, opacity: 0 });
+      gsap.to(el, {
+        y: 0, opacity: 1, duration: 1, ease: 'power3.out', delay,
+        scrollTrigger: { trigger: section, start: 'top 80%', once: true }
+      });
+    });
+  });
+</script>

@@ -1,0 +1,62 @@
+---
+interface Props {
+  heading: string;
+  description?: string;
+  stats: { value: string; label: string }[];
+}
+
+const { heading, description, stats } = Astro.props;
+---
+
+<section class="service-stat-section" id="Service-Stat-Section">
+  <div class="section-gap-two">
+    <div class="container-default">
+      <div class="service-stat-wrapper">
+        <div class="service-stat-heading-block">
+          <div class="service-stat-heading">
+            <h2>{heading}</h2>
+            {description && description.split('\n\n').map((paragraph) => (
+              <p>{paragraph}</p>
+            ))}
+          </div>
+        </div>
+        <div class="service-stat-content-block">
+          {stats.map((stat) => (
+            <div class="service-stat-block">
+              <div class="service-stat-content">
+                <h2>{stat.value}</h2>
+                <p>{stat.label}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+  gsap.registerPlugin(ScrollTrigger);
+
+  const section = document.querySelector('#Service-Stat-Section');
+  if (section) {
+    const heading = section.querySelector('.service-stat-heading');
+    const statBlocks = section.querySelectorAll('.service-stat-block');
+
+    if (heading) {
+      gsap.fromTo(heading, { opacity: 0, y: 100 }, {
+        opacity: 1, y: 0, duration: 1, ease: 'power3.out',
+        scrollTrigger: { trigger: heading, start: 'top 90%', once: true }
+      });
+    }
+
+    statBlocks.forEach((block, i) => {
+      gsap.fromTo(block, { opacity: 0, y: 100 }, {
+        opacity: 1, y: 0, duration: 1, delay: (i + 1) * 0.2, ease: 'power3.out',
+        scrollTrigger: { trigger: block, start: 'top 90%', once: true }
+      });
+    });
+  }
+</script>

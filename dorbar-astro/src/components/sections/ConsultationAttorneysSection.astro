@@ -1,0 +1,74 @@
+---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import { consultationAttorneys } from '../../data/consultation';
+import { resolveImage } from '../../utils/resolveImage';
+---
+
+<section class="attorney-section" id="Consultation-Attorneys-Section">
+  <div class="section-gap-two bottom">
+    <div class="container-default">
+      <div class="attorney-heading-block">
+        <div class="section-title-block-two max-w-600">
+          <h2 class="section-title-two">Meet Your Consultation Attorneys</h2>
+        </div>
+      </div>
+      <div class="attorney-wrapper">
+        {consultationAttorneys.map((attorney, i) => (
+          <div class="attorney-card-item-block v-flex">
+            <div class="attorney-item-image-block">
+              <Image src={resolveImage(attorney.image) as ImageMetadata} loading="lazy" alt={attorney.name} class="attorney-item-image" width={400} height={500} />
+            </div>
+            <div class="attorney-item-content-block">
+              <div class="attorney-item-name-block">
+                <h2 class="attorney-name">{attorney.name}</h2>
+                <div class="attorney-designation">{attorney.role}</div>
+              </div>
+              <div class="attorney-item-summary-block">
+                <p class="attorney-item-summary">{attorney.summary}</p>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  const scrollStart = 'top 90%';
+
+  // === Heading: slideInBottom ===
+  const heading = document.querySelector('#Consultation-Attorneys-Section .section-title-block-two') as HTMLElement;
+  if (heading) {
+    gsap.set(heading, { opacity: 0, y: 100 });
+    gsap.to(heading, {
+      opacity: 1,
+      y: 0,
+      duration: 1,
+      ease: 'quart.out',
+      delay: 0.2,
+      scrollTrigger: { trigger: heading, start: scrollStart, once: true },
+    });
+  }
+
+  // === Cards: slideInBottom with staggered delays ===
+  const cardDelays = [0.2, 0.4, 0.6];
+  const cards = document.querySelectorAll('#Consultation-Attorneys-Section .attorney-card-item-block');
+  cards.forEach((el, i) => {
+    gsap.set(el, { opacity: 0, y: 100 });
+    gsap.to(el, {
+      opacity: 1,
+      y: 0,
+      duration: 1,
+      ease: 'quart.out',
+      delay: cardDelays[i] || 0.2,
+      scrollTrigger: { trigger: el, start: scrollStart, once: true },
+    });
+  });
+</script>

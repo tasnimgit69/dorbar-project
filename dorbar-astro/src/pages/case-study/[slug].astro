@@ -1,0 +1,76 @@
+---
+import type { ImageMetadata } from 'astro';
+import PageLayout from '../../layouts/PageLayout.astro';
+import CaseStudyHeroSection from '../../components/sections/CaseStudyHeroSection.astro';
+import CaseStudyDetailSection from '../../components/sections/CaseStudyDetailSection.astro';
+import CaseStudyApproachSection from '../../components/sections/CaseStudyApproachSection.astro';
+import CaseStudyOutcomesSection from '../../components/sections/CaseStudyOutcomesSection.astro';
+import CaseStudyTestimonialSection from '../../components/sections/CaseStudyTestimonialSection.astro';
+import CaseStudyTakeawaysSection from '../../components/sections/CaseStudyTakeawaysSection.astro';
+import CaseStudyRelatedSection from '../../components/sections/CaseStudyRelatedSection.astro';
+import CaseStudyTeamSection from '../../components/sections/CaseStudyTeamSection.astro';
+import CtaBanner from '../../components/sections/CtaBanner.astro';
+import { caseStudyDetails, type CaseStudyDetail } from '../../data/caseStudyDetails';
+import { caseStudies } from '../../data/services-page';
+import type { GetStaticPaths } from 'astro';
+import { resolveImage } from '../../utils/resolveImage';
+
+export const getStaticPaths: GetStaticPaths = () => {
+  return caseStudyDetails.map((study) => ({
+    params: { slug: study.slug },
+    props: { study },
+  }));
+};
+
+const { study } = Astro.props as { study: CaseStudyDetail };
+
+const heroImage = resolveImage(study.heroImage) as ImageMetadata;
+const heroUrl = heroImage.src;
+
+const relatedStudies = caseStudies.filter((s) => s.slug !== study.slug);
+---
+
+<PageLayout
+  title={`${study.title} | Dorbar Law Firm`}
+  description={study.subtitle}
+>
+  <CaseStudyHeroSection
+    practiceArea={study.practiceArea}
+    title={study.title}
+    subtitle={study.subtitle}
+    clientType={study.clientType}
+    duration={study.duration}
+    leadAttorney={study.leadAttorney}
+    heroUrl={heroUrl}
+  />
+
+  <CaseStudyDetailSection
+    title={study.title}
+    situation={study.situation}
+    mainImage={study.mainImage}
+  />
+
+  <CaseStudyApproachSection approach={study.approach} />
+
+  <CaseStudyOutcomesSection outcomes={study.outcomes} />
+
+  <CaseStudyTestimonialSection
+    quote={study.testimonial.quote}
+    author={study.testimonial.author}
+    company={study.testimonial.company}
+  />
+
+  <CaseStudyTakeawaysSection takeaways={study.takeaways} />
+
+  <CaseStudyTeamSection
+    heading={study.teamHeading}
+    attorneys={study.teamAttorneys}
+  />
+
+  <CaseStudyRelatedSection relatedStudies={relatedStudies} />
+
+  <CtaBanner
+    title="Need Strategic Legal Representation?"
+    summary="Contact our team today to discuss your legal challenges and discover how we can help protect your interests."
+  />
+</PageLayout>

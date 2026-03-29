@@ -1,0 +1,72 @@
+---
+interface Takeaway {
+  title: string;
+  description: string;
+}
+
+interface Props {
+  takeaways: Takeaway[];
+}
+
+const { takeaways } = Astro.props;
+---
+
+<section class="key-takeaways-section">
+  <div class="section-gap-two">
+    <div class="container-default">
+      <div class="key-takeaways-wrapper">
+        <div class="key-takeaways-heading-block">
+          <h2 class="section-title-two">Key Takeaways</h2>
+        </div>
+        <div class="key-takeaways-content-block">
+          {takeaways.map((item) => (
+            <div class="key-takeaway-card-block">
+              <div class="key-takeaway-card-icon-block">
+                <div class="key-takeaway-card-icon">
+                  <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M5.625 15L11.25 20.625L24.375 7.5" stroke="currentColor" stroke-width="1.875" stroke-linecap="round" stroke-linejoin="round"></path>
+                  </svg>
+                </div>
+              </div>
+              <div class="key-takeaway-card-text-block">
+                <div class="key-takeaway-card-text">
+                  <h3>{item.title}</h3>
+                  <p>{item.description}</p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const section = document.querySelector('.key-takeaways-section');
+    if (!section) return;
+
+    const heading = section.querySelector('.section-title-two');
+    const cards = section.querySelectorAll('.key-takeaway-card-block');
+
+    gsap.set(heading, { y: 100, opacity: 0 });
+    gsap.to(heading, {
+      y: 0, opacity: 1, duration: 1, ease: 'power3.out',
+      scrollTrigger: { trigger: section, start: 'top 80%', once: true }
+    });
+
+    cards.forEach((card, i) => {
+      gsap.set(card, { y: 100, opacity: 0 });
+      gsap.to(card, {
+        y: 0, opacity: 1, duration: 1, ease: 'power3.out', delay: (i + 1) * 0.2,
+        scrollTrigger: { trigger: section, start: 'top 80%', once: true }
+      });
+    });
+  });
+</script>

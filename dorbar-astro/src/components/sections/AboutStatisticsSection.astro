@@ -1,0 +1,68 @@
+---
+import { aboutStats } from '../../data/about';
+---
+
+<section class="about-stat-section" id="About-Stat-Section">
+  <div class="section-gap-two">
+    <div class="container-default">
+      <div class="track-record-stat-block about">
+        {aboutStats.map((stat) => {
+          const match = stat.value.match(/^(\d+)(.*)$/);
+          const num = match ? match[1] : stat.value;
+          const suffix = match ? match[2] : '';
+          return (
+            <div class="statistics-single-block">
+              <div class="stat-number-block is-2">
+                <div class="stat-number two" data-target={num} data-suffix={suffix}>0{suffix}</div>
+              </div>
+              <div class="stat-text-block">
+                <p class="stat-text about">{stat.label}</p>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  const scrollStart = 'top 90%';
+
+  // === Stat block: slideInBottom ===
+  const statBlock = document.querySelector('#About-Stat-Section .track-record-stat-block') as HTMLElement;
+  if (statBlock) {
+    gsap.set(statBlock, { opacity: 0, y: 100 });
+    gsap.to(statBlock, {
+      opacity: 1,
+      y: 0,
+      duration: 1,
+      ease: 'power3.out',
+      delay: 0.1,
+      scrollTrigger: { trigger: statBlock, start: scrollStart, once: true },
+    });
+  }
+
+  // === Count-up animation for stat numbers ===
+  const statNumbers = document.querySelectorAll('#About-Stat-Section .stat-number[data-target]');
+  statNumbers.forEach((el) => {
+    const target = parseInt((el as HTMLElement).dataset.target || '0', 10);
+    const suffix = (el as HTMLElement).dataset.suffix || '';
+    const counter = { val: 0 };
+
+    gsap.to(counter, {
+      val: target,
+      duration: 2,
+      ease: 'power2.out',
+      scrollTrigger: { trigger: el, start: scrollStart, once: true },
+      onUpdate() {
+        (el as HTMLElement).textContent = Math.round(counter.val) + suffix;
+      },
+    });
+  });
+</script>

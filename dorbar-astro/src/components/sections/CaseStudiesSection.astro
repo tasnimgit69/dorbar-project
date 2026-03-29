@@ -1,0 +1,85 @@
+---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import ButtonLink from '../ui/ButtonLink.astro';
+import { caseStudies } from '../../data/services-page';
+import { resolveImage } from '../../utils/resolveImage';
+---
+
+<section class="case-study-section" id="Case-Study-Section">
+  <div class="section-gap-two">
+    <div class="container-default">
+      <div class="case-study-wrapper">
+        <div class="case-study-heading-block">
+          <div class="section-title-block-two max-w-600">
+            <h2 class="section-title-two">Proven Results in Every Practice Area</h2>
+          </div>
+          <div class="section-summary-block-two max-w-700">
+            <p class="section-summary-two">Explore representative matters that demonstrate our ability to achieve exceptional outcomes for clients across industries.</p>
+          </div>
+        </div>
+        <div class="case-study-collection-list">
+          {caseStudies.map((study) => (
+            <div class="case-study-item-block">
+              <a href={`/case-study/${study.slug}`} class="case-study-image-block">
+                <Image src={resolveImage(study.image) as ImageMetadata} loading="lazy" alt={study.title} class="case-study-image" width={600} height={400} />
+              </a>
+              <div class="case-study-content-block">
+                <div class="case-study-text-block">
+                  <a href={`/case-study/${study.slug}`} class="case-study-title-block">
+                    <h3 class="case-study-title">{study.title}</h3>
+                  </a>
+                  <p class="case-study-summary">{study.summary}</p>
+                </div>
+                <ButtonLink href={`/case-study/${study.slug}`} label="Read Case Study" small />
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  const scrollStart = 'top 90%';
+
+  // === Heading elements: slideInBottom ===
+  const headingElements = [
+    { selector: '#Case-Study-Section .section-title-two', delay: 0.1 },
+    { selector: '#Case-Study-Section .section-summary-two', delay: 0.2 },
+  ];
+
+  headingElements.forEach(({ selector, delay }) => {
+    const el = document.querySelector(selector) as HTMLElement;
+    if (!el) return;
+    gsap.set(el, { opacity: 0, y: 100 });
+    gsap.to(el, {
+      opacity: 1,
+      y: 0,
+      duration: 1,
+      ease: 'power3.out',
+      delay,
+      scrollTrigger: { trigger: el, start: scrollStart, once: true },
+    });
+  });
+
+  // === Case study cards: slideInBottom with stagger ===
+  const cards = document.querySelectorAll('#Case-Study-Section .case-study-item-block');
+  cards.forEach((el, i) => {
+    gsap.set(el, { opacity: 0, y: 100 });
+    gsap.to(el, {
+      opacity: 1,
+      y: 0,
+      duration: 1,
+      ease: 'power3.out',
+      delay: 0.1 + i * 0.1,
+      scrollTrigger: { trigger: el, start: scrollStart, once: true },
+    });
+  });
+</script>

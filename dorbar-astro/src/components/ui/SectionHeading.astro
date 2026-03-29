@@ -1,0 +1,77 @@
+---
+interface Props {
+  subtitle: string;
+  title: string;
+  highlightWord?: string;
+  summary?: string;
+  align?: 'left' | 'center';
+  maxWidth?: string;
+  summaryMaxWidth?: string;
+  tag?: 'h1' | 'h2' | 'h3';
+}
+
+const {
+  subtitle,
+  title,
+  highlightWord,
+  summary,
+  align = 'center',
+  maxWidth = '',
+  summaryMaxWidth = '',
+  tag: Tag = 'h2',
+} = Astro.props;
+
+// Build title with highlighted word
+let titleHtml = title;
+if (highlightWord && title.includes(highlightWord)) {
+  titleHtml = title.replace(
+    highlightWord,
+    `<span class="section-highlight-title-two">${highlightWord}</span>`
+  );
+}
+
+const alignClass = align === 'left' ? 'left' : '';
+const maxWidthClass = maxWidth ? `max-w-${maxWidth}` : '';
+const summaryMaxWidthClass = summaryMaxWidth ? `max-w-${summaryMaxWidth}` : '';
+---
+
+<div class="section-heading-block">
+  <div class="section-subtitle-block-two" data-animate="fade-up">
+    <div class="section-subtitle-liner-one"></div>
+    <span class="section-subtitle-text-two">{subtitle}</span>
+    <div class="section-subtitle-liner-two"></div>
+  </div>
+
+  <div class={`section-title-block-two ${maxWidthClass}`.trim()}>
+    <Tag
+      class={`section-title-two ${alignClass}`.trim()}
+      data-animate="fade-up"
+      data-animate-delay="0.1"
+      set:html={titleHtml}
+    />
+  </div>
+
+  {summary && (
+    <div class={`section-summary-block-two ${summaryMaxWidthClass}`.trim()}>
+      <p
+        class={`section-summary-two ${alignClass}`.trim()}
+        data-animate="fade-up"
+        data-animate-delay="0.2"
+      >
+        {summary}
+      </p>
+    </div>
+  )}
+</div>
+
+<style>
+  .section-heading-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .section-heading-block:has(.left) {
+    align-items: flex-start;
+  }
+</style>

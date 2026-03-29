@@ -1,0 +1,101 @@
+---
+interface Props {
+  faqs: { question: string; answer: string }[];
+}
+
+const { faqs } = Astro.props;
+---
+
+<section class="service-faq-section" id="Service-FAQ-Section">
+  <div class="section-gap-two bottom">
+    <div class="container-default">
+      <div class="service-faq-wrapper">
+        <div class="service-faq-heading-block">
+          <h2 class="service-faq-title">Frequently Asked Questions</h2>
+        </div>
+        <div class="service-faq-content-block">
+          {faqs.map((faq) => (
+            <div class="service-single-faq-block">
+              <button class="service-faq-toggle" aria-expanded="false">
+                <div class="service-faq-item-title">{faq.question}</div>
+                <div class="service-faq-icon-block">
+                  <div class="service-faq-icon">
+                    <svg width="18" height="19" viewBox="0 0 18 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M9 4.34V14.84" stroke="#C5A46D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                      <path d="M3.75 9.59H14.25" stroke="#C5A46D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                    </svg>
+                  </div>
+                </div>
+              </button>
+              <div class="service-faq-content" style="display:none;">
+                <div class="service-faq-content-inner">
+                  <p class="service-faq-item-answer">{faq.answer}</p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+  gsap.registerPlugin(ScrollTrigger);
+
+  const section = document.querySelector('#Service-FAQ-Section');
+  if (section) {
+    const title = section.querySelector('.service-faq-title');
+    const faqBlocks = section.querySelectorAll('.service-single-faq-block');
+
+    if (title) {
+      gsap.fromTo(title, { opacity: 0, y: 100 }, {
+        opacity: 1, y: 0, duration: 1, ease: 'power3.out',
+        scrollTrigger: { trigger: title, start: 'top 90%', once: true }
+      });
+    }
+
+    faqBlocks.forEach((block, i) => {
+      gsap.fromTo(block, { opacity: 0, y: 100 }, {
+        opacity: 1, y: 0, duration: 1, delay: (i + 1) * 0.2, ease: 'power3.out',
+        scrollTrigger: { trigger: block, start: 'top 90%', once: true }
+      });
+    });
+
+    // FAQ toggle accordion with smooth GSAP animation
+    section.querySelectorAll('.service-faq-toggle').forEach((toggle) => {
+      toggle.addEventListener('click', () => {
+        const parent = toggle.parentElement;
+        const content = parent?.querySelector('.service-faq-content') as HTMLElement;
+        const isOpen = toggle.getAttribute('aria-expanded') === 'true';
+
+        // Close all others
+        section.querySelectorAll('.service-single-faq-block').forEach((block) => {
+          const btn = block.querySelector('.service-faq-toggle');
+          const cnt = block.querySelector('.service-faq-content') as HTMLElement;
+          if (btn && cnt && block !== parent && block.classList.contains('is-open')) {
+            btn.setAttribute('aria-expanded', 'false');
+            block.classList.remove('is-open');
+            gsap.to(cnt, { height: 0, duration: 0.4, ease: 'power2.inOut', onComplete: () => { cnt.style.display = 'none'; } });
+          }
+        });
+
+        // Toggle current
+        if (content) {
+          if (isOpen) {
+            toggle.setAttribute('aria-expanded', 'false');
+            parent?.classList.remove('is-open');
+            gsap.to(content, { height: 0, duration: 0.4, ease: 'power2.inOut', onComplete: () => { content.style.display = 'none'; } });
+          } else {
+            toggle.setAttribute('aria-expanded', 'true');
+            parent?.classList.add('is-open');
+            content.style.display = 'block';
+            gsap.fromTo(content, { height: 0 }, { height: 'auto', duration: 0.4, ease: 'power2.inOut' });
+          }
+        }
+      });
+    });
+  }
+</script>

@@ -1,0 +1,55 @@
+---
+import ButtonPrimary from '../ui/ButtonPrimary.astro';
+import { resolveImage } from '../../utils/resolveImage';
+import type { ImageMetadata } from 'astro';
+
+const bgImage = resolveImage('/images/backgrounds/team-section-bg-min.webp') as ImageMetadata;
+const bgUrl = bgImage.src;
+---
+
+<section class="service-hero-section" id="Service-Hero-Section" style={`--bg-image: url('${bgUrl}')`}>
+  <div class="service-section-hero-gap">
+    <div class="container-default">
+      <div class="service-hero-wrapper">
+        <div class="service-hero-content-block">
+          <div class="service-hero-text-block">
+            <h1 class="service-hero-title">Comprehensive Legal Expertise, Personalized for You.</h1>
+            <p class="service-hero-summary">We provide trusted representation across diverse areas of law, combining experience, precision, and integrity in every case.</p>
+          </div>
+          <div class="service-hero-button-block">
+            <ButtonPrimary href="/contact" label="Book a Consultation" showIcon={false} />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  const scrollStart = 'top 90%';
+
+  const textElements = [
+    { selector: '#Service-Hero-Section .service-hero-title', delay: 0.1 },
+    { selector: '#Service-Hero-Section .service-hero-summary', delay: 0.2 },
+    { selector: '#Service-Hero-Section .service-hero-button-block', delay: 0.3 },
+  ];
+
+  textElements.forEach(({ selector, delay }) => {
+    const el = document.querySelector(selector) as HTMLElement;
+    if (!el) return;
+    gsap.set(el, { opacity: 0, y: 100 });
+    gsap.to(el, {
+      opacity: 1,
+      y: 0,
+      duration: 1,
+      ease: 'power3.out',
+      delay,
+      scrollTrigger: { trigger: el, start: scrollStart, once: true },
+    });
+  });
+</script>

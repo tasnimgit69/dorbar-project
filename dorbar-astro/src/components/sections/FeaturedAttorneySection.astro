@@ -1,0 +1,123 @@
+---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import ButtonPrimary from '../ui/ButtonPrimary.astro';
+import { featuredAttorney } from '../../data/attorneys';
+import { expertiseAreas } from '../../data/attorneys-page';
+import { resolveImage } from '../../utils/resolveImage';
+
+const featuredAttorneyImage = resolveImage('/images/attorneys/featured-attorney-image.webp') as ImageMetadata;
+---
+
+<section id="Featured-Attorney-Section" class="attorney-details-section">
+  <div class="section-gap-two">
+    <div class="container-default">
+      <div class="attorney-details-wrapper">
+        <div class="attorney-details-image-block">
+          <Image
+            src={featuredAttorneyImage}
+            alt={featuredAttorney.name}
+            class="attorney-details-image"
+            width={660}
+            height={750}
+            loading="lazy"
+          />
+          <div class="image-anim-overlay bg" aria-hidden="true"></div>
+        </div>
+        <div class="attorney-details-content-block">
+          <div class="attorney-details-name-block">
+            <h2 class="attorney-details-name">{featuredAttorney.name}</h2>
+            <p class="attorney-details-designetion">{featuredAttorney.role}</p>
+          </div>
+          <div class="attorney-details-quote-block">
+            <blockquote class="attorney-details-quote-icon">&quot;</blockquote>
+            <blockquote class="attorney-details-quote">{featuredAttorney.quote}</blockquote>
+          </div>
+          <div class="attorney-details-summary-block">
+            <p class="attorney-details-summary">{featuredAttorney.bio}</p>
+          </div>
+          <div class="attorney-expertise-block">
+            <p class="attorney-expertise-title">Areas of Expertise</p>
+            <div class="attorney-expertise-point-block">
+              {expertiseAreas.map((area) => (
+                <div class="single-expertise-point">{area}</div>
+              ))}
+            </div>
+          </div>
+          <div class="attorney-details-button-block">
+            <ButtonPrimary href="/contact" label={`Schedule with ${featuredAttorney.name.split(' ')[0]}`} showIcon={false} />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  const section = '#Featured-Attorney-Section';
+
+  // Image reveal — a-33: overlay height 100%→0%, image scale 1.4→1
+  const image = document.querySelector(`${section} .attorney-details-image`) as HTMLElement;
+  const overlay = document.querySelector(`${section} .image-anim-overlay`) as HTMLElement;
+
+  if (image) gsap.set(image, { scale: 1.4 });
+  if (overlay) gsap.set(overlay, { height: '100%' });
+
+  if (image || overlay) {
+    const trigger = {
+      trigger: document.querySelector(`${section} .attorney-details-image-block`),
+      start: 'top bottom',
+      once: true,
+    };
+
+    if (overlay) {
+      gsap.to(overlay, {
+        height: '0%',
+        duration: 1.5,
+        ease: 'power2.inOut',
+        scrollTrigger: trigger,
+      });
+    }
+    if (image) {
+      gsap.to(image, {
+        scale: 1,
+        duration: 1.5,
+        ease: 'power1.out',
+        scrollTrigger: trigger,
+      });
+    }
+  }
+
+  // Content blocks — staggered slideInBottom
+  const contentElements = [
+    { selector: `${section} .attorney-details-name-block`, delay: 0.1 },
+    { selector: `${section} .attorney-details-quote-block`, delay: 0.2 },
+    { selector: `${section} .attorney-details-summary-block`, delay: 0.3 },
+    { selector: `${section} .attorney-expertise-block`, delay: 0.4 },
+    { selector: `${section} .attorney-details-button-block`, delay: 0.4 },
+  ];
+
+  contentElements.forEach(({ selector, delay }) => {
+    const el = document.querySelector(selector) as HTMLElement;
+    if (!el) return;
+
+    gsap.set(el, { opacity: 0, y: 100 });
+    gsap.to(el, {
+      opacity: 1,
+      y: 0,
+      duration: 1,
+      ease: 'power3.out',
+      delay,
+      scrollTrigger: {
+        trigger: el,
+        start: 'top bottom',
+        once: true,
+      },
+    });
+  });
+</script>

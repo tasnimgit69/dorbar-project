@@ -1,0 +1,118 @@
+---
+import { attorneyStats } from '../../data/attorneys-page';
+
+// Parse stat values into prefix, digits, suffix for number-chain animation
+function parseStatValue(value: string) {
+  const match = value.match(/^([^0-9]*)(\d+)([^0-9]*)$/);
+  if (!match) return { prefix: '', digits: [], suffix: value };
+  return {
+    prefix: match[1],
+    digits: match[2].split('').map(Number),
+    suffix: match[3],
+  };
+}
+
+// Generate number chain for upper-movement (counts down from high to target)
+function upperChain(target: number) {
+  const nums = [];
+  for (let i = 7; i >= 1; i--) nums.push(i);
+  nums.push(target);
+  return nums;
+}
+
+// Generate number chain for lower-movement (counts up from target)
+function lowerChain(target: number) {
+  const nums = [target];
+  for (let i = 1; i <= 5; i++) nums.push(i);
+  return nums;
+}
+---
+
+<section id="Attorney-Statistics-Section" class="statistics-section">
+  <div class="container-default">
+    <div class="statistics-wrapper">
+      {attorneyStats.map((stat, statIndex) => {
+        const parsed = parseStatValue(stat.value);
+        return (
+          <div class="statistics-single-block">
+            <div class="stat-number-block is-2">
+              {parsed.prefix && (
+                <div class="stat-number two">{parsed.prefix}</div>
+              )}
+              {parsed.digits.map((digit, i) => {
+                const isEven = (statIndex + i) % 2 === 0;
+                return isEven ? (
+                  <div class="stat-number-chain lower-movement">
+                    {lowerChain(digit).map((n) => (
+                      <div class="stat-number two">{n}</div>
+                    ))}
+                  </div>
+                ) : (
+                  <div class="stat-number-chain upper-movement">
+                    {upperChain(digit).map((n) => (
+                      <div class="stat-number two">{n}</div>
+                    ))}
+                  </div>
+                );
+              })}
+              {parsed.suffix && (
+                <div class="stat-number two">{parsed.suffix}</div>
+              )}
+            </div>
+            <div class="stat-text-block">
+              <p class="stat-text all-caps">{stat.label}</p>
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  </div>
+</section>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  const section = '#Attorney-Statistics-Section';
+
+  // Wrapper — slideInBottom (IX2 e-806: delay 200ms)
+  const wrapper = document.querySelector(`${section} .statistics-wrapper`) as HTMLElement;
+  if (wrapper) {
+    gsap.set(wrapper, { opacity: 0, y: 100 });
+    gsap.to(wrapper, {
+      opacity: 1,
+      y: 0,
+      duration: 1,
+      ease: 'power3.out',
+      delay: 0.2,
+      scrollTrigger: { trigger: wrapper, start: 'top bottom', once: true },
+    });
+  }
+
+  // Counter Animation (IX2 a-2): number chains scroll into position
+  // Phase 1 (initial): upper-movement → y: 200%, lower-movement → y: -400%
+  // Phase 2 (animate): both → y: 0% over 2.5s with inOutQuart easing
+
+  const statBlocks = document.querySelectorAll(`${section} .stat-number-block`);
+  statBlocks.forEach((block) => {
+    const upperChains = block.querySelectorAll('.stat-number-chain.upper-movement');
+    const lowerChains = block.querySelectorAll('.stat-number-chain.lower-movement');
+
+    // Set initial positions
+    upperChains.forEach((chain) => gsap.set(chain, { yPercent: 200 }));
+    lowerChains.forEach((chain) => gsap.set(chain, { yPercent: -400 }));
+
+    // Animate to final position on scroll
+    const allChains = block.querySelectorAll('.stat-number-chain');
+    allChains.forEach((chain) => {
+      gsap.to(chain, {
+        yPercent: 0,
+        duration: 2.5,
+        ease: 'power4.inOut',
+        scrollTrigger: { trigger: block, start: 'top bottom', once: true },
+      });
+    });
+  });
+</script>

@@ -1,0 +1,113 @@
+---
+import { recognitions } from '../../data/attorneys-page';
+---
+
+<section id="Recognition-Section" class="recognize-section">
+  <div class="section-gap-two">
+    <div class="container-default">
+      <div class="recognize-wrapper">
+        <div class="recognize-heading-block">
+          <div class="section-title-block-two">
+            <h2 class="section-title-two">Recognized & Accredited By</h2>
+          </div>
+          <div class="section-summary-block-two max-w-574">
+            <p class="section-summary-two">Our attorneys have earned recognition from the nation's most prestigious legal organizations and rating services.</p>
+          </div>
+        </div>
+        <div class="recognize-content-block">
+          {recognitions.map((item) => (
+            <div class="recognize-card-block">
+              <div class="recognize-card-icon-block">
+                <div class="recognize-card-icon">
+                  {item.icon === 'layers' && (
+                    <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                      <path d="M12.1479 2.11328L2.14795 7.11328L12.1479 12.1133L22.1479 7.11328L12.1479 2.11328Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                      <path d="M2.14795 17.1133L12.1479 22.1133L22.1479 17.1133" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                      <path d="M2.14795 12.1133L12.1479 17.1133L22.1479 12.1133" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  )}
+                  {item.icon === 'shield' && (
+                    <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                      <path d="M12.7378 22.1836C12.7378 22.1836 20.7378 18.1836 20.7378 12.1836V5.18359L12.7378 2.18359L4.73779 5.18359V12.1836C4.73779 18.1836 12.7378 22.1836 12.7378 22.1836Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  )}
+                  {item.icon === 'star' && (
+                    <svg width="23" height="22" viewBox="0 0 23 22" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                      <path d="M11.3281 1.18359L14.4181 7.44359L21.3281 8.45359L16.3281 13.3236L17.5081 20.2036L11.3281 16.9536L5.14813 20.2036L6.32812 13.3236L1.32812 8.45359L8.23812 7.44359L11.3281 1.18359Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  )}
+                  {item.icon === 'award' && (
+                    <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                      <path d="M12.938 15.1836C16.804 15.1836 19.938 12.0496 19.938 8.18359C19.938 4.3176 16.804 1.18359 12.938 1.18359C9.072 1.18359 5.93799 4.3176 5.93799 8.18359C5.93799 12.0496 9.072 15.1836 12.938 15.1836Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                      <path d="M9.14799 14.0725L7.93799 23.1825L12.938 20.1825L17.938 23.1825L16.728 14.0625" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  )}
+                  {item.icon === 'check' && (
+                    <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                      <path d="M22.5381 11.2654V12.1854C22.5369 14.3418 21.8386 16.4401 20.5474 18.1672C19.2563 19.8944 17.4414 21.1579 15.3734 21.7693C13.3055 22.3807 11.0953 22.3073 9.07256 21.56C7.04977 20.8127 5.32274 19.4315 4.14905 17.6225C2.97535 15.8134 2.41788 13.6735 2.55976 11.5217C2.70165 9.36998 3.53529 7.32174 4.93637 5.68248C6.33744 4.04323 8.23087 2.90079 10.3343 2.42556C12.4377 1.95032 14.6384 2.16775 16.6081 3.04541" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                      <path d="M22.5381 4.18359L12.5381 14.1936L9.53809 11.1936" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  )}
+                  {item.icon === 'tag' && (
+                    <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                      <path d="M20.7379 14.203L13.5679 21.373C13.3822 21.5589 13.1616 21.7064 12.9188 21.8071C12.676 21.9077 12.4158 21.9595 12.1529 21.9595C11.8901 21.9595 11.6299 21.9077 11.3871 21.8071C11.1443 21.7064 10.9237 21.5589 10.7379 21.373L2.14795 12.793V2.79297H12.1479L20.7379 11.383C21.1105 11.7577 21.3195 12.2646 21.3195 12.793C21.3195 13.3213 21.1105 13.8282 20.7379 14.203Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                      <path d="M7.14795 7.79297H7.15795" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  )}
+                </div>
+              </div>
+              <div class="recognize-card-text-block">
+                <h3 class="recognize-card-title">{item.title}</h3>
+                <p class="recognize-card-summary">{item.summary}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  const section = '#Recognition-Section';
+
+  // Heading — slideInBottom
+  const headingElements = [
+    { selector: `${section} .section-title-block-two`, delay: 0.1 },
+    { selector: `${section} .section-summary-block-two`, delay: 0.2 },
+  ];
+
+  headingElements.forEach(({ selector, delay }) => {
+    const el = document.querySelector(selector) as HTMLElement;
+    if (!el) return;
+    gsap.set(el, { opacity: 0, y: 100 });
+    gsap.to(el, {
+      opacity: 1,
+      y: 0,
+      duration: 1,
+      ease: 'power3.out',
+      delay,
+      scrollTrigger: { trigger: el, start: 'top bottom', once: true },
+    });
+  });
+
+  // Cards — staggered slideInBottom (200, 400, 600, 800, 1000, 1200ms)
+  const cards = document.querySelectorAll(`${section} .recognize-card-block`);
+  cards.forEach((card, i) => {
+    const delay = (i + 1) * 0.2;
+    gsap.set(card, { opacity: 0, y: 100 });
+    gsap.to(card, {
+      opacity: 1,
+      y: 0,
+      duration: 1,
+      ease: 'power3.out',
+      delay,
+      scrollTrigger: { trigger: card, start: 'top bottom', once: true },
+    });
+  });
+</script>

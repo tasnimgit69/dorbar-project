@@ -1,0 +1,76 @@
+---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import { resolveImage } from '../../utils/resolveImage';
+
+interface TeamAttorney {
+  name: string;
+  role: string;
+  description: string;
+  image: string;
+}
+
+interface Props {
+  heading: string;
+  attorneys: TeamAttorney[];
+}
+
+const { heading, attorneys } = Astro.props;
+---
+
+<section class="attorney-section">
+  <div class="section-gap-two bottom">
+    <div class="container-default">
+      <div class="attorney-heading-block">
+        <h2 class="section-title-two">{heading}</h2>
+      </div>
+      <div class="attorney-wrapper">
+        {attorneys.map((attorney) => (
+          <div class="attorney-card-item-block v-flex">
+            <div class="attorney-item-image-block">
+              <Image src={resolveImage(attorney.image) as ImageMetadata} loading="lazy" alt="Attorney Item Image" class="attorney-item-image" width={400} height={500} />
+            </div>
+            <div class="attorney-item-content-block">
+              <div class="attorney-item-name-block">
+                <h2 class="attorney-name">{attorney.name}</h2>
+                <div class="attorney-designation">{attorney.role}</div>
+              </div>
+              <div class="attorney-item-summary-block">
+                <p class="attorney-item-summary">{attorney.description}</p>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const section = document.querySelector('.attorney-section');
+    if (!section) return;
+
+    const heading = section.querySelector('.section-title-two');
+    const cards = section.querySelectorAll('.attorney-card-item-block');
+
+    gsap.set(heading, { y: 100, opacity: 0 });
+    gsap.to(heading, {
+      y: 0, opacity: 1, duration: 1, ease: 'power3.out',
+      scrollTrigger: { trigger: section, start: 'top 80%', once: true }
+    });
+
+    cards.forEach((card, i) => {
+      gsap.set(card, { y: 100, opacity: 0 });
+      gsap.to(card, {
+        y: 0, opacity: 1, duration: 1, ease: 'power3.out', delay: (i + 1) * 0.2,
+        scrollTrigger: { trigger: section, start: 'top 80%', once: true }
+      });
+    });
+  });
+</script>

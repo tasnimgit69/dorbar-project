@@ -1,0 +1,149 @@
+---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import { resolveImage } from '../utils/resolveImage';
+
+interface Props {
+  currentPath: string;
+}
+
+const { currentPath } = Astro.props;
+const brandLogo = resolveImage('/images/vector.webp') as ImageMetadata;
+const navLogoIcon = resolveImage('/images/icons/nav-logo.svg') as ImageMetadata;
+
+const navLinks = [
+  { label: 'Home', href: '/' },
+  { label: 'About', href: '/about' },
+  { label: 'Service', href: '/services' },
+  { label: 'Blog', href: '/blog' },
+  { label: 'Contact', href: '/contact' },
+];
+
+function isActive(href: string): boolean {
+  if (href === '/') return currentPath === '/';
+  return currentPath.startsWith(href);
+}
+---
+
+<header class="header">
+  <nav class="navbar" aria-label="Main navigation">
+    <div class="container-default">
+      <div class="nav-content-block">
+        <!-- Desktop Logo -->
+        <a href="/" class="brand-logo-block" aria-label="Dorbar - Home">
+          <Image src={brandLogo} alt="Dorbar Logo" class="brand-logo" loading="eager" />
+        </a>
+
+        <!-- Nav Menu -->
+        <div class="nav-menu-block" id="nav-menu" aria-hidden="true">
+          <div class="nav-link-block">
+            <!-- Mobile Logo -->
+            <a href="/" class="brand-logo-block mobile" aria-label="Dorbar - Home">
+              <Image src={navLogoIcon} alt="" class="brand-logo-icon" width={24} height={24} />
+              <span class="brand-logo-text mobile">Dorbar</span>
+            </a>
+
+            {navLinks.map((link) => (
+              <a
+                href={link.href}
+                class={`nav-link ${isActive(link.href) ? 'active' : ''}`}
+                aria-current={isActive(link.href) ? 'page' : undefined}
+              >
+                {link.label}
+              </a>
+            ))}
+          </div>
+
+          <div class="nav-button-block">
+            <a href="/contact" class="nav-button">
+              <span class="button-text">Free Consultation</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Mobile Menu Toggle -->
+        <button
+          class="menu-button"
+          id="menu-toggle"
+          aria-expanded="false"
+          aria-controls="nav-menu"
+          aria-label="Toggle navigation menu"
+        >
+          <span class="menu-icon">
+            <span class="menu-icon-line"></span>
+            <span class="menu-icon-line"></span>
+            <span class="menu-icon-line"></span>
+          </span>
+        </button>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<script>
+  const menuToggle = document.getElementById('menu-toggle');
+  const navMenu = document.getElementById('nav-menu');
+  let overlay: HTMLDivElement | null = null;
+
+  function openMenu() {
+    menuToggle?.setAttribute('aria-expanded', 'true');
+    navMenu?.classList.add('is-open');
+    navMenu?.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+
+    // Create overlay
+    overlay = document.createElement('div');
+    overlay.className = 'nav-overlay';
+    overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:8;';
+    document.body.appendChild(overlay);
+    overlay.addEventListener('click', closeMenu);
+  }
+
+  function closeMenu() {
+    menuToggle?.setAttribute('aria-expanded', 'false');
+    navMenu?.classList.remove('is-open');
+    navMenu?.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+
+    if (overlay) {
+      overlay.remove();
+      overlay = null;
+    }
+  }
+
+  menuToggle?.addEventListener('click', () => {
+    const isOpen = menuToggle.getAttribute('aria-expanded') === 'true';
+    if (isOpen) {
+      closeMenu();
+    } else {
+      openMenu();
+    }
+  });
+
+  // Close on Escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeMenu();
+  });
+
+  // === Headroom: hide on scroll down, show on scroll up ===
+  const header = document.querySelector('.header') as HTMLElement;
+  let lastScrollY = window.scrollY;
+  const scrollThreshold = 10;
+
+  function onScroll() {
+    const currentScrollY = window.scrollY;
+    const delta = currentScrollY - lastScrollY;
+
+    if (Math.abs(delta) < scrollThreshold) return;
+
+    if (delta > 0 && currentScrollY > 80) {
+      header.classList.add('header--hidden');
+    } else if (delta < 0) {
+      header.classList.remove('header--hidden');
+    }
+
+    lastScrollY = currentScrollY;
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+</script>

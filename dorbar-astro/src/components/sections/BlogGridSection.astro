@@ -1,0 +1,261 @@
+---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import { resolveImage } from '../../utils/resolveImage';
+
+interface Props {
+  posts: Array<{
+    slug: string;
+    title: string;
+    image: string;
+    category: string;
+    date: string;
+    author: string;
+    summary: string;
+  }>;
+}
+
+const { posts } = Astro.props;
+const clockIcon = resolveImage('/images/icons/clock-icon.svg') as ImageMetadata;
+const userIcon = resolveImage('/images/icons/user-icon.svg') as ImageMetadata;
+
+const featuredPost = posts.length > 0 ? posts[0] : null;
+const gridPosts = posts.length > 1 ? posts.slice(1) : [];
+const perPage = 6;
+const totalPages = Math.ceil(gridPosts.length / perPage);
+---
+
+<section class="bog-section" id="Blog-Grid-Section">
+  <div class="section-gap-two bottom">
+    <div class="container-default">
+      <div class="blog-wrapper">
+        <div class="blog-content-block blog-page">
+          {posts.length > 0 ? (
+            <>
+              {/* Featured Large Card */}
+              {featuredPost && (
+                <div class="blog-collection-list-block blog-page">
+                  <div class="blog-collection-item">
+                    <div class="blog-item-card-block lg">
+                      <a aria-label={featuredPost.title} href={`/blog-post/${featuredPost.slug}`} class="blog-item-image-block lg">
+                        <Image src={resolveImage(featuredPost.image) as ImageMetadata} loading="lazy" alt={featuredPost.title} class="blog-item-image lg" width={894} height={600} />
+                        <div class="blog-category-text">{featuredPost.category}</div>
+                      </a>
+                      <div class="blog-item-content-block lg is-2">
+                        <div class="blog-item-info-block">
+                          <div class="blog-single-info-block">
+                            <Image src={clockIcon} loading="lazy" alt="Date Icon" class="blog-info-icon" width={16} height={16} />
+                            <p class="blog-info-text">{featuredPost.date}</p>
+                          </div>
+                          <div class="blog-single-info-block">
+                            <Image src={userIcon} loading="lazy" alt="Author Icon" class="blog-info-icon" width={16} height={16} />
+                            <div class="blog-info-text-block">
+                              <p class="blog-info-text">By</p>
+                              <p class="blog-info-text">{featuredPost.author}</p>
+                            </div>
+                          </div>
+                        </div>
+                        <a aria-label={featuredPost.title} href={`/blog-post/${featuredPost.slug}`} class="blog-item-title-block lg">
+                          <h2 class="blog-item-title lg">{featuredPost.title}</h2>
+                        </a>
+                        <div class="blog-item-summary-block lg">
+                          <p class="blog-item-summary">{featuredPost.summary}</p>
+                        </div>
+                        <a href={`/blog-post/${featuredPost.slug}`} class="link-button-block">
+                          <div class="link-button-content">
+                            <div class="link-button-text sm">Read Article</div>
+                            <div class="link-button-icon">
+                              <svg width="12" height="10" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M1 5H10.3333" stroke="currentColor" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"></path>
+                                <path d="M7 1L11 5L7 9" stroke="currentColor" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"></path>
+                              </svg>
+                            </div>
+                          </div>
+                          <div class="link-button-liner"></div>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* Grid Cards + Pagination */}
+              {gridPosts.length > 0 && (
+                <div class="blog-collection-list-block blog-page">
+                  <div class="blog-collection-list is-3 blog-page" id="blog-grid-list">
+                    {gridPosts.map((post, index) => (
+                      <div class="blog-collection-item" data-grid-index={index}>
+                        <div class="blog-item-card-block">
+                          <a aria-label={post.title} href={`/blog-post/${post.slug}`} class="blog-item-image-block">
+                            <Image src={resolveImage(post.image) as ImageMetadata} loading="lazy" alt={post.title} class="blog-item-image blog-page" width={600} height={400} />
+                            <div class="blog-category-text">{post.category}</div>
+                          </a>
+                          <div class="blog-item-content-block">
+                            <div class="blog-item-info-block">
+                              <div class="blog-single-info-block">
+                                <Image src={clockIcon} loading="lazy" alt="Date Icon" class="blog-info-icon" width={16} height={16} />
+                                <p class="blog-info-text">{post.date}</p>
+                              </div>
+                              <div class="blog-single-info-block">
+                                <Image src={userIcon} loading="lazy" alt="Author Icon" class="blog-info-icon" width={16} height={16} />
+                                <div class="blog-info-text-block">
+                                  <p class="blog-info-text">By</p>
+                                  <p class="blog-info-text">{post.author}</p>
+                                </div>
+                              </div>
+                            </div>
+                            <a aria-label={post.title} href={`/blog-post/${post.slug}`} class="blog-item-title-block">
+                              <h3 class="blog-item-title">{post.title}</h3>
+                            </a>
+                            <div class="blog-item-summary-block">
+                              <p class="blog-item-summary">{post.summary}</p>
+                            </div>
+                            <a href={`/blog-post/${post.slug}`} class="link-button-block">
+                              <div class="link-button-content">
+                                <div class="link-button-text sm">Read Article</div>
+                                <div class="link-button-icon">
+                                  <svg width="12" height="10" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M1 5H10.3333" stroke="currentColor" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"></path>
+                                    <path d="M7 1L11 5L7 9" stroke="currentColor" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"></path>
+                                  </svg>
+                                </div>
+                              </div>
+                              <div class="link-button-liner"></div>
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Pagination */}
+                  {totalPages > 1 && (
+                    <nav aria-label="List" class="pagination-wrapper pagination" id="blog-pagination" data-per-page={perPage} data-total={gridPosts.length}>
+                      <a href="#" aria-label="Previous Page" class="pagination-link prev" id="blog-prev" style="display: none;">
+                        <div class="link-button-icon rotate">
+                          <svg width="12" height="10" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M1 5H10.3333" stroke="currentColor" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"></path>
+                            <path d="M7 1L11 5L7 9" stroke="currentColor" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"></path>
+                          </svg>
+                        </div>
+                        <div>Previous</div>
+                      </a>
+                      <a href="#" aria-label="Next Page" class="pagination-link next" id="blog-next">
+                        <div>Next</div>
+                        <div class="link-button-icon">
+                          <svg width="12" height="10" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M1 5H10.3333" stroke="currentColor" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"></path>
+                            <path d="M7 1L11 5L7 9" stroke="currentColor" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"></path>
+                          </svg>
+                        </div>
+                      </a>
+                    </nav>
+                  )}
+                </div>
+              )}
+            </>
+          ) : (
+            <div class="w-dyn-empty">
+              <div>No articles found in this category.</div>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  const section = document.querySelector('#Blog-Grid-Section');
+  if (section) {
+    const gridItems = section.querySelectorAll('.blog-collection-list.is-3 .blog-collection-item') as NodeListOf<HTMLElement>;
+    let perPage = gridItems.length;
+
+    // --- Pagination ---
+    const paginationNav = document.querySelector('#blog-pagination') as HTMLElement;
+    if (paginationNav) {
+      perPage = parseInt(paginationNav.dataset.perPage || '6');
+      const total = parseInt(paginationNav.dataset.total || '0');
+      const totalPages = Math.ceil(total / perPage);
+      const prevBtn = document.querySelector('#blog-prev') as HTMLElement;
+      const nextBtn = document.querySelector('#blog-next') as HTMLElement;
+      let currentPage = 0;
+
+      function showPage(page: number) {
+        const start = page * perPage;
+        const end = start + perPage;
+
+        gridItems.forEach((item, i) => {
+          item.style.display = i >= start && i < end ? '' : 'none';
+        });
+
+        prevBtn.style.display = page > 0 ? 'flex' : 'none';
+        nextBtn.style.display = page < totalPages - 1 ? 'flex' : 'none';
+
+        currentPage = page;
+      }
+
+      showPage(0);
+
+      prevBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        if (currentPage > 0) {
+          showPage(currentPage - 1);
+          section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+
+      nextBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        if (currentPage < totalPages - 1) {
+          showPage(currentPage + 1);
+          section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    }
+
+    // --- GSAP Animations ---
+    ScrollTrigger.refresh();
+
+    const featuredCard = section.querySelector('.blog-item-card-block.lg');
+    if (featuredCard) {
+      gsap.set(featuredCard, { opacity: 0, y: 100 });
+      gsap.to(featuredCard, {
+        opacity: 1,
+        y: 0,
+        duration: 1,
+        delay: 0.2,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: section,
+          start: 'top 80%',
+          once: true,
+        },
+      });
+    }
+
+    const gridList = section.querySelector('.blog-collection-list.is-3');
+    gridItems.forEach((card, i) => {
+      if (i < perPage) {
+        gsap.set(card, { opacity: 0, y: 100 });
+        gsap.to(card, {
+          opacity: 1,
+          y: 0,
+          duration: 1,
+          delay: ((i % 3) + 1) * 0.2,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: gridList,
+            start: 'top 80%',
+            once: true,
+          },
+        });
+      }
+    });
+  }
+</script>

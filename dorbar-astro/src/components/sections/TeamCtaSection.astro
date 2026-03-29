@@ -1,0 +1,50 @@
+---
+import ButtonPrimary from '../ui/ButtonPrimary.astro';
+---
+
+<section id="Team-CTA-Section" class="team-cta-section">
+  <div class="team-cta-section-gap">
+    <div class="container-default">
+      <div class="team-cta-wrapper">
+        <div class="team-cta-content-block">
+          <div class="team-cta-text-block">
+            <h2 class="section-title-two">Ready to Work With Our Attorneys?</h2>
+            <p class="section-summary-two">Experience the difference that dedicated, expert legal representation can make. Schedule a confidential consultation with one of our attorneys today.</p>
+          </div>
+          <div class="team-cta-button-block">
+            <ButtonPrimary href="/contact" label="Book a Consultation" showIcon={false} />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  const section = '#Team-CTA-Section';
+
+  // Content elements — staggered slideInBottom
+  const elements = [
+    { selector: `${section} .team-cta-text-block`, delay: 0.1 },
+    { selector: `${section} .team-cta-button-block`, delay: 0.2 },
+  ];
+
+  elements.forEach(({ selector, delay }) => {
+    const el = document.querySelector(selector) as HTMLElement;
+    if (!el) return;
+    gsap.set(el, { opacity: 0, y: 100 });
+    gsap.to(el, {
+      opacity: 1,
+      y: 0,
+      duration: 1,
+      ease: 'power3.out',
+      delay,
+      scrollTrigger: { trigger: el, start: 'top bottom', once: true },
+    });
+  });
+</script>

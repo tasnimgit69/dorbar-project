@@ -1,0 +1,58 @@
+---
+---
+
+<section class="blog-cta-section" id="Blog-CTA-Section">
+  <div class="section-gap-two bottom">
+    <div class="container-default">
+      <div class="blog-cta-wrapper">
+        <div class="blog-cta-heading-block">
+          <div class="blog-cta-title-block">
+            <h2 class="section-title-two">Stay Informed. Stay Protected.</h2>
+          </div>
+          <div class="blog-cta-summary-block">
+            <p class="section-summary-two">Subscribe to receive legal insights and updates from our attorneys delivered directly to your inbox.</p>
+          </div>
+        </div>
+        <div class="blog-cta-form-block">
+          <div class="footer-form">
+            <form id="Blog-CTA-Form" class="footer-form-inner-block" method="get">
+              <div class="footer-text-field-block">
+                <input class="footer-form-text-field blog" maxlength="256" name="email" placeholder="Enter your email address" type="email" required />
+                <input type="submit" class="footer-form-button blog" value="Subscribe" />
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  const section = document.querySelector('#Blog-CTA-Section');
+  if (section) {
+    const wrapper = section.querySelector('.blog-cta-wrapper');
+    if (wrapper) {
+      gsap.fromTo(wrapper,
+        { opacity: 0, y: 100 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 1,
+          delay: 0.2,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: section,
+            start: 'top 80%',
+            once: true,
+          },
+        }
+      );
+    }
+  }
+</script>

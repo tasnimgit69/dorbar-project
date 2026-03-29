@@ -1,0 +1,61 @@
+---
+interface Outcome {
+  value: string;
+  label: string;
+}
+
+interface Props {
+  outcomes: Outcome[];
+}
+
+const { outcomes } = Astro.props;
+---
+
+<section class="outcome-section">
+  <div class="section-gap-two">
+    <div class="container-default">
+      <div class="outcome-wrapper">
+        <div class="outcome-heading-block">
+          <h2 class="section-title-two">Measurable Outcomes</h2>
+        </div>
+        <div class="outcome-content-block">
+          {outcomes.map((outcome, i) => (
+            <div class={`outcome-single-stat-block${i === 1 ? ' is-2' : ''}`}>
+              <div class="outcome-stat-text">
+                <h2>{outcome.value}</h2>
+                <p>{outcome.label}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const section = document.querySelector('.outcome-section');
+    if (!section) return;
+
+    const heading = section.querySelector('.section-title-two');
+    const contentBlock = section.querySelector('.outcome-content-block');
+
+    gsap.set(heading, { y: 100, opacity: 0 });
+    gsap.to(heading, {
+      y: 0, opacity: 1, duration: 1, ease: 'power3.out',
+      scrollTrigger: { trigger: section, start: 'top 80%', once: true }
+    });
+
+    gsap.set(contentBlock, { y: 100, opacity: 0 });
+    gsap.to(contentBlock, {
+      y: 0, opacity: 1, duration: 1, ease: 'power3.out', delay: 0.2,
+      scrollTrigger: { trigger: section, start: 'top 80%', once: true }
+    });
+  });
+</script>

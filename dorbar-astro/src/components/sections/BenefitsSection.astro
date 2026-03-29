@@ -1,0 +1,89 @@
+---
+import { benefits } from '../../data/consultation';
+---
+
+<section class="consultation-section" id="Consultation-Benefits-Section">
+  <div class="section-gap-two bottom">
+    <div class="container-default">
+      <div class="consultation-wrapper">
+        <div class="consultation-heading-block">
+          <div class="section-title-block-two max-w-600">
+            <h2 class="section-title-two">Why Choose Our Consultation Service</h2>
+          </div>
+        </div>
+        <div class="consultation-content-block">
+          {benefits.map((benefit) => (
+            <div class="consultation-single-block">
+              <div class="consultation-icon-block">
+                <div class="consultation-icon">
+                  {benefit.icon === 'layers' && (
+                    <svg width="37" height="37" viewBox="0 0 37 37" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                      <path d="M18.0664 3.49219L3.06641 10.9922L18.0664 18.4922L33.0664 10.9922L18.0664 3.49219Z" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                      <path d="M3.06641 25.9922L18.0664 33.4922L33.0664 25.9922" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                      <path d="M3.06641 18.4922L18.0664 25.9922L33.0664 18.4922" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  )}
+                  {benefit.icon === 'users' && (
+                    <svg width="37" height="37" viewBox="0 0 37 37" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                      <path d="M25.5664 31.9922V28.9922C25.5664 27.4009 24.9343 25.8748 23.809 24.7495C22.6838 23.6243 21.1577 22.9922 19.5664 22.9922H7.56641C5.97511 22.9922 4.44898 23.6243 3.32377 24.7495C2.19855 25.8748 1.56641 27.4009 1.56641 28.9922V31.9922" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                      <path d="M13.5664 16.9922C16.8801 16.9922 19.5664 14.3059 19.5664 10.9922C19.5664 7.67848 16.8801 4.99219 13.5664 4.99219C10.2527 4.99219 7.56641 7.67848 7.56641 10.9922C7.56641 14.3059 10.2527 16.9922 13.5664 16.9922Z" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                      <path d="M34.5664 31.9925V28.9925C34.5654 27.6631 34.1229 26.3717 33.3085 25.321C32.494 24.2703 31.3536 23.5199 30.0664 23.1875" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                      <path d="M24.0664 5.1875C25.357 5.51795 26.501 6.26855 27.3179 7.32097C28.1348 8.37338 28.5782 9.66774 28.5782 11C28.5782 12.3323 28.1348 13.6266 27.3179 14.679C26.501 15.7314 25.357 16.482 24.0664 16.8125" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  )}
+                  {benefit.icon === 'shield' && (
+                    <svg width="37" height="37" viewBox="0 0 37 37" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                      <path d="M18.0664 33.4922C18.0664 33.4922 30.0664 27.4922 30.0664 18.4922V7.99219L18.0664 3.49219L6.06641 7.99219V18.4922C6.06641 27.4922 18.0664 33.4922 18.0664 33.4922Z" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  )}
+                </div>
+              </div>
+              <div class="consultation-text-block">
+                <h3 class="consultation-service-title">{benefit.title}</h3>
+                <p class="consultation-service-summary">{benefit.summary}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  const scrollStart = 'top 90%';
+
+  // === Heading: slideInBottom ===
+  const heading = document.querySelector('#Consultation-Benefits-Section .section-title-two') as HTMLElement;
+  if (heading) {
+    gsap.set(heading, { opacity: 0, y: 100 });
+    gsap.to(heading, {
+      opacity: 1,
+      y: 0,
+      duration: 1,
+      ease: 'power3.out',
+      delay: 0.5,
+      scrollTrigger: { trigger: heading, start: scrollStart, once: true },
+    });
+  }
+
+  // === Benefit cards: slideInBottom with IX2 delays ===
+  const cardDelays = [0.2, 0.2, 0.4];
+  const cards = document.querySelectorAll('#Consultation-Benefits-Section .consultation-single-block');
+  cards.forEach((el, i) => {
+    gsap.set(el, { opacity: 0, y: 100 });
+    gsap.to(el, {
+      opacity: 1,
+      y: 0,
+      duration: 1,
+      ease: 'power3.out',
+      delay: cardDelays[i] || 0.2,
+      scrollTrigger: { trigger: el, start: scrollStart, once: true },
+    });
+  });
+</script>

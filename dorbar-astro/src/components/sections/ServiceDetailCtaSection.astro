@@ -1,0 +1,40 @@
+---
+import ButtonPrimary from '../ui/ButtonPrimary.astro';
+
+interface Props {
+  title: string;
+  summary: string;
+}
+
+const { title, summary } = Astro.props;
+---
+
+<section class="service-cta-section" id="Service-CTA-Section">
+  <div class="section-gap-sm">
+    <div class="container-default">
+      <div class="service-cta-wrapper">
+        <div class="service-cta-text-block">
+          <h2 class="service-cta-title">{title}</h2>
+          <p class="service-cta-summary">{summary}</p>
+        </div>
+        <div class="service-cta-button-block">
+          <ButtonPrimary href="/contact" label="Schedule a Consultation" showIcon={false} />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+  gsap.registerPlugin(ScrollTrigger);
+
+  const section = document.querySelector('#Service-CTA-Section');
+  if (section) {
+    gsap.fromTo(section, { opacity: 0, y: 100 }, {
+      opacity: 1, y: 0, duration: 1, ease: 'power3.out',
+      scrollTrigger: { trigger: section, start: 'top 90%', once: true }
+    });
+  }
+</script>

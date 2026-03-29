@@ -1,0 +1,63 @@
+---
+interface Props {
+  heading: string;
+  summary?: string;
+  cards: { value?: string; title: string; description: string; variant?: string }[];
+}
+
+const { heading, summary, cards } = Astro.props;
+---
+
+<section class="why-choose-section" id="Why-Choose-Section">
+  <div class="section-gap-two">
+    <div class="container-default">
+      <div class="why-choose-wrapper">
+        <div class="why-choose-heading-block">
+          <div class="why-choose-heading">
+            <h2>{heading}</h2>
+            {summary && <p>{summary}</p>}
+          </div>
+        </div>
+        <div class="why-choose-content-block">
+          <div class="why-choose-card-block">
+            {cards.map((card) => (
+              <div class={`why-choose-single-card-block ${card.variant || ''}`}>
+                <div class="why-choose-card-content">
+                  {card.value && <h3>{card.value}</h3>}
+                  <h4>{card.title}</h4>
+                  <p>{card.description}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+  gsap.registerPlugin(ScrollTrigger);
+
+  const section = document.querySelector('#Why-Choose-Section');
+  if (section) {
+    const heading = section.querySelector('.why-choose-heading');
+    const cards = section.querySelectorAll('.why-choose-single-card-block');
+
+    if (heading) {
+      gsap.fromTo(heading, { opacity: 0, y: 100 }, {
+        opacity: 1, y: 0, duration: 1, ease: 'power3.out',
+        scrollTrigger: { trigger: heading, start: 'top 90%', once: true }
+      });
+    }
+
+    cards.forEach((card, i) => {
+      gsap.fromTo(card, { opacity: 0, y: 100 }, {
+        opacity: 1, y: 0, duration: 1, delay: (i + 1) * 0.2, ease: 'power3.out',
+        scrollTrigger: { trigger: card, start: 'top 90%', once: true }
+      });
+    });
+  }
+</script>

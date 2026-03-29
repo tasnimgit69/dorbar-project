@@ -1,0 +1,92 @@
+---
+import { howItWorks } from '../../data/consultation';
+---
+
+<section class="works-section" id="How-It-Works-Section">
+  <div class="section-gap-two bottom">
+    <div class="container-default">
+      <div class="works-wrapper">
+        <div class="works-heading-block">
+          <div class="section-title-block-two">
+            <h2 class="section-title-two">How the Consultation Works</h2>
+          </div>
+          <div class="section-summary-block-two">
+            <p class="section-summary-two">Three simple steps to get the legal guidance you need</p>
+          </div>
+        </div>
+        <div class="works-content-block">
+          {howItWorks.map((item) => (
+            <div class="works-single-card-block">
+              <div class="works-card-number-block">
+                <div class="works-card-number">{item.step}</div>
+                <div class="works-card-number-block-sd"></div>
+              </div>
+              <div class="works-card-text-block">
+                <h3 class="works-card-title">{item.title}</h3>
+                <p class="works-card-summary">{item.summary}</p>
+              </div>
+            </div>
+          ))}
+          <div class="works-content-liner"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  const scrollStart = 'top 90%';
+
+  // === Heading elements: slideInBottom ===
+  const elements = [
+    { selector: '#How-It-Works-Section .section-title-two', delay: 0.2 },
+    { selector: '#How-It-Works-Section .section-summary-two', delay: 0.4 },
+  ];
+
+  elements.forEach(({ selector, delay }) => {
+    const el = document.querySelector(selector) as HTMLElement;
+    if (!el) return;
+    gsap.set(el, { opacity: 0, y: 100 });
+    gsap.to(el, {
+      opacity: 1,
+      y: 0,
+      duration: 1,
+      ease: 'quart.out',
+      delay,
+      scrollTrigger: { trigger: el, start: scrollStart, once: true },
+    });
+  });
+
+  // === Cards: slideInBottom with IX2 delays ===
+  const cardDelays = [0.4, 0.2, 0.4];
+  const cards = document.querySelectorAll('#How-It-Works-Section .works-single-card-block');
+  cards.forEach((el, i) => {
+    gsap.set(el, { opacity: 0, y: 100 });
+    gsap.to(el, {
+      opacity: 1,
+      y: 0,
+      duration: 1,
+      ease: 'quart.out',
+      delay: cardDelays[i] || 0.2,
+      scrollTrigger: { trigger: el, start: scrollStart, once: true },
+    });
+  });
+
+  // === Liner: scaleX 0→1 ===
+  const liner = document.querySelector('#How-It-Works-Section .works-content-liner') as HTMLElement;
+  if (liner) {
+    gsap.set(liner, { scaleX: 0 });
+    gsap.to(liner, {
+      scaleX: 1,
+      duration: 1,
+      ease: 'ease',
+      delay: 0.6,
+      scrollTrigger: { trigger: liner, start: scrollStart, once: true },
+    });
+  }
+</script>

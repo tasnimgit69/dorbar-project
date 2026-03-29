@@ -1,0 +1,77 @@
+<section id="Attorney-Quote-Section" class="attorney-qoute-section">
+  <div class="section-gap-two bottom">
+    <div class="container-default">
+      <div class="attorney-qoute-wrapper">
+        <div class="attorney-qoute-content-block">
+          <div class="attorney-qoute-liner"></div>
+          <div class="attorney-qoute-text-block">
+            <p class="attorney-qoute-text">At <span class="qoute-highlight-text">Dorbar & Associates</span>, we believe that great legal representation begins with integrity, empathy, and precision. Each member of our firm brings unique expertise and dedication to every case, ensuring our clients receive not just legal counsel, but a partnership built on trust and results.</p>
+            <div class="qouted-attorney-name">— Richard Dorbar</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  const section = '#Attorney-Quote-Section';
+
+  // Liner — scaleY 0→1 (IX2 a-46: delay 400ms, duration 600ms, ease)
+  const liner = document.querySelector(`${section} .attorney-qoute-liner`) as HTMLElement;
+  if (liner) {
+    gsap.set(liner, { scaleY: 0, transformOrigin: '50% 0' });
+    gsap.to(liner, {
+      scaleY: 1,
+      duration: 0.6,
+      ease: 'power1.out',
+      delay: 0.4,
+      scrollTrigger: {
+        trigger: liner,
+        start: 'top bottom',
+        once: true,
+      },
+    });
+  }
+
+  // Quote text — slideInBottom (delay 600ms)
+  const quoteText = document.querySelector(`${section} .attorney-qoute-text`) as HTMLElement;
+  if (quoteText) {
+    gsap.set(quoteText, { opacity: 0, y: 100 });
+    gsap.to(quoteText, {
+      opacity: 1,
+      y: 0,
+      duration: 1,
+      ease: 'power3.out',
+      delay: 0.6,
+      scrollTrigger: {
+        trigger: quoteText,
+        start: 'top bottom',
+        once: true,
+      },
+    });
+  }
+
+  // Attorney name — slideInBottom (delay 800ms)
+  const name = document.querySelector(`${section} .qouted-attorney-name`) as HTMLElement;
+  if (name) {
+    gsap.set(name, { opacity: 0, y: 100 });
+    gsap.to(name, {
+      opacity: 1,
+      y: 0,
+      duration: 1,
+      ease: 'power3.out',
+      delay: 0.8,
+      scrollTrigger: {
+        trigger: name,
+        start: 'top bottom',
+        once: true,
+      },
+    });
+  }
+</script>

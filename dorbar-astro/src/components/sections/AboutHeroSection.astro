@@ -1,0 +1,102 @@
+---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import ButtonPrimary from '../ui/ButtonPrimary.astro';
+import { resolveImage } from '../../utils/resolveImage';
+
+const aboutHeroImage = resolveImage('/images/about/about-hero-image-min.webp') as ImageMetadata;
+---
+
+<section class="about-hero-section" id="About-Hero-Section">
+  <div class="about-hero-section-gap">
+    <div class="container-default">
+      <div class="about-hero-wrapper">
+        <div class="about-hero-content-block">
+          <div class="about-hero-title-block">
+            <div class="section-subtitle-block-two">
+              <div class="section-subtitle-liner-one"></div>
+              <span class="section-subtitle-text-two">About Our Firm</span>
+              <div class="section-subtitle-liner-two"></div>
+            </div>
+            <h1 class="about-hero-title">Decades of Experience. A Legacy of Trust.</h1>
+          </div>
+          <div class="about-hero-summary-block">
+            <p class="about-hero-summary">Founded with a commitment to excellence and integrity, Dorbar & Associates has been guiding clients through complex legal matters for over two decades, building lasting relationships based on results and respect.</p>
+          </div>
+          <div class="about-hero-button-block">
+            <ButtonPrimary href="/attorneys" label="Meet Our Attorneys" showIcon={false} />
+          </div>
+        </div>
+        <div class="about-hero-image-block">
+          <Image
+            src={aboutHeroImage}
+            alt="About Dorbar & Associates"
+            class="about-hero-image"
+            width={650}
+            height={750}
+            loading="eager"
+          />
+          <div class="image-anim-overlay" aria-hidden="true"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  const scrollStart = 'top 90%';
+
+  // === Text elements: slideInBottom ===
+  const textElements = [
+    { selector: '#About-Hero-Section .section-subtitle-block-two', delay: 0.1 },
+    { selector: '#About-Hero-Section .about-hero-title', delay: 0.2 },
+    { selector: '#About-Hero-Section .about-hero-summary-block', delay: 0.3 },
+    { selector: '#About-Hero-Section .about-hero-button-block', delay: 0.4 },
+  ];
+
+  textElements.forEach(({ selector, delay }) => {
+    const el = document.querySelector(selector) as HTMLElement;
+    if (!el) return;
+    gsap.set(el, { opacity: 0, y: 100 });
+    gsap.to(el, {
+      opacity: 1,
+      y: 0,
+      duration: 1,
+      ease: 'power3.out',
+      delay,
+      scrollTrigger: { trigger: el, start: scrollStart, once: true },
+    });
+  });
+
+  // === Image reveal: overlay height 100% → 0%, image scale 1.4 → 1 ===
+  const imageBlock = document.querySelector('#About-Hero-Section .about-hero-image-block') as HTMLElement;
+  const image = document.querySelector('#About-Hero-Section .about-hero-image') as HTMLElement;
+  const overlay = document.querySelector('#About-Hero-Section .image-anim-overlay') as HTMLElement;
+
+  if (overlay) {
+    gsap.set(overlay, { height: '100%' });
+    gsap.to(overlay, {
+      height: '0%',
+      duration: 1,
+      ease: 'power3.out',
+      delay: 0.2,
+      scrollTrigger: { trigger: imageBlock, start: scrollStart, once: true },
+    });
+  }
+
+  if (image) {
+    gsap.set(image, { scale: 1.4 });
+    gsap.to(image, {
+      scale: 1,
+      duration: 1.2,
+      ease: 'power3.out',
+      delay: 0.2,
+      scrollTrigger: { trigger: imageBlock, start: scrollStart, once: true },
+    });
+  }
+</script>

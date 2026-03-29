@@ -1,0 +1,66 @@
+---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import { attorneys } from '../../data/attorneys';
+import { resolveImage } from '../../utils/resolveImage';
+---
+
+<section id="Attorney-Grid-Section" class="attorney-section">
+  <div class="section-gap-two bottom">
+    <div class="container-default">
+      <div class="attorney-wrapper">
+        {attorneys.map((attorney) => (
+          <div class="attorney-card-item-block v-flex">
+            <div class="attorney-item-image-block">
+              <Image src={resolveImage(attorney.image) as ImageMetadata} loading="lazy" alt={attorney.name} class="attorney-item-image" width={400} height={500} />
+            </div>
+            <div class="attorney-item-content-block">
+              <div class="attorney-item-name-block">
+                <h2 class="attorney-name">{attorney.name}</h2>
+                <div class="attorney-designation">{attorney.role}</div>
+              </div>
+              <div class="attorney-item-summary-block">
+                <p class="attorney-item-summary">{attorney.specialties.join(' · ')}</p>
+              </div>
+              <div class="attorney-item-social-block">
+                <a href={attorney.social.linkedin} target="_blank" rel="noopener noreferrer" class="single-social-block" aria-label={`${attorney.name} LinkedIn`}>
+                  <div class="team-social-icon">in</div>
+                </a>
+                <a href={attorney.social.email} target="_blank" rel="noopener noreferrer" class="single-social-block" aria-label={`Email ${attorney.name}`}>
+                  <div class="team-social-icon">&#9993;</div>
+                </a>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  // Attorney cards — staggered slideInBottom (IX2: 200, 400, 600ms per row of 3)
+  const cards = document.querySelectorAll('#Attorney-Grid-Section .attorney-card-item-block');
+  cards.forEach((card, i) => {
+    const delay = ((i % 3) + 1) * 0.2; // 0.2, 0.4, 0.6, 0.2, 0.4, 0.6
+
+    gsap.set(card, { opacity: 0, y: 100 });
+    gsap.to(card, {
+      opacity: 1,
+      y: 0,
+      duration: 1,
+      ease: 'power3.out',
+      delay,
+      scrollTrigger: {
+        trigger: card,
+        start: 'top bottom',
+        once: true,
+      },
+    });
+  });
+</script>

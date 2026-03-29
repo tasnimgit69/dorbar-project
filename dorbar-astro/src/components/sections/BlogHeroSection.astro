@@ -1,0 +1,58 @@
+---
+import { resolveImage } from '../../utils/resolveImage';
+import type { ImageMetadata } from 'astro';
+
+const bgImage = resolveImage('/images/backgrounds/blog-page-hero-bg.webp') as ImageMetadata;
+const bgUrl = bgImage.src;
+---
+
+<section class="blog-hero-section" id="Blog-Hero-Section" style={`--bg-image: url('${bgUrl}')`}>
+  <div class="blog-hero-gap">
+    <div class="container-default">
+      <div class="blog-hero-content-block">
+        <div class="blog-heading-block">
+          <div class="section-subtitle-block-two">
+            <div class="section-subtitle-text-two">Insights & Resources</div>
+          </div>
+          <div class="section-title-block-two">
+            <h1 class="page-intro middle">Legal Insights & Commentary</h1>
+          </div>
+          <div class="section-summary-block-two max-w-770">
+            <p class="blog-hero-summary">Expert analysis, legal updates, and thought leadership from our attorneys on the issues that matter most to your business and personal interests.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  const section = document.querySelector('#Blog-Hero-Section');
+  if (section) {
+    const subtitle = section.querySelector('.section-subtitle-block-two');
+    const title = section.querySelector('.section-title-block-two');
+    const summary = section.querySelector('.section-summary-block-two');
+
+    [subtitle, title, summary].forEach((el, i) => {
+      if (!el) return;
+      gsap.set(el, { opacity: 0, y: 100 });
+      gsap.to(el, {
+        opacity: 1,
+        y: 0,
+        duration: 1,
+        delay: (i + 1) * 0.2,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: section,
+          start: 'top 80%',
+          once: true,
+        },
+      });
+    });
+  }
+</script>

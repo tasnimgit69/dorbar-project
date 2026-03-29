@@ -1,0 +1,79 @@
+---
+import FaqAccordion from './FaqAccordion.astro';
+import ButtonLink from '../ui/ButtonLink.astro';
+import { consultationFaqs } from '../../data/consultation';
+---
+
+<section class="faq-section" id="Consultation-FAQ-Section">
+  <div class="section-gap-two bottom">
+    <div class="container-default">
+      <div class="faq-wrapper is-2">
+        <div class="faq-heading-block is-2">
+          <div class="faq-title-block is-2">
+            <div class="section-title-block-two">
+              <h2 class="section-title">Frequently Asked Questions</h2>
+            </div>
+          </div>
+        </div>
+        <FaqAccordion items={consultationFaqs} variant="is-2" numbered={false}>
+          <div class="faq-bottom-block">
+            <div class="faq-bottom-question">Still have questions?</div>
+            <ButtonLink href="/contact" label="Contact us directly" small />
+          </div>
+        </FaqAccordion>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  const scrollStart = 'top 90%';
+
+  // === Heading: slideInBottom ===
+  const heading = document.querySelector('#Consultation-FAQ-Section .section-title-block-two') as HTMLElement;
+  if (heading) {
+    gsap.set(heading, { opacity: 0, y: 100 });
+    gsap.to(heading, {
+      opacity: 1,
+      y: 0,
+      duration: 1,
+      ease: 'quart.out',
+      delay: 0.2,
+      scrollTrigger: { trigger: heading, start: scrollStart, once: true },
+    });
+  }
+
+  // === FAQ items: slideInBottom with staggered delays ===
+  const faqDelays = [0.2, 0.3, 0.4, 0.5, 0.6];
+  const faqItems = document.querySelectorAll('#Consultation-FAQ-Section .service-single-faq-block');
+  faqItems.forEach((el, i) => {
+    gsap.set(el, { opacity: 0, y: 100 });
+    gsap.to(el, {
+      opacity: 1,
+      y: 0,
+      duration: 1,
+      ease: 'quart.out',
+      delay: faqDelays[i] || 0.2,
+      scrollTrigger: { trigger: el, start: scrollStart, once: true },
+    });
+  });
+
+  // === Bottom block: slideInBottom ===
+  const bottomBlock = document.querySelector('#Consultation-FAQ-Section .faq-bottom-block') as HTMLElement;
+  if (bottomBlock) {
+    gsap.set(bottomBlock, { opacity: 0, y: 100 });
+    gsap.to(bottomBlock, {
+      opacity: 1,
+      y: 0,
+      duration: 1,
+      ease: 'quart.out',
+      delay: 0.6,
+      scrollTrigger: { trigger: bottomBlock, start: scrollStart, once: true },
+    });
+  }
+</script>

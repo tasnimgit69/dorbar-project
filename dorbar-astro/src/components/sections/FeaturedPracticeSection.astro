@@ -1,0 +1,91 @@
+---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import ButtonSecondary from '../ui/ButtonSecondary.astro';
+import { featuredPractices } from '../../data/services-page';
+import { resolveImage } from '../../utils/resolveImage';
+---
+
+<section class="featured-practice-section" id="Featured-Practice-Section">
+  <div class="section-gap-two bottom">
+    <div class="container-default">
+      <div class="featured-practice-wrapper">
+        <div class="featured-practice-collection-list">
+          {featuredPractices.map((item) => (
+            <div class="featured-practice-collection-list-item">
+              <div class="featured-practice-image-content-block">
+                <Image src={resolveImage(item.image) as ImageMetadata} loading="lazy" alt={item.title} class="featured-practice-image" width={600} height={700} />
+              </div>
+              <div class="track-record-text-content-block">
+                <div class="featured-practice-title-block">
+                  <div class="featured-practice-subtitle">{item.subtitle}</div>
+                  <h3 class="featured-practice-title">{item.title}</h3>
+                </div>
+                <div class="featured-practice-summary-block">
+                  <p class="featured-practice-summary">{item.summary}</p>
+                </div>
+                <div class="featured-practice-statistics-block">
+                  {item.stats.map((stat: { value: string; label: string }) => (
+                    <div class="featured-practice-single-stat-block">
+                      <h3 class="featured-practice-single-stat-number">{stat.value}</h3>
+                      <p class="featured-practice-single-stat-text">{stat.label}</p>
+                    </div>
+                  ))}
+                </div>
+                <div class="featured-practice-button-block">
+                  <ButtonSecondary href="/contact" label="View Details" />
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  const scrollStart = 'top 90%';
+
+  // === Image blocks: slideInBottom ===
+  const imageBlocks = document.querySelectorAll('#Featured-Practice-Section .featured-practice-image-content-block');
+  imageBlocks.forEach((el) => {
+    gsap.set(el, { opacity: 0, y: 100 });
+    gsap.to(el, {
+      opacity: 1,
+      y: 0,
+      duration: 1,
+      ease: 'power3.out',
+      delay: 0.1,
+      scrollTrigger: { trigger: el, start: scrollStart, once: true },
+    });
+  });
+
+  // === Text elements: slideInBottom ===
+  const selectors = [
+    '.featured-practice-title-block',
+    '.featured-practice-summary-block',
+    '.featured-practice-statistics-block',
+    '.featured-practice-button-block',
+  ];
+
+  selectors.forEach((sel, i) => {
+    const els = document.querySelectorAll(`#Featured-Practice-Section ${sel}`);
+    els.forEach((el) => {
+      gsap.set(el, { opacity: 0, y: 100 });
+      gsap.to(el, {
+        opacity: 1,
+        y: 0,
+        duration: 1,
+        ease: 'power3.out',
+        delay: 0.1 + i * 0.1,
+        scrollTrigger: { trigger: el, start: scrollStart, once: true },
+      });
+    });
+  });
+</script>

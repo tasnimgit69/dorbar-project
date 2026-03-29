@@ -1,0 +1,37 @@
+---
+---
+
+<section id="Changelog-Section" class="changelog-section">
+  <div class="section-gap-two top">
+    <div class="container-default">
+      <div class="changelog-wrapper">
+        <h2 class="changelog-heading">Version 1.0</h2>
+        <div class="realeased-date-wrapper">
+          <div class="initial-release">Initial Release</div>
+          <div class="release-date">27th March, 2026</div>
+        </div>
+        <div class="changelog-text">The template has been released!</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+  gsap.registerPlugin(ScrollTrigger);
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const section = document.querySelector('#Changelog-Section');
+    if (!section) return;
+
+    const wrapper = section.querySelector('.changelog-wrapper');
+    if (!wrapper) return;
+
+    gsap.set(wrapper, { y: 100, opacity: 0 });
+    gsap.to(wrapper, {
+      y: 0, opacity: 1, duration: 1, ease: 'power3.out', delay: 0.4,
+      scrollTrigger: { trigger: section, start: 'top 80%', once: true }
+    });
+  });
+</script>

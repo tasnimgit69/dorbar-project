@@ -1,0 +1,44 @@
+{
+  "name": "dorbar",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "A professional law firm Astro theme with 36 pages, GSAP animations, blog system, case studies, and responsive design.",
+  "author": {
+    "name": "Aslam Hasib",
+    "email": "hello@hasthemes.com",
+    "url": "https://hasthemes.com"
+  },
+  "keywords": [
+    "astro",
+    "astro-theme",
+    "law-firm",
+    "legal",
+    "attorney",
+    "Lawyer",
+    "gsap",
+    "blog",
+    "responsive"
+  ],
+  "license": "MIT",
+  "homepage": "https://example.com",
+  "repository": {
+    "type": "git",
+    "url": "#"
+  },
+  "bugs": {
+    "url": "#",
+    "email": "support@hasthemes.com"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/sitemap": "^3.7.1",
+    "astro": "^6.0.8",
+    "gsap": "^3.14.2",
+    "swiper": "^12.1.2"
+  }
+}

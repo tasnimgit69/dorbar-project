@@ -1,0 +1,96 @@
+---
+---
+
+<section id="Licenses-Section" class="licenses-section">
+  <div class="section-gap-two top">
+    <div class="container-default">
+      <div class="license-wrapper">
+        <div class="license-content">
+          <h2 class="license-heading">Images</h2>
+          <p class="license-paragraph">All images are sourced from Freepik. Find the Freepik license information here.</p>
+          <a href="https://support.freepik.com/s/topic/0TO3V000000Cla4WAC/licenses?language=en_US" target="_blank" class="link-button-block">
+            <div class="link-button-content">
+              <div class="link-button-text sm">Read More</div>
+              <div class="link-button-icon">
+                <svg width="12" height="10" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M1 5H10.3333" stroke="currentColor" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"></path>
+                  <path d="M7 1L11 5L7 9" stroke="currentColor" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"></path>
+                </svg>
+              </div>
+            </div>
+            <div class="link-button-liner"></div>
+          </a>
+        </div>
+        <div class="license-content">
+          <h2 class="license-heading">Icons</h2>
+          <p class="license-paragraph">The template uses SVG image format for all Icon font Icons. Find License information.</p>
+          <a href="https://www.flaticon.com/" target="_blank" class="link-button-block">
+            <div class="link-button-content">
+              <div class="link-button-text sm">Read More</div>
+              <div class="link-button-icon">
+                <svg width="12" height="10" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M1 5H10.3333" stroke="currentColor" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"></path>
+                  <path d="M7 1L11 5L7 9" stroke="currentColor" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"></path>
+                </svg>
+              </div>
+            </div>
+            <div class="link-button-liner"></div>
+          </a>
+        </div>
+        <div class="license-content">
+          <h2 class="license-heading">Font</h2>
+          <p class="license-paragraph">The template uses Google Fonts. Find Playfair Display and Inter fonts license info here.</p>
+          <div class="template-info-link-wrapper">
+            <a href="https://fonts.google.com/specimen/Playfair+Display" target="_blank" class="link-button-block">
+              <div class="link-button-content">
+                <div class="link-button-text sm">Playfair Display</div>
+                <div class="link-button-icon">
+                  <svg width="12" height="10" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M1 5H10.3333" stroke="currentColor" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"></path>
+                    <path d="M7 1L11 5L7 9" stroke="currentColor" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"></path>
+                  </svg>
+                </div>
+              </div>
+              <div class="link-button-liner"></div>
+            </a>
+            <a href="https://fonts.google.com/specimen/Inter" target="_blank" class="link-button-block">
+              <div class="link-button-content">
+                <div class="link-button-text sm">Inter</div>
+                <div class="link-button-icon">
+                  <svg width="12" height="10" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M1 5H10.3333" stroke="currentColor" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"></path>
+                    <path d="M7 1L11 5L7 9" stroke="currentColor" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"></path>
+                  </svg>
+                </div>
+              </div>
+              <div class="link-button-liner"></div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const section = document.querySelector('#Licenses-Section');
+    if (!section) return;
+
+    const blocks = section.querySelectorAll('.license-content');
+    const delays = [0.6, 0.8, 0.2];
+
+    blocks.forEach((el, i) => {
+      gsap.set(el, { y: 100, opacity: 0 });
+      gsap.to(el, {
+        y: 0, opacity: 1, duration: 1, ease: 'power3.out', delay: delays[i] || 0.2,
+        scrollTrigger: { trigger: section, start: 'top 90%', once: true }
+      });
+    });
+  });
+</script>

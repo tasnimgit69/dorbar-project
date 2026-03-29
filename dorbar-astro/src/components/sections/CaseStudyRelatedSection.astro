@@ -1,0 +1,79 @@
+---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import ButtonLink from '../ui/ButtonLink.astro';
+import { resolveImage } from '../../utils/resolveImage';
+
+interface RelatedStudy {
+  slug: string;
+  title: string;
+  summary: string;
+  image: string;
+}
+
+interface Props {
+  relatedStudies: RelatedStudy[];
+}
+
+const { relatedStudies } = Astro.props;
+---
+
+<section class="case-study-section">
+  <div class="section-gap-two">
+    <div class="container-default">
+      <div class="case-study-wrapper">
+        <div class="case-study-heading-block">
+          <h2 class="section-title-two">More Success Stories</h2>
+        </div>
+        <div class="case-study-collection-list">
+          {relatedStudies.map((related) => (
+            <div class="case-study-item-block">
+              <a href={`/case-study/${related.slug}`} aria-label="Case Study Image Block" class="case-study-image-block">
+                <Image src={resolveImage(related.image) as ImageMetadata} loading="lazy" alt={related.title} class="case-study-image" width={600} height={400} />
+              </a>
+              <div class="case-study-content-block">
+                <div class="case-study-text-block">
+                  <a href={`/case-study/${related.slug}`} aria-label="Case Study Title Block" class="case-study-title-block">
+                    <h3 class="case-study-title">{related.title}</h3>
+                  </a>
+                  <p class="case-study-summary">{related.summary}</p>
+                </div>
+                <ButtonLink href={`/case-study/${related.slug}`} label="Read Case Study" small />
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="case-study-section-liner is-1"></div>
+</section>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const section = document.querySelector('.case-study-section');
+    if (!section) return;
+
+    const heading = section.querySelector('.section-title-two');
+    const items = section.querySelectorAll('.case-study-item-block');
+
+    gsap.set(heading, { y: 100, opacity: 0 });
+    gsap.to(heading, {
+      y: 0, opacity: 1, duration: 1, ease: 'power3.out',
+      scrollTrigger: { trigger: section, start: 'top 80%', once: true }
+    });
+
+    items.forEach((item, i) => {
+      gsap.set(item, { y: 100, opacity: 0 });
+      gsap.to(item, {
+        y: 0, opacity: 1, duration: 1, ease: 'power3.out', delay: (i + 1) * 0.2,
+        scrollTrigger: { trigger: section, start: 'top 80%', once: true }
+      });
+    });
+  });
+</script>

@@ -1,0 +1,23 @@
+---
+import PhoneIcon from '../icons/PhoneIcon.astro';
+
+interface Props {
+  href: string;
+  label: string;
+  showIcon?: boolean;
+}
+
+const { href, label, showIcon = true } = Astro.props;
+---
+
+<a href={href} class="button-two">
+  <div class="button-content-block-two">
+    <span class="button-text-two">{label}</span>
+    {showIcon && (
+      <div class="button-icon-block visible">
+        <PhoneIcon class="primary-button-icon" />
+      </div>
+    )}
+  </div>
+  <div class="button-hover-glow"></div>
+</a>

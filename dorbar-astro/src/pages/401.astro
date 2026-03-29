@@ -1,0 +1,55 @@
+---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { resolveImage } from '../utils/resolveImage';
+
+const passwordImage = resolveImage('/images/icons/password-protector.webp') as ImageMetadata;
+---
+
+<BaseLayout title="Protected Page | Dorbar Law Firm" description="This page is password protected.">
+  <div id="Utility-401-Section" class="utility-page-wrap">
+    <div class="utility-page-content">
+      <form class="utility-page-form" onsubmit="return false;">
+        <div class="utiliity-image-block">
+          <Image src={passwordImage} alt="Password Protected" class="utiliity-image" width={500} height={500} />
+        </div>
+        <h2 class="utility-page-title">Password Protected</h2>
+        <div class="utility-form-field-block">
+          <label for="pass" class="form-field-label">Password</label>
+          <input class="form-text-field-two" maxlength="256" name="pass" placeholder="Enter your password" type="password" id="pass">
+        </div>
+        <div class="utility-form-button-block">
+          <button type="submit" class="form-button">Submit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</BaseLayout>
+
+<script>
+  import { gsap } from 'gsap';
+
+  const section = '#Utility-401-Section';
+
+  // Content — staggered slideInBottom
+  const elements = [
+    { selector: `${section} .utiliity-image-block`, delay: 0.1 },
+    { selector: `${section} .utility-page-title`, delay: 0.2 },
+    { selector: `${section} .utility-form-field-block`, delay: 0.3 },
+    { selector: `${section} .utility-form-button-block`, delay: 0.4 },
+  ];
+
+  elements.forEach(({ selector, delay }) => {
+    const el = document.querySelector(selector) as HTMLElement;
+    if (!el) return;
+    gsap.set(el, { opacity: 0, y: 100 });
+    gsap.to(el, {
+      opacity: 1,
+      y: 0,
+      duration: 1,
+      ease: 'power3.out',
+      delay,
+    });
+  });
+</script>

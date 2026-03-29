@@ -1,0 +1,50 @@
+---
+import { blogCategories } from '../../data/blogPosts';
+
+interface Props {
+  activeCategory?: string;
+}
+
+const { activeCategory = 'all' } = Astro.props;
+---
+
+<section class="blog-category-section" id="Blog-Category-Section">
+  <div class="container-default">
+    <div class="blog-page-category-block">
+      <div class="category-collection-list-block">
+        <div class="category-collection-list">
+          <div class="category-link-item-block">
+            <a href="/blog" class={`blog-category-item-link${activeCategory === 'all' ? ' active' : ''}`}>
+              <div>All</div>
+            </a>
+            {blogCategories.map((cat) => (
+              <a href={`/blog-categories/${cat.slug}`} class={`blog-category-item-link${activeCategory === cat.slug ? ' active' : ''}`}>
+                <div>{cat.name}</div>
+              </a>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  const section = document.querySelector('#Blog-Category-Section');
+  if (section) {
+    gsap.fromTo(section,
+      { opacity: 0 },
+      {
+        opacity: 1,
+        duration: 1,
+        delay: 0.6,
+        ease: 'power3.out',
+      }
+    );
+  }
+</script>

@@ -1,0 +1,75 @@
+---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import { resolveImage } from '../../utils/resolveImage';
+
+interface Props {
+  quote: string;
+  author: string;
+  company?: string;
+}
+
+const { quote, author, company } = Astro.props;
+---
+
+<section class="client-quote-section">
+  <div class="section-gap-two">
+    <div class="container-default">
+      <div class="client-quote-wrapper">
+        <div class="client-quote-icon-block">
+          <Image src={resolveImage('/images/services/client-quote-icon.svg') as ImageMetadata} loading="lazy" alt="Client Quote Icon" class="client-quote-icon" width={18} height={26} />
+        </div>
+        <div class="client-quote-text-block">
+          <div class="client-quote-text">{quote}</div>
+        </div>
+        <div class="client-qoute-info-block">
+          <div class="client-name">{author}</div>
+          {company && <p class="client-designation">{company}</p>}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const section = document.querySelector('.client-quote-section');
+    if (!section) return;
+
+    const icon = section.querySelector('.client-quote-icon');
+    const text = section.querySelector('.client-quote-text');
+    const name = section.querySelector('.client-name');
+    const designation = section.querySelector('.client-designation');
+
+    gsap.set(icon, { opacity: 0 });
+    gsap.to(icon, {
+      opacity: 1, duration: 1, ease: 'power3.out',
+      scrollTrigger: { trigger: section, start: 'top 80%', once: true }
+    });
+
+    gsap.set(text, { y: 100, opacity: 0 });
+    gsap.to(text, {
+      y: 0, opacity: 1, duration: 1, ease: 'power3.out', delay: 0.2,
+      scrollTrigger: { trigger: section, start: 'top 80%', once: true }
+    });
+
+    gsap.set(name, { y: 100, opacity: 0 });
+    gsap.to(name, {
+      y: 0, opacity: 1, duration: 1, ease: 'power3.out', delay: 0.4,
+      scrollTrigger: { trigger: section, start: 'top 80%', once: true }
+    });
+
+    if (designation) {
+      gsap.set(designation, { y: 100, opacity: 0 });
+      gsap.to(designation, {
+        y: 0, opacity: 1, duration: 1, ease: 'power3.out', delay: 0.5,
+        scrollTrigger: { trigger: section, start: 'top 80%', once: true }
+      });
+    }
+  });
+</script>

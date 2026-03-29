@@ -1,0 +1,52 @@
+---
+import type { ImageMetadata } from 'astro';
+import { resolveImage } from '../../utils/resolveImage';
+
+const bgImage = resolveImage('/images/backgrounds/team-section-bg-min.webp');
+const bgUrl = typeof bgImage === 'string' ? bgImage : (bgImage as ImageMetadata).src;
+---
+
+<section id="Attorney-Hero-Section" class="attorney-hero-section" style={`--bg-image: url('${bgUrl}')`}>
+  <div class="attorney-hero-gap">
+    <div class="container-default">
+      <div class="attorney-hero-wrapper">
+        <div class="attorney-hero-content-block">
+          <h1 class="page-intro middle">Meet Our Attorneys</h1>
+          <p class="attorney-hero-summary">Our team of seasoned attorneys combines decades of experience with an unwavering commitment to justice, integrity, and exceptional client service.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  // Attorney Hero — slideInBottom (IX2 e-758/e-760)
+  const heroElements = [
+    { selector: '#Attorney-Hero-Section .page-intro', delay: 0.1 },
+    { selector: '#Attorney-Hero-Section .attorney-hero-summary', delay: 0.3 },
+  ];
+
+  heroElements.forEach(({ selector, delay }) => {
+    const el = document.querySelector(selector) as HTMLElement;
+    if (!el) return;
+
+    gsap.set(el, { opacity: 0, y: 100 });
+    gsap.to(el, {
+      opacity: 1,
+      y: 0,
+      duration: 1,
+      ease: 'power3.out',
+      delay,
+      scrollTrigger: {
+        trigger: el,
+        start: 'top bottom',
+        once: true,
+      },
+    });
+  });
+</script>

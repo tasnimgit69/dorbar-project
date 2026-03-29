@@ -1,0 +1,231 @@
+---
+import ButtonPrimary from '../ui/ButtonPrimary.astro';
+import ButtonSecondary from '../ui/ButtonSecondary.astro';
+import ServiceCard from '../cards/ServiceCard.astro';
+import { homeServices } from '../../data/home';
+---
+
+<section id="Service-Section-Two" class="service-section">
+  <div class="section-gap-two">
+    <div class="container-default">
+      <div class="service-wrapper-two">
+        <div class="service-heading-block-two">
+          <div class="section-subtitle-block-two">
+            <div class="section-subtitle-liner-one" aria-hidden="true"></div>
+            <span class="section-subtitle-text-two">What We Do</span>
+            <div class="section-subtitle-liner-two" aria-hidden="true"></div>
+          </div>
+          <div class="section-title-block-two max-w-100">
+            <h2 class="section-title-two left">Our <span class="section-highlight-title-two">Practice</span> Areas</h2>
+          </div>
+          <div class="section-summary-block-two max-w-600">
+            <p class="section-summary-two left">Expert legal guidance across a comprehensive range of practices. Each case receives our full attention and strategic excellence.</p>
+          </div>
+          <div class="section-button-block-two">
+            <ButtonSecondary href="/services" label="View All Services" />
+          </div>
+        </div>
+
+        <div class="service-content-block-two">
+          {homeServices.map((service, i) => (
+            <ServiceCard
+              title={service.title}
+              summary={service.summary}
+              icon={service.icon}
+              href={service.href}
+              variant={i % 2 === 1 ? 'alt' : 'default'}
+            />
+          ))}
+        </div>
+      </div>
+
+      <!-- Service CTA Bar -->
+      <div class="service-cta-block-two">
+        <div class="service-cta-liner-block" aria-hidden="true"></div>
+        <div class="service-cta-content-block-two">
+          <h3 class="service-cta-title">Ready to discuss your legal needs?</h3>
+          <div class="service-cta-buttob-block-two">
+            <ButtonPrimary href="/consultation" label="Book Consultation" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  const scrollStart = 'top 90%';
+  const cardScrollStart = 'top 98%';
+
+  // === Heading elements: slideInBottom animations ===
+  const headingElements = [
+    { selector: '#Service-Section-Two .section-subtitle-block-two', delay: 0.1 },
+    { selector: '#Service-Section-Two .section-title-block-two', delay: 0.2 },
+    { selector: '#Service-Section-Two .section-summary-block-two', delay: 0.4 },
+    { selector: '#Service-Section-Two .section-button-block-two', delay: 0.5 },
+  ];
+
+  headingElements.forEach(({ selector, delay }) => {
+    const el = document.querySelector(selector) as HTMLElement;
+    if (!el) return;
+    gsap.set(el, { opacity: 0, y: 100 });
+    gsap.to(el, {
+      opacity: 1,
+      y: 0,
+      duration: 1,
+      ease: 'power3.out',
+      delay,
+      scrollTrigger: { trigger: el, start: scrollStart, once: true },
+    });
+  });
+
+  // === Service cards: slideInBottom with stagger ===
+  // Odd cards (no .is-2): 200ms delay, 10% scroll offset
+  // Even cards (.is-2): 400ms delay, 2% scroll offset
+  document.querySelectorAll('#Service-Section-Two .service-card-block-two').forEach((card) => {
+    const isAlt = card.classList.contains('is-2');
+    gsap.set(card, { opacity: 0, y: 100 });
+    gsap.to(card, {
+      opacity: 1,
+      y: 0,
+      duration: 1,
+      ease: 'power3.out',
+      delay: isAlt ? 0.4 : 0.2,
+      scrollTrigger: {
+        trigger: card,
+        start: isAlt ? cardScrollStart : scrollStart,
+        once: true,
+      },
+    });
+  });
+
+  // === Service card hover animations ===
+  // Only on desktop/tablet (not mobile)
+  const isDesktop = window.matchMedia('(min-width: 768px)').matches;
+
+  if (isDesktop) {
+    document.querySelectorAll('#Service-Section-Two .service-card-block-two').forEach((card) => {
+      const liner = card.querySelector('.gradient-liner-block') as HTMLElement;
+      const corner = card.querySelector('.service-card-corner-gredient') as HTMLElement;
+      const bgGrad = card.querySelector('.service-card-bg-gredient') as HTMLElement;
+      const icon = card.querySelector('.service-card-icon-two') as HTMLElement;
+      const title = card.querySelector('.service-card-title-two') as HTMLElement;
+      const linkBtn = card.querySelector('.link-button-block') as HTMLElement;
+
+      // Set initial hover states (matching IX2 a-20 initial group)
+      if (liner) gsap.set(liner, { width: '0%' });
+      if (bgGrad) gsap.set(bgGrad, { opacity: 0 });
+      if (icon) gsap.set(icon, { scale: 0.8 });
+      if (linkBtn) gsap.set(linkBtn, { opacity: 0 });
+
+      card.addEventListener('mouseenter', () => {
+        if (liner) gsap.to(liner, { width: '100%', duration: 0.6, ease: 'ease' });
+        if (corner) {
+          gsap.to(corner, { x: '8%', y: '8%', duration: 0.6, ease: 'ease' });
+          gsap.to(corner, { opacity: 0, duration: 0.6, ease: 'ease' });
+        }
+        if (bgGrad) gsap.to(bgGrad, { opacity: 1, duration: 0.6, ease: 'ease' });
+        if (icon) gsap.to(icon, { scale: 1, duration: 0.6, ease: 'ease' });
+        if (title) gsap.to(title, { color: '#c5a46e', duration: 0.6, ease: 'ease' });
+        if (linkBtn) gsap.to(linkBtn, { opacity: 1, duration: 0.6, ease: 'ease' });
+      });
+
+      card.addEventListener('mouseleave', () => {
+        if (liner) gsap.to(liner, { width: '0%', duration: 0.6, ease: 'ease' });
+        if (corner) {
+          gsap.to(corner, { x: '0%', y: '0%', duration: 0.6, ease: 'ease' });
+          gsap.to(corner, { opacity: 1, duration: 0.6, ease: 'ease' });
+        }
+        if (bgGrad) gsap.to(bgGrad, { opacity: 0, duration: 0.6, ease: 'ease' });
+        if (icon) gsap.to(icon, { scale: 0.8, duration: 0.6, ease: 'ease' });
+        if (title) gsap.to(title, { color: '#ffffff', duration: 0.6, ease: 'ease' });
+        if (linkBtn) gsap.to(linkBtn, { opacity: 0, duration: 0.6, ease: 'ease' });
+      });
+    });
+  }
+
+  // === CTA liner: scaleX animation ===
+  const ctaLiner = document.querySelector('#Service-Section-Two .service-cta-liner-block') as HTMLElement;
+  if (ctaLiner) {
+    gsap.set(ctaLiner, { scaleX: 0, transformOrigin: 'left center' });
+    gsap.to(ctaLiner, {
+      scaleX: 1,
+      duration: 1,
+      ease: 'power1.out',
+      delay: 0.4,
+      scrollTrigger: { trigger: ctaLiner, start: scrollStart, once: true },
+    });
+  }
+
+  // === CTA content: slideInBottom ===
+  const ctaTitle = document.querySelector('#Service-Section-Two .service-cta-title') as HTMLElement;
+  const ctaButton = document.querySelector('#Service-Section-Two .service-cta-buttob-block-two') as HTMLElement;
+
+  if (ctaTitle) {
+    gsap.set(ctaTitle, { opacity: 0, y: 100 });
+    gsap.to(ctaTitle, {
+      opacity: 1,
+      y: 0,
+      duration: 1,
+      ease: 'power3.out',
+      delay: 0.2,
+      scrollTrigger: { trigger: ctaTitle, start: scrollStart, once: true },
+    });
+  }
+
+  if (ctaButton) {
+    gsap.set(ctaButton, { opacity: 0, y: 100 });
+    gsap.to(ctaButton, {
+      opacity: 1,
+      y: 0,
+      duration: 1,
+      ease: 'power3.out',
+      delay: 0.4,
+      scrollTrigger: { trigger: ctaButton, start: scrollStart, once: true },
+    });
+  }
+
+  // === Secondary button hover glow ===
+  document.querySelectorAll('#Service-Section-Two .secondaey-button-two').forEach((btn) => {
+    const glow = btn.querySelector('.button-hover-glow') as HTMLElement;
+    const icon = btn.querySelector('.link-button-icon') as HTMLElement;
+    if (!glow) return;
+
+    gsap.set(glow, { opacity: 0, scale: 0.3 });
+
+    btn.addEventListener('mouseenter', () => {
+      gsap.to(glow, { opacity: 1, duration: 0.6, ease: 'ease' });
+      gsap.to(glow, { scale: 10, duration: 0.6, ease: 'power1.in' });
+      if (icon) gsap.to(icon, { x: '50%', duration: 0.5, delay: 0.1, ease: 'ease' });
+    });
+
+    btn.addEventListener('mouseleave', () => {
+      gsap.to(glow, { scale: 0.3, duration: 0.6, ease: 'ease' });
+      gsap.to(glow, { opacity: 0, delay: 0.2, duration: 0.8, ease: 'ease' });
+      if (icon) gsap.to(icon, { x: '0%', duration: 0.8, ease: 'ease' });
+    });
+  });
+
+  // === Primary button hover glow ===
+  document.querySelectorAll('#Service-Section-Two .button-two').forEach((btn) => {
+    const glow = btn.querySelector('.button-hover-glow') as HTMLElement;
+    if (!glow) return;
+
+    gsap.set(glow, { opacity: 0, scale: 0.3 });
+
+    btn.addEventListener('mouseenter', () => {
+      gsap.to(glow, { opacity: 1, duration: 1, ease: 'ease' });
+      gsap.to(glow, { scale: 10, duration: 0.8, delay: 0.2, ease: 'ease' });
+    });
+
+    btn.addEventListener('mouseleave', () => {
+      gsap.to(glow, { scale: 0.3, duration: 0.6, ease: 'ease' });
+      gsap.to(glow, { opacity: 0, duration: 1, delay: 0.2, ease: 'ease' });
+    });
+  });
+</script>

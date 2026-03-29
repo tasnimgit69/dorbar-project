@@ -1,0 +1,63 @@
+---
+---
+
+<section class="blog-quote-section" id="Blog-Quote-Section">
+  <div class="section-gap-two top">
+    <div class="container-default">
+      <div class="blog-quote-wrapper">
+        <div class="blog-quote-text-block">
+          <div class="blog-quote-text">&quot;The law is not just about justice — it&apos;s about protecting what matters most to those we serve.&quot;</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="blog-quote-liner"></div>
+</section>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  const section = document.querySelector('#Blog-Quote-Section');
+  if (section) {
+    const quoteText = section.querySelector('.blog-quote-text');
+    const liner = section.querySelector('.blog-quote-liner');
+
+    if (quoteText) {
+      gsap.fromTo(quoteText,
+        { opacity: 0, y: 100 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 1,
+          delay: 0.2,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: section,
+            start: 'top 80%',
+            once: true,
+          },
+        }
+      );
+    }
+
+    if (liner) {
+      gsap.fromTo(liner,
+        { scaleX: 0, transformOrigin: '0% 50%' },
+        {
+          scaleX: 1,
+          duration: 1,
+          delay: 0.4,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: section,
+            start: 'top 80%',
+            once: true,
+          },
+        }
+      );
+    }
+  }
+</script>

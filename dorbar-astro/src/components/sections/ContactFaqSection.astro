@@ -1,0 +1,58 @@
+---
+import FaqAccordion from './FaqAccordion.astro';
+import { contactFaqs } from '../../data/contact';
+---
+
+<section class="faq-section" id="Contact-FAQ-Section">
+  <div class="section-gap-two bottom">
+    <div class="container-default">
+      <div class="faq-wrapper is-2">
+        <div class="faq-heading-block is-2">
+          <div class="faq-title-block is-2">
+            <div class="section-title-block-two max-w-600 top-margin-none">
+              <h2 class="section-title">Have Questions Before Reaching Out?</h2>
+            </div>
+          </div>
+        </div>
+        <FaqAccordion items={contactFaqs} variant="is-2" numbered={false} />
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  const scrollStart = 'top 90%';
+
+  // === Heading: slideInBottom ===
+  const heading = document.querySelector('#Contact-FAQ-Section .section-title') as HTMLElement;
+  if (heading) {
+    gsap.set(heading, { opacity: 0, y: 100 });
+    gsap.to(heading, {
+      opacity: 1,
+      y: 0,
+      duration: 1,
+      ease: 'power3.out',
+      delay: 0.2,
+      scrollTrigger: { trigger: heading, start: scrollStart, once: true },
+    });
+  }
+
+  // === FAQ items: slideInBottom with stagger ===
+  const faqItems = document.querySelectorAll('#Contact-FAQ-Section .service-single-faq-block');
+  faqItems.forEach((el, i) => {
+    gsap.set(el, { opacity: 0, y: 100 });
+    gsap.to(el, {
+      opacity: 1,
+      y: 0,
+      duration: 1,
+      ease: 'power3.out',
+      delay: 0.3 + i * 0.1,
+      scrollTrigger: { trigger: el, start: scrollStart, once: true },
+    });
+  });
+</script>

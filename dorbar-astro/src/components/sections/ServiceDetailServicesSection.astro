@@ -1,0 +1,67 @@
+---
+interface Props {
+  heading: string;
+  summary?: string;
+  cards: { icon?: string; title: string; description: string }[];
+}
+
+const { heading, summary, cards } = Astro.props;
+---
+
+<section class="services-section" id="Services-Section">
+  <div class="section-gap-two bottom">
+    <div class="container-default">
+      <div class="services-wrapper">
+        <div class="services-heading-block">
+          <div class="services-heading-text">
+            <h2>{heading}</h2>
+            {summary && (
+              <p>{summary}</p>
+            )}
+          </div>
+        </div>
+        <div class="services-content-block">
+          {cards.map((card) => (
+            <div class="service-single-card-block">
+              <div class="service-single-card-content">
+                {card.icon && (
+                  <figure>
+                    <img src={card.icon} loading="lazy" alt="" />
+                  </figure>
+                )}
+                <h3>{card.title}</h3>
+                <p>{card.description}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+  gsap.registerPlugin(ScrollTrigger);
+
+  const section = document.querySelector('#Services-Section');
+  if (section) {
+    const heading = section.querySelector('.services-heading-text');
+    const cards = section.querySelectorAll('.service-single-card-block');
+
+    if (heading) {
+      gsap.fromTo(heading, { opacity: 0, y: 100 }, {
+        opacity: 1, y: 0, duration: 1, ease: 'power3.out',
+        scrollTrigger: { trigger: heading, start: 'top 90%', once: true }
+      });
+    }
+
+    cards.forEach((card, i) => {
+      gsap.fromTo(card, { opacity: 0, y: 100 }, {
+        opacity: 1, y: 0, duration: 1, delay: (i + 1) * 0.1, ease: 'power3.out',
+        scrollTrigger: { trigger: card, start: 'top 90%', once: true }
+      });
+    });
+  }
+</script>

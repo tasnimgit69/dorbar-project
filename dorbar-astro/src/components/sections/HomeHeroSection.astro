@@ -1,0 +1,183 @@
+---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import ButtonPrimary from '../ui/ButtonPrimary.astro';
+import { heroStats } from '../../data/home';
+import { resolveImage } from '../../utils/resolveImage';
+
+const heroImage = resolveImage('/images/hero/hero-image-two.webp') as ImageMetadata;
+const heroSubtitleIcon = resolveImage('/images/icons/hero-subtitle-icon-two.svg') as ImageMetadata;
+---
+
+<section class="hero-section">
+  <div class="container-default">
+    <div class="hero-wrapper-two">
+      <div class="hero-content-block-two">
+        <div class="hero-title-block-two">
+          <div class="hero-subtitle-block-two">
+            <Image src={heroSubtitleIcon} alt="" class="hero-subtitle-icon-two" width={20} height={20} />
+            <span class="hero-subtitle-text-two">Trusted by clients across industries and jurisdictions.</span>
+          </div>
+          <h1 class="page-intro">
+            Exceptional Legal <span class="hero-title-highlight-text-two">Representation</span>
+          </h1>
+        </div>
+
+        <div class="hero-summary-block-two">
+          <p class="hero-summary-two">Experience the difference of working with a boutique firm that delivers personalized attention, strategic thinking, and uncompromising dedication to achieving your legal objectives.</p>
+        </div>
+
+        <div class="hero-button-block-two">
+          <ButtonPrimary href="/contact" label="Request Private Consultation" />
+          <div class="hero-key-point-blocks-two">
+            <div class="hero-key-point-block-two">
+              <div class="hero-key-pointer-two" aria-hidden="true"></div>
+              <span class="hero-key-point-text-two">Confidential case review</span>
+            </div>
+            <div class="hero-key-point-block-two">
+              <div class="hero-key-pointer-two" aria-hidden="true"></div>
+              <span class="hero-key-point-text-two">No obligation</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-liner-two" aria-hidden="true"></div>
+
+        <div class="hero-statistics-block-two">
+          {heroStats.map((stat, i) => (
+            <>
+              {i > 0 && <div class="hero-stat-devider-two" aria-hidden="true"></div>}
+              <div class="statistics-single-block two">
+                <div class="stat-number-block">
+                  <div class="stat-number hero" data-count={stat.number} data-prefix={stat.prefix} data-suffix={stat.suffix}>
+                    {stat.prefix}0{stat.suffix}
+                  </div>
+                </div>
+                <div class="stat-text-block">
+                  <p class="stat-text two">{stat.label}</p>
+                </div>
+              </div>
+            </>
+          ))}
+        </div>
+      </div>
+
+      <div class="hero-image-block-two" data-animate="fade-in">
+        <Image
+          src={heroImage}
+          alt="Attorney in professional setting"
+          class="hero-image-two"
+          loading="eager"
+          widths={[480, 768, 1024, 1440]}
+          sizes="(max-width: 991px) 100vw, 50vw"
+        />
+        <div class="image-anim-overlay" aria-hidden="true"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  // Hero content slideInBottom animations
+  // Each element: opacity 0→1, translateY 100px→0, duration 1s, easing outQuart (power3.out)
+  // Staggered delays: 100, 300, 500, 700, 900, 900ms
+  const heroContentElements = [
+    { selector: '.hero-subtitle-block-two', delay: 0.1 },
+    { selector: '.hero-section .page-intro', delay: 0.3 },
+    { selector: '.hero-summary-block-two', delay: 0.5 },
+    { selector: '.hero-button-block-two', delay: 0.7 },
+    { selector: '.hero-liner-two', delay: 0.9, isLiner: true },
+    { selector: '.hero-statistics-block-two', delay: 0.9 },
+  ];
+
+  heroContentElements.forEach(({ selector, delay, isLiner }) => {
+    const el = document.querySelector(selector) as HTMLElement;
+    if (!el) return;
+
+    if (isLiner) {
+      // Liner uses scaleX animation
+      // scaleX 0→1, delay 400ms, duration 1s, easing outQuad (power1.out)
+      gsap.set(el, { opacity: 0, scaleX: 0, transformOrigin: 'left center' });
+      gsap.to(el, {
+        opacity: 1,
+        scaleX: 1,
+        duration: 1,
+        ease: 'power1.out',
+        delay: delay + 0.4,
+        scrollTrigger: {
+          trigger: el,
+          start: 'top bottom',
+          once: true,
+        },
+      });
+    } else {
+      // Standard slideInBottom: opacity 0→1, y 100→0
+      gsap.set(el, { opacity: 0, y: 100 });
+      gsap.to(el, {
+        opacity: 1,
+        y: 0,
+        duration: 1,
+        ease: 'power3.out',
+        delay,
+        scrollTrigger: {
+          trigger: el,
+          start: 'top bottom',
+          once: true,
+        },
+      });
+    }
+  });
+
+  // Stat counter animation
+  document.querySelectorAll('.stat-number[data-count]').forEach((el) => {
+    const target = parseInt(el.getAttribute('data-count') || '0', 10);
+    const prefix = el.getAttribute('data-prefix') || '';
+    const suffix = el.getAttribute('data-suffix') || '';
+    const counter = { val: 0 };
+
+    gsap.to(counter, {
+      val: target,
+      duration: 2.5,
+      ease: 'power4.inOut',
+      scrollTrigger: {
+        trigger: el,
+        start: 'top 85%',
+        once: true,
+      },
+      onUpdate() {
+        (el as HTMLElement).textContent = prefix + Math.round(counter.val) + suffix;
+      },
+    });
+  });
+
+  // Hero Image On View
+  const heroImage = document.querySelector('.hero-image-two') as HTMLElement;
+  const imageOverlay = document.querySelector('.image-anim-overlay') as HTMLElement;
+
+  // Set initial states
+  if (heroImage) gsap.set(heroImage, { scale: 1.4 });
+  if (imageOverlay) gsap.set(imageOverlay, { height: '100%' });
+
+  // Animate both simultaneously on page load
+  if (heroImage) {
+    gsap.to(heroImage, {
+      scale: 1,
+      duration: 1.5,
+      ease: 'power1.out',
+    });
+  }
+  if (imageOverlay) {
+    gsap.to(imageOverlay, {
+      height: '0%',
+      duration: 1.5,
+      ease: 'power2.inOut',
+    });
+  }
+
+  // Button hover glow — handled globally in BaseLayout.astro (IX2 a-22/a-23/a-24/a-25)
+</script>

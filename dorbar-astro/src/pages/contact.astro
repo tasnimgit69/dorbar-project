@@ -1,0 +1,22 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import ContactHeroSection from '../components/sections/ContactHeroSection.astro';
+import ContactFormSection from '../components/sections/ContactFormSection.astro';
+import OfficeLocationsSection from '../components/sections/OfficeLocationsSection.astro';
+import ContactFaqSection from '../components/sections/ContactFaqSection.astro';
+import CtaBanner from '../components/sections/CtaBanner.astro';
+---
+
+<PageLayout
+  title="Contact | Dorbar Law Firm"
+  description="Your legal matters deserve personal attention. Reach out to schedule a confidential consultation or ask a question."
+>
+  <ContactHeroSection />
+  <ContactFormSection />
+  <OfficeLocationsSection />
+  <ContactFaqSection />
+  <CtaBanner
+    title="Ready to Discuss Your Case?"
+    summary="Book a consultation with one of our experienced attorneys today and take the first step toward resolving your legal matter."
+  />
+</PageLayout>

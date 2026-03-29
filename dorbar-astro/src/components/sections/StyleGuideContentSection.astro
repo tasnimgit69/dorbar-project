@@ -1,0 +1,225 @@
+---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import ButtonPrimary from '../ui/ButtonPrimary.astro';
+import { resolveImage } from '../../utils/resolveImage';
+
+const bookIcon = resolveImage('/images/icons/book-icon.svg') as ImageMetadata;
+const clockIcon = resolveImage('/images/icons/clock-icon.svg') as ImageMetadata;
+const pricePointIcon = resolveImage('/images/icons/price-point-icon.svg') as ImageMetadata;
+const userIcon = resolveImage('/images/icons/user-icon.svg') as ImageMetadata;
+const navLogoIcon = resolveImage('/images/icons/nav-logo.svg') as ImageMetadata;
+const starIcon = resolveImage('/images/icons/testimonial-star-icon.svg') as ImageMetadata;
+const subtitleIcon = resolveImage('/images/icons/hero-subtitle-icon-two.svg') as ImageMetadata;
+---
+
+<section id="Style-Guide-Section" class="style-guide-section">
+  <div class="section-gap-two">
+    <div class="container-default">
+      <div class="style-guide-grid">
+        <div class="style-guide-sidebar">
+          <div class="style-gulde-link-wrapper">
+            <a href="#colors" class="style-guide-link">Colors</a>
+            <a href="#typography" class="style-guide-link">Typography</a>
+            <a href="#buttons" class="style-guide-link">Buttons</a>
+            <a href="#Icons" class="style-guide-link">Icons</a>
+          </div>
+        </div>
+        <div class="style-guide-content-wrapper">
+          <!-- Colors -->
+          <div id="colors" class="color-wrapper">
+            <div class="style-guide-heading-wrapper">
+              <h2 class="style-guide-heading">Colors</h2>
+            </div>
+            <div class="typography-details-wrapper">
+              <div class="style-guide-color-grid">
+                <div class="color-card">
+                  <div class="color-block primary-color"></div>
+                  <div class="color-details-block">
+                    <div class="color-heading">Primary Color</div>
+                    <p class="color-code">#c5a46e</p>
+                  </div>
+                </div>
+                <div class="color-card">
+                  <div class="color-block secondary-color"></div>
+                  <div class="color-details-block">
+                    <div class="color-heading">Light Gray Color</div>
+                    <p class="color-code">#b9b9bd</p>
+                  </div>
+                </div>
+                <div class="color-card">
+                  <div class="color-block secondary-bg-color"></div>
+                  <div class="color-details-block">
+                    <div class="color-heading">Gray Color</div>
+                    <p class="color-code">#8c8c8e</p>
+                  </div>
+                </div>
+                <div class="color-card">
+                  <div class="color-block background-color"></div>
+                  <div class="color-details-block">
+                    <div class="color-heading">Background Color</div>
+                    <p class="color-code">#191719</p>
+                  </div>
+                </div>
+                <div class="color-card">
+                  <div class="color-block body-text-color"></div>
+                  <div class="color-details-block">
+                    <div class="color-heading">Dark Color</div>
+                    <p class="color-code">#0e0e10</p>
+                  </div>
+                </div>
+                <div class="color-card">
+                  <div class="color-block white-color"></div>
+                  <div class="color-details-block">
+                    <div class="color-heading">White Color</div>
+                    <p class="color-code">#FFFFFF</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Typography -->
+          <div id="typography" class="typography-wrapper">
+            <div class="style-guide-heading-wrapper">
+              <h2 class="style-guide-heading">Typography</h2>
+            </div>
+            <div class="typography-details-wrapper">
+              <div class="typography-details-block">
+                <h1>Heading 1</h1>
+                <p class="style-guide-short-info">H1 - 60px /60px || Bold || Playfair Display</p>
+              </div>
+              <div class="typography-details-block">
+                <h2>Heading 2</h2>
+                <p class="style-guide-short-info">H2 - 48px /60px || Bold || Playfair Display</p>
+              </div>
+              <div class="typography-details-block">
+                <h3>Heading 3</h3>
+                <p class="style-guide-short-info">H3 - 30px /36px || Bold || Playfair Display</p>
+              </div>
+              <div class="typography-details-block">
+                <h4>Heading 4</h4>
+                <p class="style-guide-short-info">H4 - 20px /28px || Bold || Playfair Display</p>
+              </div>
+              <div class="typography-details-block">
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. Duis cursus, mi quis viverra ornare, eros dolor interdum nulla, ut commodo diam libero vitae erat. Aenean faucibus nibh et justo cursus id rutrum lorem imperdiet. Nunc ut sem vitae risus tristique posuere.</p>
+                <p class="style-guide-short-info">Paragraph - 18px /28px || Regular || Inter</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Buttons -->
+          <div id="buttons" class="style-guide-button-wrapper">
+            <div class="style-guide-heading-wrapper">
+              <h2 class="style-guide-heading">Buttons</h2>
+            </div>
+            <div class="style-guide-button-block">
+              <ButtonPrimary href="#" label="Button Text" />
+              <a href="#" class="secondaey-button-two">
+                <div class="button-content-block-two">
+                  <div class="button-text-two">Button Text</div>
+                  <div class="link-button-icon">
+                    <svg width="12" height="10" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M1 5H10.3333" stroke="currentColor" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"></path>
+                      <path d="M7 1L11 5L7 9" stroke="currentColor" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"></path>
+                    </svg>
+                  </div>
+                </div>
+                <div class="button-hover-glow secondary"></div>
+              </a>
+            </div>
+          </div>
+
+          <!-- Icons -->
+          <div id="Icons" class="style-guide-icon-wrapper">
+            <div class="style-guide-heading-wrapper">
+              <h2 class="style-guide-heading">Icons</h2>
+            </div>
+            <div class="style-guide-icon-block">
+              <Image src={bookIcon} alt="Book Icon" class="style-guide-icon" width={24} height={24} loading="lazy" />
+              <Image src={clockIcon} alt="Clock Icon" class="style-guide-icon" width={24} height={24} loading="lazy" />
+              <Image src={pricePointIcon} alt="Price Point Icon" class="style-guide-icon" width={24} height={24} loading="lazy" />
+              <Image src={userIcon} alt="User Icon" class="style-guide-icon" width={24} height={24} loading="lazy" />
+              <Image src={navLogoIcon} alt="Nav Logo" class="style-guide-icon" width={24} height={24} loading="lazy" />
+              <Image src={starIcon} alt="Star Icon" class="style-guide-icon" width={24} height={24} loading="lazy" />
+              <Image src={subtitleIcon} alt="Subtitle Icon" class="style-guide-icon" width={24} height={24} loading="lazy" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+  import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
+  gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const section = document.querySelector('#Style-Guide-Section');
+    if (!section) return;
+
+    const sidebar = section.querySelector('.style-guide-sidebar');
+    const content = section.querySelector('.style-guide-content-wrapper');
+
+    const elements = [
+      { el: sidebar, delay: 0.4 },
+      { el: content, delay: 0.4 },
+    ];
+
+    elements.forEach(({ el, delay }) => {
+      if (!el) return;
+      gsap.set(el, { y: 100, opacity: 0 });
+      gsap.to(el, {
+        y: 0, opacity: 1, duration: 1, ease: 'power3.out', delay,
+        scrollTrigger: { trigger: section, start: 'top 80%', once: true }
+      });
+    });
+
+    // Smooth scroll on sidebar link click
+    const links = section.querySelectorAll('.style-guide-link');
+    links.forEach((link) => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const href = link.getAttribute('href');
+        if (!href) return;
+        const target = document.querySelector(href);
+        if (!target) return;
+        gsap.to(window, {
+          duration: 0.8,
+          scrollTo: { y: target, offsetY: 120 },
+          ease: 'power2.inOut',
+        });
+      });
+    });
+
+    // Active link highlighting on scroll
+    const sectionIds = ['colors', 'typography', 'buttons', 'Icons'];
+
+    sectionIds.forEach((id) => {
+      const target = document.getElementById(id);
+      if (!target) return;
+
+      ScrollTrigger.create({
+        trigger: target,
+        start: 'top 50%',
+        end: 'bottom 50%',
+        onEnter: () => setActiveLink(id),
+        onEnterBack: () => setActiveLink(id),
+      });
+    });
+
+    function setActiveLink(id: string) {
+      links.forEach((link) => {
+        const href = link.getAttribute('href');
+        if (href === `#${id}`) {
+          link.classList.add('active');
+        } else {
+          link.classList.remove('active');
+        }
+      });
+    }
+  });
+</script>

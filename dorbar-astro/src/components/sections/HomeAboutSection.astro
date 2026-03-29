@@ -1,0 +1,217 @@
+---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import ButtonSecondary from '../ui/ButtonSecondary.astro';
+import { resolveImage } from '../../utils/resolveImage';
+
+const aboutImage = resolveImage('/images/hero/who-we-are-new-image-min.webp') as ImageMetadata;
+---
+
+<section id="About-Section-Two" class="about-section">
+  <div class="section-gap-two top">
+    <div class="container-default">
+      <div class="about-wrapper-two">
+        <div class="about-content-block-two">
+          <div class="section-subtitle-block-two">
+            <div class="section-subtitle-liner-one" aria-hidden="true"></div>
+            <span class="section-subtitle-text-two">Who We Are</span>
+            <div class="section-subtitle-liner-two" aria-hidden="true"></div>
+          </div>
+
+          <div class="section-title-block-two max-w-500">
+            <h2 class="section-title-two left">
+              Experience. <span class="section-highlight-title-two">Integrity.</span> Results.
+            </h2>
+          </div>
+
+          <div class="about-summary-block-two">
+            <p class="about-summary-two">For over two decades, our attorneys have provided trusted legal counsel across corporate, family, and criminal law — helping clients achieve meaningful results with unwavering dedication. We believe in the power of knowledge, the strength of integrity, and the pursuit of justice.</p>
+          </div>
+
+          <div class="about-bottom-content-block-two">
+            <div class="about-circle-shape-block">
+              <div class="about-circle-shape-inner-block">
+                <div class="about-circle-shape-title">20+</div>
+                <p class="about-circle-shape-summary">Years of Trusted Legal Experience</p>
+              </div>
+            </div>
+            <div class="about-info-block-two">
+              <div class="about-name">Jonathan Myers</div>
+              <p class="about-designation">Managing Partner</p>
+            </div>
+            <div class="about-button-block-two">
+              <ButtonSecondary href="/attorneys" label="Meet Our Attorneys" />
+            </div>
+          </div>
+        </div>
+
+        <div class="about-image-block-two">
+          <Image
+            src={aboutImage}
+            alt="Our legal team"
+            class="about-image"
+            width={800}
+            height={600}
+            loading="lazy"
+          />
+          <div class="about-stat-block-two">
+            <div class="about-stat-number-two">25+</div>
+            <p class="about-stat-text-two">Years of</p>
+            <p class="about-stat-summary-two">Legal Excellence</p>
+          </div>
+        </div>
+
+        <div class="about-liner" aria-hidden="true"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  const scrollStart = 'top 90%';
+
+  // === Left column: slideInLeft animations ===
+  // opacity 0→1, x -100→0, duration 1s, easing outQuart (power3.out)
+  const slideInLeftElements = [
+    { selector: '#About-Section-Two .section-subtitle-block-two', delay: 0.1 },
+    { selector: '#About-Section-Two .section-title-two', delay: 0.2 },
+    { selector: '#About-Section-Two .about-summary-block-two', delay: 0.3 },
+    { selector: '#About-Section-Two .about-info-block-two', delay: 0.4 },
+    { selector: '#About-Section-Two .about-button-block-two', delay: 0.5 },
+  ];
+
+  slideInLeftElements.forEach(({ selector, delay }) => {
+    const el = document.querySelector(selector) as HTMLElement;
+    if (!el) return;
+    gsap.set(el, { opacity: 0, x: -100 });
+    gsap.to(el, {
+      opacity: 1,
+      x: 0,
+      duration: 1,
+      ease: 'power3.out',
+      delay,
+      scrollTrigger: { trigger: el, start: scrollStart, once: true },
+    });
+  });
+
+  // === Circle shape: growBigIn animation ===
+  // opacity 0→1, scale 0→1, duration 1s, easing outQuart, delay 400ms
+  const circleShape = document.querySelector('#About-Section-Two .about-circle-shape-block') as HTMLElement;
+  if (circleShape) {
+    gsap.set(circleShape, { opacity: 0, scale: 0 });
+    gsap.to(circleShape, {
+      opacity: 1,
+      scale: 1,
+      duration: 1,
+      ease: 'power3.out',
+      delay: 0.4,
+      scrollTrigger: { trigger: circleShape, start: scrollStart, once: true },
+    });
+  }
+
+  // === Right column: slideInRight animation ===
+  // opacity 0→1, x 100→0, duration 1s, easing outQuart, delay 400ms
+  const imageBlock = document.querySelector('#About-Section-Two .about-image-block-two') as HTMLElement;
+  if (imageBlock) {
+    gsap.set(imageBlock, { opacity: 0, x: 100 });
+    gsap.to(imageBlock, {
+      opacity: 1,
+      x: 0,
+      duration: 1,
+      ease: 'power3.out',
+      delay: 0.4,
+      scrollTrigger: { trigger: imageBlock, start: scrollStart, once: true },
+    });
+  }
+
+  // === Stat badge: slideInTopRight animation ===
+  // opacity 0→1, x 100 y -100 → 0 0, duration 1s, easing outQuart, delay 600ms
+  const statBlock = document.querySelector('#About-Section-Two .about-stat-block-two') as HTMLElement;
+  if (statBlock) {
+    gsap.set(statBlock, { opacity: 0, x: 100, y: -100 });
+    gsap.to(statBlock, {
+      opacity: 1,
+      x: 0,
+      y: 0,
+      duration: 1,
+      ease: 'power3.out',
+      delay: 0.6,
+      scrollTrigger: { trigger: statBlock, start: scrollStart, once: true },
+      onComplete() {
+        // === Stat badge: floating loop animation ===
+        // After scroll-in completes, start the gentle floating loop
+        // Group 1: rotate to 5deg, move to (10px, -10px), 1500ms, linear
+        // Group 2: rotate back to 0deg, move to (0, 0), 1500ms, linear
+        const floatTl = gsap.timeline({ repeat: -1 });
+        floatTl.to(statBlock, {
+          rotation: 5,
+          x: 10,
+          y: -10,
+          duration: 1.5,
+          ease: 'power1.inOut',
+        });
+        floatTl.to(statBlock, {
+          rotation: 0,
+          x: 0,
+          y: 0,
+          duration: 1.5,
+          ease: 'power1.inOut',
+        });
+      },
+    });
+  }
+
+  // === About liner: scaleY animation ===
+  // scaleY 0→1, delay 800ms, duration 1s, easing outCubic (power2.out)
+  const aboutLiner = document.querySelector('#About-Section-Two .about-liner') as HTMLElement;
+  if (aboutLiner) {
+    gsap.set(aboutLiner, { scaleY: 0, transformOrigin: '50% 100%' });
+    gsap.to(aboutLiner, {
+      scaleY: 1,
+      duration: 1,
+      ease: 'power2.out',
+      delay: 0.8,
+      scrollTrigger: { trigger: aboutLiner, start: scrollStart, once: true },
+    });
+  }
+
+  // === About image hover: zoom effect ===
+  // On hover: image scale 1→1.08, 800ms, ease
+  // On leave: image scale 1.08→1, 800ms, ease
+  const aboutImageBlock = document.querySelector('#About-Section-Two .about-image-block-two') as HTMLElement;
+  const aboutImage = document.querySelector('#About-Section-Two .about-image') as HTMLElement;
+  if (aboutImageBlock && aboutImage) {
+    aboutImageBlock.addEventListener('mouseenter', () => {
+      gsap.to(aboutImage, { scale: 1.08, duration: 0.8, ease: 'ease' });
+    });
+    aboutImageBlock.addEventListener('mouseleave', () => {
+      gsap.to(aboutImage, { scale: 1, duration: 0.8, ease: 'ease' });
+    });
+  }
+
+  // === Secondary button hover glow ===
+  document.querySelectorAll('#About-Section-Two .secondaey-button-two').forEach((btn) => {
+    const glow = btn.querySelector('.button-hover-glow') as HTMLElement;
+    const icon = btn.querySelector('.link-button-icon') as HTMLElement;
+    if (!glow) return;
+
+    gsap.set(glow, { opacity: 0, scale: 0.3 });
+
+    btn.addEventListener('mouseenter', () => {
+      gsap.to(glow, { opacity: 1, duration: 0.6, ease: 'ease' });
+      gsap.to(glow, { scale: 10, duration: 0.6, ease: 'power1.in' });
+      if (icon) gsap.to(icon, { x: '50%', duration: 0.5, delay: 0.1, ease: 'ease' });
+    });
+
+    btn.addEventListener('mouseleave', () => {
+      gsap.to(glow, { scale: 0.3, duration: 0.6, ease: 'ease' });
+      gsap.to(glow, { opacity: 0, delay: 0.2, duration: 0.8, ease: 'ease' });
+      if (icon) gsap.to(icon, { x: '0%', duration: 0.8, ease: 'ease' });
+    });
+  });
+</script>
